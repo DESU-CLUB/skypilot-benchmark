@@ -1,0 +1,106 @@
+Hit:1 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 20ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/Bgt4gq_q_pOlTMJYjKfOj/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 16 items
+
+../../tests/test_final_state.py::test_yaml_exists PASSED                 [  6%]
+../../tests/test_final_state.py::test_submit_script_exists PASSED        [ 12%]
+../../tests/test_final_state.py::test_submit_script_is_executable PASSED [ 18%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 25%]
+../../tests/test_final_state.py::test_job_name PASSED                    [ 31%]
+../../tests/test_final_state.py::test_use_spot PASSED                    [ 37%]
+../../tests/test_final_state.py::test_a100_accelerator PASSED            [ 43%]
+../../tests/test_final_state.py::test_any_of_three_clouds FAILED         [ 50%]
+../../tests/test_final_state.py::test_job_recovery_strategy_failover FAILED [ 56%]
+../../tests/test_final_state.py::test_max_restarts_on_errors_3 FAILED    [ 62%]
+../../tests/test_final_state.py::test_retry_on_exit_codes FAILED         [ 68%]
+../../tests/test_final_state.py::test_submit_script_uses_sky_jobs_launch PASSED [ 75%]
+../../tests/test_final_state.py::test_submit_script_references_yaml PASSED [ 81%]
+../../tests/test_final_state.py::test_submit_script_non_interactive PASSED [ 87%]
+../../tests/test_final_state.py::test_submit_script_uses_sky_jobs_queue PASSED [ 93%]
+../../tests/test_final_state.py::test_submit_script_writes_status_log PASSED [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_any_of_three_clouds ___________________________
+
+    def test_any_of_three_clouds():
+        data = _parse_yaml()
+        import json
+        any_of_str = json.dumps(data.get("resources", {}).get("any_of", []))
+>       assert "aws" in any_of_str.lower(), "Expected AWS in resources.any_of."
+E       AssertionError: Expected AWS in resources.any_of.
+E       assert 'aws' in '[]'
+E        +  where '[]' = <built-in method lower of str object at 0x7719dfe6f1b0>()
+E        +    where <built-in method lower of str object at 0x7719dfe6f1b0> = '[]'.lower
+
+/tests/test_final_state.py:69: AssertionError
+_____________________ test_job_recovery_strategy_failover ______________________
+
+    def test_job_recovery_strategy_failover():
+        data = _parse_yaml()
+        recovery = data.get("resources", {}).get("job_recovery", {})
+>       assert str(recovery.get("strategy", "")).upper() == "FAILOVER", \
+            f"Expected job_recovery.strategy: FAILOVER, got: {recovery.get('strategy')}"
+E       AssertionError: Expected job_recovery.strategy: FAILOVER, got: None
+E       assert '' == 'FAILOVER'
+E         
+E         - FAILOVER
+
+/tests/test_final_state.py:77: AssertionError
+________________________ test_max_restarts_on_errors_3 _________________________
+
+    def test_max_restarts_on_errors_3():
+        data = _parse_yaml()
+        recovery = data.get("resources", {}).get("job_recovery", {})
+>       assert recovery.get("max_restarts_on_errors") == 3, \
+            f"Expected max_restarts_on_errors: 3, got: {recovery.get('max_restarts_on_errors')}"
+E       AssertionError: Expected max_restarts_on_errors: 3, got: None
+E       assert None == 3
+E        +  where None = <built-in method get of dict object at 0x7719dfca8040>('max_restarts_on_errors')
+E        +    where <built-in method get of dict object at 0x7719dfca8040> = {}.get
+
+/tests/test_final_state.py:84: AssertionError
+___________________________ test_retry_on_exit_codes ___________________________
+
+    def test_retry_on_exit_codes():
+        data = _parse_yaml()
+        recovery = data.get("resources", {}).get("job_recovery", {})
+        codes = recovery.get("retry_on_return_codes", [])
+        codes_int = [int(c) for c in codes]
+>       assert 33 in codes_int, f"Expected exit code 33 in retry_on_return_codes, got: {codes}"
+E       AssertionError: Expected exit code 33 in retry_on_return_codes, got: []
+E       assert 33 in []
+
+/tests/test_final_state.py:93: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_any_of_three_clouds - AssertionE...
+FAILED ../../tests/test_final_state.py::test_job_recovery_strategy_failover
+FAILED ../../tests/test_final_state.py::test_max_restarts_on_errors_3 - Asser...
+FAILED ../../tests/test_final_state.py::test_retry_on_exit_codes - AssertionE...
+========================= 4 failed, 12 passed in 0.32s =========================

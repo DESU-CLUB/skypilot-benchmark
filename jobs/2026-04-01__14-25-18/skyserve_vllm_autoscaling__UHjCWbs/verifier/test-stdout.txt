@@ -1,0 +1,58 @@
+Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:2 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 15ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/y5qmC1qZO8cMkwuScfuGS/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 25 items
+
+../../tests/test_final_state.py::test_yaml_exists PASSED                 [  4%]
+../../tests/test_final_state.py::test_deploy_sh_exists PASSED            [  8%]
+../../tests/test_final_state.py::test_serve_config_exists PASSED         [ 12%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 16%]
+../../tests/test_final_state.py::test_deploy_sh_is_executable PASSED     [ 20%]
+../../tests/test_final_state.py::test_serve_config_is_valid_json PASSED  [ 24%]
+../../tests/test_final_state.py::test_readiness_probe_path PASSED        [ 28%]
+../../tests/test_final_state.py::test_readiness_probe_initial_delay PASSED [ 32%]
+../../tests/test_final_state.py::test_min_replicas PASSED                [ 36%]
+../../tests/test_final_state.py::test_max_replicas PASSED                [ 40%]
+../../tests/test_final_state.py::test_target_qps PASSED                  [ 44%]
+../../tests/test_final_state.py::test_upscale_delay PASSED               [ 48%]
+../../tests/test_final_state.py::test_downscale_delay PASSED             [ 52%]
+../../tests/test_final_state.py::test_a100_resource PASSED               [ 56%]
+../../tests/test_final_state.py::test_on_demand_not_spot PASSED          [ 60%]
+../../tests/test_final_state.py::test_model_name_env PASSED              [ 64%]
+../../tests/test_final_state.py::test_setup_installs_vllm PASSED         [ 68%]
+../../tests/test_final_state.py::test_run_starts_vllm_server PASSED      [ 72%]
+../../tests/test_final_state.py::test_deploy_sh_uses_sky_serve_up PASSED [ 76%]
+../../tests/test_final_state.py::test_deploy_sh_references_yaml PASSED   [ 80%]
+../../tests/test_final_state.py::test_deploy_sh_names_service PASSED     [ 84%]
+../../tests/test_final_state.py::test_deploy_sh_non_interactive PASSED   [ 88%]
+../../tests/test_final_state.py::test_deploy_sh_checks_status PASSED     [ 92%]
+../../tests/test_final_state.py::test_deploy_sh_writes_status_log PASSED [ 96%]
+../../tests/test_final_state.py::test_serve_config_json_values PASSED    [100%]
+
+============================== 25 passed in 0.43s ==============================

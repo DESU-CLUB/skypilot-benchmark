@@ -1,0 +1,16 @@
+- Initializing MCP connections...
+You
+You are working in a SkyPilot environment. Your goal is to write a Bash cleanup script at `/home/user/cleanup.sh` that safely stops and then permanently terminates all SkyPilot clusters. The script must: 1. First **stop** all clusters (gracefully halts them while preserving cloud resources like disks). 2. Then **terminate** (permanently delete) all clusters without requiring interactive confirmation. 3. Be executable (chmod +x). The script will be run as: `bash /home/user/cleanup.sh` Constraints: - Use the `sky` CLI — do not use cloud-provider CLIs directly (no `aws`, `gcloud`, etc.). - The commands must work non-interactively (no prompts). - Save the script to exactly `/home/user/cleanup.sh`.   
+
+Pochi
+💭 Thinking for 303 characters   
+✏️  Writing /home/user/cleanup.sh ✔ 
+💫 Executing chmod +x /home/user/cleanup.sh ✔ 
+🎉 Task Completed
+Created `/home/user/cleanup.sh` with executable permissions. Here's what the script does:
+
+1. **`sky stop -a -y`** — Stops all clusters non-interactively (`-a` = all clusters, `-y` = auto-confirm). This gracefully halts instances while preserving attached cloud resources (disks, IPs, etc.).
+2. **`sky down -a -y`** — Terminates all clusters non-interactively, permanently deleting them and releasing all associated cloud resources.
+
+The `-y` flag on both commands suppresses any interactive confirmation prompts, making the script safe to run in automated/non-interactive environments. `set -euo pipefail` ensures the script exits immediately on any error.   
+  

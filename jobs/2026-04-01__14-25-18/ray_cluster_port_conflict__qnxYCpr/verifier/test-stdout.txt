@@ -1,0 +1,61 @@
+Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:2 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 16ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/V6zLoty-FmPNNrHqMYDGM/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 13 items
+
+../../tests/test_final_state.py::test_yaml_exists PASSED                 [  7%]
+../../tests/test_final_state.py::test_train_py_exists PASSED             [ 15%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 23%]
+../../tests/test_final_state.py::test_train_py_is_valid_python PASSED    [ 30%]
+../../tests/test_final_state.py::test_job_name PASSED                    [ 38%]
+../../tests/test_final_state.py::test_num_nodes_2 FAILED                 [ 46%]
+../../tests/test_final_state.py::test_yaml_uses_port_6379_not_6380 PASSED [ 53%]
+../../tests/test_final_state.py::test_yaml_references_node_rank PASSED   [ 61%]
+../../tests/test_final_state.py::test_yaml_starts_ray_head PASSED        [ 69%]
+../../tests/test_final_state.py::test_train_py_imports_ray PASSED        [ 76%]
+../../tests/test_final_state.py::test_train_py_uses_port_6379 PASSED     [ 84%]
+../../tests/test_final_state.py::test_train_py_no_address_auto PASSED    [ 92%]
+../../tests/test_final_state.py::test_train_py_uses_remote PASSED        [100%]
+
+=================================== FAILURES ===================================
+_______________________________ test_num_nodes_2 _______________________________
+
+    def test_num_nodes_2():
+        data = _parse_yaml()
+>       assert data.get("num_nodes") == 2, \
+            f"Expected num_nodes: 2, got: {data.get('num_nodes')}"
+E       AssertionError: Expected num_nodes: 2, got: None
+E       assert None == 2
+E        +  where None = <built-in method get of dict object at 0x751906d5c2c0>('num_nodes')
+E        +    where <built-in method get of dict object at 0x751906d5c2c0> = {'name': 'ray-distributed-train', 'resources': {'cpus': 4, 'num_nodes': 2}, 'run': 'HEAD_IP=$(head -n 1 <<< "$SKYPILOT_NODE_IPS")\n\nif [ "$SKYPILOT_NODE_RANK" == "0" ]; then\n  echo "Starting Ray head node on port 6379..."\n  ray start --head --port=6379\n  \n  echo "Running training script..."\n  python /home/user/train.py\nelse\n  echo "Starting Ray worker node..."\n  ray start --address=$HEAD_IP:6379 --block\nfi\n'}.get
+
+/tests/test_final_state.py:57: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_num_nodes_2 - AssertionError: Ex...
+========================= 1 failed, 12 passed in 0.16s =========================

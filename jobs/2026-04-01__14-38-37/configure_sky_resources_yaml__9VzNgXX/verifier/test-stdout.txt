@@ -1,0 +1,91 @@
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:4 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:5 http://security.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 17ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/aCD2HKq4LCY1WKzF4lVhK/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 11 items
+
+../../tests/test_final_state.py::test_finetune_job_yaml_exists PASSED    [  9%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 18%]
+../../tests/test_final_state.py::test_job_name_is_llama_finetune PASSED  [ 27%]
+../../tests/test_final_state.py::test_accelerators_a100_4 PASSED         [ 36%]
+../../tests/test_final_state.py::test_use_spot_true PASSED               [ 45%]
+../../tests/test_final_state.py::test_any_of_has_aws_and_gcp FAILED      [ 54%]
+../../tests/test_final_state.py::test_autostop_30 FAILED                 [ 63%]
+../../tests/test_final_state.py::test_env_model_name FAILED              [ 72%]
+../../tests/test_final_state.py::test_workdir_is_dot PASSED              [ 81%]
+../../tests/test_final_state.py::test_setup_installs_requirements PASSED [ 90%]
+../../tests/test_final_state.py::test_run_executes_finetune PASSED       [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_any_of_has_aws_and_gcp __________________________
+
+    def test_any_of_has_aws_and_gcp():
+        data = _load_yaml()
+        resources = data.get("resources", {})
+        any_of = resources.get("any_of", [])
+        import json
+        any_of_str = json.dumps(any_of)
+>       assert "aws" in any_of_str.lower(), \
+            f"Expected AWS entry in resources.any_of, got: {any_of_str}"
+E       AssertionError: Expected AWS entry in resources.any_of, got: []
+E       assert 'aws' in '[]'
+E        +  where '[]' = <built-in method lower of str object at 0x75000a8cbed0>()
+E        +    where <built-in method lower of str object at 0x75000a8cbed0> = '[]'.lower
+
+/tests/test_final_state.py:62: AssertionError
+_______________________________ test_autostop_30 _______________________________
+
+    def test_autostop_30():
+        data = _load_yaml()
+        resources = data.get("resources", {})
+>       assert resources.get("autostop") == 30, \
+            f"Expected resources.autostop: 30, got: {resources.get('autostop')}"
+E       AssertionError: Expected resources.autostop: 30, got: None
+E       assert None == 30
+E        +  where None = <built-in method get of dict object at 0x75000a2adcc0>('autostop')
+E        +    where <built-in method get of dict object at 0x75000a2adcc0> = {'accelerators': 'A100:4', 'cloud': 'aws', 'fallback': {'cloud': 'gcp', 'region': 'us-central1'}, 'region': 'us-east-1', ...}.get
+
+/tests/test_final_state.py:71: AssertionError
+_____________________________ test_env_model_name ______________________________
+
+    def test_env_model_name():
+        data = _load_yaml()
+        envs = data.get("envs", {})
+>       assert envs.get("MODEL_NAME") == "meta-llama/Llama-3-8B", \
+            f"Expected envs.MODEL_NAME to be 'meta-llama/Llama-3-8B', got: {envs.get('MODEL_NAME')}"
+E       AssertionError: Expected envs.MODEL_NAME to be 'meta-llama/Llama-3-8B', got: None
+E       assert None == 'meta-llama/Llama-3-8B'
+E        +  where None = <built-in method get of dict object at 0x75000a2c0180>('MODEL_NAME')
+E        +    where <built-in method get of dict object at 0x75000a2c0180> = {}.get
+
+/tests/test_final_state.py:78: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_any_of_has_aws_and_gcp - Asserti...
+FAILED ../../tests/test_final_state.py::test_autostop_30 - AssertionError: Ex...
+FAILED ../../tests/test_final_state.py::test_env_model_name - AssertionError:...
+========================= 3 failed, 8 passed in 0.39s ==========================

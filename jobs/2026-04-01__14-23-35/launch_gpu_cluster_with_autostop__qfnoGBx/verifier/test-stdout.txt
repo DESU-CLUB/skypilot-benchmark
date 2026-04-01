@@ -1,0 +1,77 @@
+Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:2 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 17ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/WBsjzuI7i-ThPNI0i2Zi_/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 8 items
+
+../../tests/test_final_state.py::test_train_job_yaml_exists PASSED       [ 12%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 25%]
+../../tests/test_final_state.py::test_accelerator_a100 PASSED            [ 37%]
+../../tests/test_final_state.py::test_use_spot_true PASSED               [ 50%]
+../../tests/test_final_state.py::test_autostop_10 FAILED                 [ 62%]
+../../tests/test_final_state.py::test_any_of_has_aws_and_gcp FAILED      [ 75%]
+../../tests/test_final_state.py::test_setup_installs_torch PASSED        [ 87%]
+../../tests/test_final_state.py::test_run_checks_cuda PASSED             [100%]
+
+=================================== FAILURES ===================================
+_______________________________ test_autostop_10 _______________________________
+
+    def test_autostop_10():
+        result = subprocess.run(
+            ["python3", "-c",
+             f"import yaml; d=yaml.safe_load(open('{YAML_PATH}')); r=d.get('resources',{{}}); print(r.get('autostop','not_found'))"],
+            capture_output=True, text=True
+        )
+        assert result.returncode == 0, f"Failed to parse YAML: {result.stderr}"
+>       assert "10" in result.stdout, \
+            f"Expected resources.autostop: 10, got: {result.stdout.strip()}"
+E       AssertionError: Expected resources.autostop: 10, got: not_found
+E       assert '10' in 'not_found\n'
+E        +  where 'not_found\n' = CompletedProcess(args=['python3', '-c', "import yaml; d=yaml.safe_load(open('/home/user/train_job.yaml')); r=d.get('resources',{}); print(r.get('autostop','not_found'))"], returncode=0, stdout='not_found\n', stderr='').stdout
+
+/tests/test_final_state.py:53: AssertionError
+_________________________ test_any_of_has_aws_and_gcp __________________________
+
+    def test_any_of_has_aws_and_gcp():
+        result = subprocess.run(
+            ["python3", "-c",
+             f"import yaml, json; d=yaml.safe_load(open('{YAML_PATH}')); r=d.get('resources',{{}}); print(json.dumps(r.get('any_of',[])))"],
+            capture_output=True, text=True
+        )
+        assert result.returncode == 0, f"Failed to parse YAML: {result.stderr}"
+        output = result.stdout.strip()
+>       assert "aws" in output, \
+            f"Expected AWS entry in resources.any_of, got: {output}"
+E       AssertionError: Expected AWS entry in resources.any_of, got: []
+E       assert 'aws' in '[]'
+
+/tests/test_final_state.py:65: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_autostop_10 - AssertionError: Ex...
+FAILED ../../tests/test_final_state.py::test_any_of_has_aws_and_gcp - Asserti...
+========================= 2 failed, 6 passed in 0.27s ==========================

@@ -1,0 +1,299 @@
+{
+  "modal_hp_sweep_checkpoint": {
+    "instruction": "Build a distributed hyperparameter sweep system in `/home/user/hp_sweep/app.py` that uses `modal.App(\"hp-sweep-checkpoint\")` to parallelize evaluation of learning-rate and batch-size combinations via `.map()` or `.starmap()`, checkpoints all results to a Modal Volume named `\"hp-sweep-results\"`, tracks the best configuration and score in a Modal Dict named `\"hp-sweep-state\"`, and schedules the sweep to run periodically using a cron or period schedule. Set `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with `modal deploy /home/user/hp_sweep/app.py`.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_hp_sweep_checkpoint__LDoJQwk",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 163.074,
+        "latency_breakdown": {
+          "env_setup": 3.07,
+          "agent_setup": 31.286,
+          "agent_exec": 91.43,
+          "verifier": 34.094
+        },
+        "tokens": {
+          "input": 0,
+          "output": 16485,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "hyperparameter_sweep_orchestrator": {
+    "instruction": "# Hyperparameter Sweep Orchestration System on Modal\n\nYou are an ML engineer building a hyperparameter sweep orchestration system on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/sweep.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"hyperparameter-sweep\"` that orchestrates parallel hyperparameter experiments with the following capabilities:\n\n### Sweep Runner (Modal Class with Lifecycle Methods)\nDefine a Modal Class with lifecycle methods that runs parallel experiments. The class should:\n- Sweep combinations of **learning rate** and **batch size** using numpy (at least 3 values for each, producing >= 9 total combinations)\n- Use `.starmap()` to run experiments in parallel\n- Track the best configuration (highest accuracy or lowest loss) across all runs\n\n### Results Storage (Modal Volume)\nUse a **Modal Volume named `hp-sweep-experiments`** (with `create_if_missing=True`) to persist each experiment's results as a JSON file. Each file should contain the hyperparameters used and the resulting metric.\n\n### Best Configuration Tracking (Modal Dict)\nUse a **Modal Dict named `hp-sweep-results`** (with `create_if_missing=True`) to track:\n- `best_config` — a JSON object containing the best hyperparameter configuration found (must include `learning_rate` or `lr` and `batch_size` or `bs` fields)\n- `experiment_count` — an integer representing the total number of experiments run (must be >= 9)\n\n### Web Endpoint (FastAPI)\nExpose the best result through a **FastAPI web endpoint** that returns the best configuration as JSON.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that triggers the full sweep, populates the Volume with experiment results, and updates the Dict with `best_config` and `experiment_count`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/sweep.py\n```\n\nAfter deployment, trigger a manual run to populate the Volume and Dict:\n\n```\nmodal run /home/user/modal_project/sweep.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "hyperparameter_sweep_orchestrato__H9SNPFy",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 129.178,
+        "latency_breakdown": {
+          "env_setup": 3.674,
+          "agent_setup": 32.07,
+          "agent_exec": 59.154,
+          "verifier": 30.758
+        },
+        "tokens": {
+          "input": 0,
+          "output": 15955,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "rate_limited_api_gateway": {
+    "instruction": "# Stateful Distributed Rate-Limited API Gateway on Modal\n\nYou are a platform engineer building a stateful, distributed rate-limited API gateway on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/gateway.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"rate-limited-gateway\"` with the following capabilities:\n\n### Gateway Class (Modal Class with Lifecycle Methods)\nDefine a Modal Class with lifecycle methods that implements the rate-limiting logic. The class should:\n- Enforce per-client rate limits based on configuration from the secret\n- Track request statistics in the shared Dict\n- Return HTTP 429 when a client exceeds its rate limit\n\n### Configuration (Modal Secret)\nUse a **Modal Secret named `gateway-config`** containing:\n- `RATE_LIMIT_PER_MINUTE` — the maximum number of requests allowed per client per minute\n- `GATEWAY_API_KEY` — an API key for authenticating requests\n\n### Distributed State (Modal Dict)\nUse a **Modal Dict named `gateway-stats`** (with `create_if_missing=True`) to track distributed gateway statistics. The Dict must contain these keys:\n- `total_requests` — an integer count of all requests received (must be >= 1 after a run)\n- `rate_limited_count` — an integer count of requests that were rate-limited (HTTP 429)\n- `active_clients` — an integer count of unique clients that have made requests (must be >= 1 after a run)\n\n### Custom Image\nUse a custom Modal Image with `httpx` and `pydantic` installed.\n\n### Web Endpoint (FastAPI)\nExpose a **FastAPI web endpoint** that enforces per-client rate limits and returns HTTP 429 when exceeded.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that sends simulated requests to the gateway to populate the `gateway-stats` Dict with `total_requests`, `rate_limited_count`, and `active_clients`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/gateway.py\n```\n\nAfter deployment, trigger a manual run to populate the Dict:\n\n```\nmodal run /home/user/modal_project/gateway.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "rate_limited_api_gateway__4S7Cgof",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 135.296,
+        "latency_breakdown": {
+          "env_setup": 2.563,
+          "agent_setup": 23.465,
+          "agent_exec": 92.551,
+          "verifier": 14.024
+        },
+        "tokens": {
+          "input": 0,
+          "output": 20813,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "modal_doc_ocr_pipeline": {
+    "instruction": "Build a document OCR processing pipeline in `/home/user/doc_pipeline/app.py` that processes a batch of text documents in parallel on Modal, simulates OCR by extracting word count and character statistics from each document's text content, persists results as JSON files in a Modal Volume named `ocr-output-volume`, validates a processing configuration from a Modal Secret named `ocr-api-config` (which must contain `PROCESSING_MODE=batch`), and tracks job state — including a `total_processed` count — in a Modal Dict named `ocr-job-tracker`.\n\nYour implementation must combine the following four Modal capabilities:\n\n1. **Modal Class with lifecycle hook** — Define a class that initializes its processing context at container startup (before handling any documents), and exposes a method for processing individual documents. The class must have access to the volume and the secret.\n\n2. **Modal Volume** (`ocr-output-volume`) — Persist each document's OCR result (word count, character count, document ID) as a JSON file inside the volume. Create the volume with `create_if_missing=True`.\n\n3. **Modal Secret** (`ocr-api-config`) — Create this secret before deploying with `PROCESSING_MODE=batch`. The processing method must read and validate `PROCESSING_MODE` from the environment; if it is missing or not equal to `batch`, raise an error.\n\n4. **Modal Dict** (`ocr-job-tracker`) — Track processing state across the batch. At minimum, store a `total_processed` key containing the integer count of documents processed (must be >= 3). Create the dict with `create_if_missing=True`.\n\nThe `local_entrypoint` must drive the full pipeline: define at least 3 sample text documents as strings in your code, fan them out for parallel processing using `.map()` or `.starmap()`, write results to the volume, and update the dict with the total count.\n\nThe Modal App must be named `doc-ocr-pipeline`.\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy using:\n```\nmodal deploy /home/user/doc_pipeline/app.py\n```\n\nAfter deploying, trigger the pipeline with:\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal run /home/user/doc_pipeline/app.py\n```\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_doc_ocr_pipeline__nKLmeEm",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 143.121,
+        "latency_breakdown": {
+          "env_setup": 2.569,
+          "agent_setup": 23.465,
+          "agent_exec": 91.528,
+          "verifier": 23.16
+        },
+        "tokens": {
+          "input": 0,
+          "output": 18472,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "modal_gpu_embedding_service": {
+    "instruction": "# GPU-Accelerated Text Embedding Service\n\nYou are an ML engineer tasked with deploying a production-grade **GPU-accelerated text embedding service** on Modal. The system must process text inputs and return dense vector embeddings suitable for downstream tasks such as semantic search, clustering, or retrieval-augmented generation.\n\n## Project Location\n\nA starter file exists at `/home/user/embedding_service/app.py` with a basic Modal App stub. All your implementation must go in this single file.\n\n## System Requirements\n\nYour service must integrate four Modal capabilities:\n\n1. **Modal Volume** — Create a Modal Volume (using `create_if_missing=True`) to cache the downloaded model weights on first use. The volume should be mounted into the serving class so that repeated cold starts avoid redundant model downloads from the internet.\n\n2. **Modal Class with GPU and warm pool** — Define a Modal class using `@app.cls()` that:\n   - Runs on a GPU (e.g., `gpu=\"T4\"` or `gpu=\"any\"`) with `min_containers=1` to keep a warm instance\n   - Uses a custom image that installs the `sentence-transformers` library (and its dependencies)\n   - Mounts the Volume for model caching\n   - Has a `@modal.enter()` lifecycle method that loads the `all-MiniLM-L6-v2` sentence-transformers model from the cached volume path on startup\n\n3. **FastAPI web endpoint** — Expose the embedding generation as a web endpoint (using `@modal.asgi_app()` or `@modal.fastapi_app()`) that:\n   - Accepts POST requests with a JSON body containing a `text` field (a string or list of strings)\n   - Returns a JSON response with an `embeddings` field (list of float vectors) and a `model` field with the model name\n   - Is accessible over HTTPS without authentication\n\n4. **Modal Dict for request tracking** — Use a Modal Dict named `\"embedding-service-stats\"` (with `create_if_missing=True`) to track:\n   - The total number of requests processed\n   - The total number of tokens processed across all requests\n   Update these counters on every successful embedding request.\n\n## App Name\n\nThe Modal App must be named `\"gpu-embedding-service\"`.\n\n## Deployment\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with:\n```\nmodal deploy /home/user/embedding_service/app.py\n```\n\nAfter deploying, send at least one POST request to the embedding endpoint with some sample text so that the `\"embedding-service-stats\"` Modal Dict is populated with request and token counts. The endpoint URL is printed by `modal deploy`.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_gpu_embedding_service__rJkERJ6",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 118.96,
+        "latency_breakdown": {
+          "env_setup": 3.282,
+          "agent_setup": 33.38,
+          "agent_exec": 66.965,
+          "verifier": 11.613
+        },
+        "tokens": {
+          "input": 0,
+          "output": 18056,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "modal_gpu_batch_inference": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_gpu_batch_inference__pNrSJis",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 82.287,
+        "latency_breakdown": {
+          "env_setup": 2.589,
+          "agent_setup": 23.458,
+          "agent_exec": 41.01,
+          "verifier": 12.03
+        },
+        "tokens": {
+          "input": 0,
+          "output": 15597,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "document_analytics_pipeline": {
+    "instruction": "# Distributed Document Processing and Analytics Pipeline on Modal\n\nYou are a platform engineer building a distributed document processing and analytics pipeline on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/pipeline.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"document-analytics-pipeline\"` with the following capabilities:\n\n### Scheduled Ingestion (Cron)\nThe pipeline must run on an **hourly cron schedule**. Each run processes a corpus of synthetic text documents.\n\n### Parallel Processing (Map/Starmap)\nProcess documents in parallel using Modal's `map` or `starmap`. For each document, perform NLP-style text analysis using **only Python's standard library**:\n- `word_count` — total number of words in the document\n- `sentence_count` — total number of sentences\n- `keywords` — extracted keywords (e.g., most frequent words)\n- `char_count` — total number of characters\n\n### Pipeline Authentication (Modal Secret)\nUse a **Modal Secret named `pipeline-credentials`** with key `PIPELINE_API_KEY=super-secret-pipeline-key` to validate the pipeline API key before processing.\n\n### Results Storage (Modal Dict)\nUse a **Modal Dict named `doc-analytics-output`** (with `create_if_missing=True`) to store all results. The Dict must contain:\n\n**Per-document entries** (at least 10 documents): Each document should be stored as a separate key (e.g., `doc_0`, `doc_1`, ..., `doc_9`) with a JSON value containing:\n- `word_count` — integer word count\n- `sentence_count` — integer sentence count\n- `keywords` — list of extracted keywords\n- `char_count` — integer character count\n\n**Summary entry**: A key named `summary` containing a JSON object with:\n- `total_documents` — the total number of documents processed\n- `total_words` — the sum of all word counts across documents\n- `avg_words_per_doc` — average words per document\n- `timestamp` — an ISO timestamp of when the pipeline ran\n\nThe Dict must contain at least **11 entries total** (10 documents + 1 summary).\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that runs the full pipeline — processing at least 10 synthetic documents and storing results in the Dict.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/pipeline.py\n```\n\nAfter deployment, trigger a manual run to populate the output Dict:\n\n```\nmodal run /home/user/modal_project/pipeline.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "document_analytics_pipeline__iUrYMP4",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 110.341,
+        "latency_breakdown": {
+          "env_setup": 2.567,
+          "agent_setup": 24.664,
+          "agent_exec": 58.347,
+          "verifier": 21.651
+        },
+        "tokens": {
+          "input": 0,
+          "output": 15864,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "modal_event_pipeline": {
+    "instruction": "# Event-Driven Processing Pipeline on Modal\n\nYou are a platform engineer building an internal event-driven data processing pipeline on Modal for your organization's tooling infrastructure. The entire system must be implemented in a single file: `/home/user/event_pipeline/app.py`.\n\n## System Requirements\n\nBuild a Modal App named `event-driven-pipeline` that operates as an end-to-end event buffering and processing system with the following capabilities:\n\n### Event Queue (Modal Queue)\nUse a **Modal Queue named `pipeline-events`** to buffer incoming data submissions between the web API layer and the backend worker. The queue should be referenced with `create_if_missing=True` so it is automatically provisioned when the app deploys.\n\n### Web API (FastAPI)\nExpose a web API using Modal's FastAPI integration (`@modal.fastapi_app()`) that provides at minimum:\n- A **submission endpoint** (POST) that accepts a JSON body containing a `data` field, enqueues the submission into the pipeline queue, records the event in the shared pipeline registry, and returns a confirmation response.\n- A **status endpoint** (GET) that reads the current pipeline state from the registry dict and returns it as JSON.\n\n### Pipeline Registry (Modal Dict)\nUse a **Modal Dict named `pipeline-registry`** (with `create_if_missing=True`) to maintain shared pipeline state. The registry must track at minimum:\n- A `total_submitted` counter that is incremented on each submission via the POST endpoint\n- A `total_processed` counter that reflects how many items have been successfully processed\n\n### Worker Function (Fault-Tolerant)\nImplement a worker function with **`retries=2`** that processes individual data items. For each item, compute a deterministic hash or checksum of the data string (e.g., using `hashlib`) and write the result to a **Modal Volume named `pipeline-artifacts`** (with `create_if_missing=True`) as a text file. The volume must be mounted inside the worker function.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that allows the pipeline to be exercised without the web API — it should enqueue 3 data items, invoke the worker to process them, and update the `total_processed` counter in the registry to `3`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/event_pipeline/app.py\n```\n\nAfter deployment, trigger a manual run to populate the Volume and Dict:\n\n```\nmodal run /home/user/event_pipeline/app.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_event_pipeline__s47eBLA",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 168.481,
+        "latency_breakdown": {
+          "env_setup": 3.063,
+          "agent_setup": 32.192,
+          "agent_exec": 99.647,
+          "verifier": 30.467
+        },
+        "tokens": {
+          "input": 0,
+          "output": 19349,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "modal_nfs_etl_pipeline": {
+    "instruction": "# Serverless ETL Pipeline with Network File System on Modal\n\nYou are a platform engineer building a serverless ETL pipeline on Modal that uses a Network File System as a shared staging area. The entire system must be implemented in a single file: `/home/user/etl_pipeline/app.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"nfs-etl-pipeline\"` with the following capabilities:\n\n### ETL Processor (Modal Class with Lifecycle Hooks)\nDefine a stateful `ETLProcessor` class with lifecycle hooks that handles the extract-transform-load workflow.\n\n### Shared Staging Area (Modal NFS)\nUse a **Modal NetworkFileSystem named `etl-shared-fs`** (with `create_if_missing=True`) as the shared staging area for data between pipeline stages.\n\n### Database Credentials (Modal Secret)\nUse a **Modal Secret named `etl-db-config`** containing database credentials. The secret will be created with keys `DB_HOST` and `DB_PORT`. Your code should reference these keys from the secret (do NOT require any additional keys like `DB_USER` or `DB_PASSWORD` — only `DB_HOST` and `DB_PORT` are provided).\n\n### Pipeline State Tracking (Modal Dict)\nUse a **Modal Dict named `etl-pipeline-state`** (with `create_if_missing=True`) to track pipeline run status across batches. The Dict must contain:\n- `last_run_status` — a string that includes `\"success\"` when the pipeline completes successfully\n- `batches_processed` — the number of data batches processed (must be `2` after a full run)\n\n### Cron-Scheduled Trigger\nInclude a cron-scheduled function that triggers the pipeline on a regular interval.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that processes **two data batches** and records the outcome in the shared Dict, setting `last_run_status` to include `\"success\"` and `batches_processed` to `2`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal deploy /home/user/etl_pipeline/app.py\n```\n\nAfter deployment, trigger a manual run to populate the NFS and Dict:\n\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal run /home/user/etl_pipeline/app.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "modal_nfs_etl_pipeline__KnVKzTb",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 109.745,
+        "latency_breakdown": {
+          "env_setup": 2.57,
+          "agent_setup": 24.162,
+          "agent_exec": 47.022,
+          "verifier": 32.774
+        },
+        "tokens": {
+          "input": 0,
+          "output": 16000,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "etl_pipeline_orchestrator": {
+    "instruction": "# Fault-Tolerant ETL Pipeline on Modal\n\nYou are a platform engineer tasked with building a production-grade, fault-tolerant ETL pipeline using Modal's serverless infrastructure. The entire system must be implemented in a single file: `/home/user/modal_project/etl.py`.\n\n## System Requirements\n\nBuild a Modal App named `etl-pipeline` that operates as an end-to-end data pipeline with the following capabilities:\n\n### Data Ingestion (Scheduled)\nThe pipeline must automatically ingest synthetic data on a **5-minute schedule** using `modal.Period(minutes=5)`. The ingestion component generates batches of raw records (each with a category drawn from a small fixed set, a numeric value, and a timestamp), persists them as JSON files on a **Modal NetworkFileSystem (NFS)** named `etl-nfs`, and immediately kicks off data processing for the new batch. Each ingestion run must produce a distinct file using the naming convention `raw_<timestamp>.json`. Use `create_if_missing=True` when referencing the NFS.\n\n### Data Processing (Fault-Tolerant)\nA separate processing function reads a raw data file from the NFS, aggregates the records by category (computing statistics such as count and sum per category), and writes the aggregated output back to the NFS using the naming convention `processed_<timestamp>.json`. This function must be configured with **`retries=3` and `timeout=120`** to handle transient failures gracefully.\n\n### Live Status Endpoint (FastAPI)\nExpose a **GET `/status`** web endpoint using FastAPI that reads the most recently written processed results from the NFS and returns the pipeline statistics as JSON. If no processed data is available, the endpoint should return a JSON response clearly indicating the pipeline has not run yet. This endpoint must have access to the NFS.\n\n### Pipeline Metadata (Modal Dict)\nAll pipeline run metadata must be persisted in a **Modal Dict named `etl-pipeline-metadata`** (use `create_if_missing=True`). The dict must track at minimum these exact keys:\n- `run_count` — an integer counter that increments each ingestion cycle (must be >= 1 after a manual run)\n- `last_run_timestamp` — the timestamp of the most recent successful run\n- `error_count` — an integer counter for processing failures\n\n### Manual Trigger\nImplement a `@app.local_entrypoint()` that allows the pipeline to be triggered manually — running the full ingest-and-process cycle — so the system can be tested without waiting for the cron schedule to fire.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/etl.py\n```\n\nAfter deployment, trigger a manual run to populate the NFS and Dict:\n\n```\nmodal run /home/user/modal_project/etl.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "etl_pipeline_orchestrator__uzM7jcG",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 124.18,
+        "latency_breakdown": {
+          "env_setup": 5.692,
+          "agent_setup": 31.164,
+          "agent_exec": 56.945,
+          "verifier": 26.547
+        },
+        "tokens": {
+          "input": 0,
+          "output": 16353,
+          "cache": 0
+        }
+      }
+    ]
+  },
+  "ml_serving_pipeline_checkpoint": {
+    "instruction": "Build a stateful ML model serving system in `/home/user/modal_project/app.py` that uses a Modal Class with an `@enter` lifecycle method to train and checkpoint a scikit-learn model to a Modal Volume, exposes an API-key-authenticated FastAPI web endpoint for predictions, and records request statistics in a Modal Dict named `ml-serving-pipeline-output`. Set `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with `modal deploy /home/user/modal_project/app.py`, then invoke the endpoint at least once with a valid request so the Dict is populated.\n",
+    "trials": [
+      {
+        "job_name": "2026-03-29__21-08-10",
+        "trial_name": "ml_serving_pipeline_checkpoint__xpH6wmE",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex-with-skills",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 254.396,
+        "latency_breakdown": {
+          "env_setup": 2.562,
+          "agent_setup": 23.463,
+          "agent_exec": 204.627,
+          "verifier": 20.439
+        },
+        "tokens": {
+          "input": 0,
+          "output": 28423,
+          "cache": 0
+        }
+      }
+    ]
+  }
+}

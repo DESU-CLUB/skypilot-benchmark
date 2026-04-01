@@ -1,0 +1,25 @@
+pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --stream-json /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in a SkyPilot environment. Your goal is to configure a **managed job** that is resilient to spot instance preemptions and specific runtime errors.
+
+Create two files:
+
+**1. SkyPilot managed job YAML at `/home/user/managed_train.yaml`:**
+
+The job must be configured as follows:
+- Job name: `resilient-train`
+- Compute: 1 A100 GPU on spot instances.
+- Multi-cloud fallback across **three clouds**: AWS (us-east-1), GCP (us-central1), and Azure (eastus).
+- **Job recovery strategy**: Use the `FAILOVER` strategy. The job should retry automatically when preempted.
+- **Error handling**: The job should retry up to **3 times** when it exits with a non-preemption error. Additionally, it should specifically retry on exit codes **33** (NCCL timeout) and **1** (general error).
+- Setup: Install PyTorch.
+- Run: Execute `python train.py`.
+
+**2. Submission script at `/home/user/submit_job.sh`:**
+- Launch the managed job using the `sky jobs launch` command with the YAML file.
+- Use the job name `resilient-train` (pass it explicitly to override any YAML name).
+- Run non-interactively (no confirmation prompts).
+- After launching, check the job queue with `sky jobs queue` and write the output to `/home/user/job_status.log`.
+
+Both files must exist at the exact paths specified.
+
+EOF

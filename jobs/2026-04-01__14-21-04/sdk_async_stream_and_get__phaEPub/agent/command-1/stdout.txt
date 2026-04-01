@@ -1,0 +1,43 @@
+- Initializing MCP connections...
+You
+You are working in a SkyPilot environment. Write a Python script at `/home/user/launch_job.py` that uses the SkyPilot **Python SDK** to programmatically launch a cloud job. The script must follow SkyPilot's **asynchronous SDK pattern** (introduced in v0.8.1), where API calls return request IDs that you must resolve with `sky.stream_and_get()`. Requirements: 1. Import the `sky` module. 2. Define a `sky.Resources` object that requests **2 CPUs** (no GPU needed). 3. Define a `sky.Task` with: - A `setup` command that runs `echo 'setup done'`. - A `run` command that runs `echo 'hello from sky'`. 4. Attach the resources to the task using `.set_resources()`. 5. Call `sky.launch()` with `cluster_name='eval-cluster'` and capture the returned **request_id**. 6. Call `sky.stream_and_get(request_id)` to wait for the launch to complete and capture `(job_id, handle)`. 7. Print the job ID to stdout in this exact format: `JOB_ID: <job_id>` Constraints: - Save the script to exactly `/home/user/launch_job.py`. - The script must be syntactically valid Python. - Do NOT use the old synchronous pattern (i.e., do not assume `sky.launch()` returns a result directly).   
+
+Pochi
+💭 Thinking for 126 characters   
+✏️  Writing /home/user/launch_job.py ✔ 
+💫 Executing python3 -c "import ast; ast.parse(open('/home/user/launch_job.py').read()); print('Syntax OK')" ✔ 
+🎉 Task Completed
+The script has been written to `/home/user/launch_job.py` and verified as syntactically valid. Here's a breakdown of what it does:
+
+```
+import sky
+
+resources = sky.Resources(cpus=2)           # 2 CPUs, no GPU
+
+task = sky.Task(
+    setup="echo 'setup done'",
+    run="echo 'hello from sky'",
+)
+task.set_resources(resources)               # attach resources to task
+
+request_id = sky.launch(                    # async call → returns request_id
+    task, cluster_name='eval-cluster'
+)
+
+job_id, handle = sky.stream_and_get(        # block + stream logs until done
+    request_id
+)
+
+print(f'JOB_ID: {job_id}')                  # JOB_ID: <job_id>
+```
+
+Key points matching the asynchronous SDK pattern (v0.8.1+):
+
+| Step | API | Returns |
+|------|-----|---------|
+| Launch | `sky.launch(task, cluster_name=...)` | `request_id` (a `str` UUID) |
+| Resolve | `sky.stream_and_get(request_id)` | `(job_id, handle)` tuple |
+| Output | `print(f'JOB_ID: {job_id}')` | exact required format |
+
+`sky.stream_and_get()` streams the remote logs to stdout and only returns once the underlying request finishes, which is the correct way to wait on any async SkyPilot SDK call.   
+  

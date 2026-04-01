@@ -1,0 +1,88 @@
+Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:2 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 10 not upgraded.
+downloading uv 0.9.5 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 34ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /root/.cache/uv/archive-v0/9vawLZcd_xm-FKDAZ_j77/bin/python
+cachedir: .pytest_cache
+rootdir: /tests
+collecting ... collected 11 items
+
+../../tests/test_final_state.py::test_finetune_job_yaml_exists PASSED    [  9%]
+../../tests/test_final_state.py::test_yaml_is_valid PASSED               [ 18%]
+../../tests/test_final_state.py::test_job_name_is_llama_finetune PASSED  [ 27%]
+../../tests/test_final_state.py::test_accelerators_a100_4 FAILED         [ 36%]
+../../tests/test_final_state.py::test_use_spot_true FAILED               [ 45%]
+../../tests/test_final_state.py::test_any_of_has_aws_and_gcp PASSED      [ 54%]
+../../tests/test_final_state.py::test_autostop_30 FAILED                 [ 63%]
+../../tests/test_final_state.py::test_env_model_name PASSED              [ 72%]
+../../tests/test_final_state.py::test_workdir_is_dot PASSED              [ 81%]
+../../tests/test_final_state.py::test_setup_installs_requirements PASSED [ 90%]
+../../tests/test_final_state.py::test_run_executes_finetune PASSED       [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_accelerators_a100_4 ___________________________
+
+    def test_accelerators_a100_4():
+        data = _load_yaml()
+        resources = data.get("resources", {})
+        acc = resources.get("accelerators", "")
+        acc_str = str(acc)
+>       assert "A100" in acc_str and "4" in acc_str, \
+            f"Expected resources.accelerators to be A100:4, got: {acc_str}"
+E       AssertionError: Expected resources.accelerators to be A100:4, got: 
+E       assert ('A100' in '')
+
+/tests/test_final_state.py:45: AssertionError
+______________________________ test_use_spot_true ______________________________
+
+    def test_use_spot_true():
+        data = _load_yaml()
+        resources = data.get("resources", {})
+>       assert resources.get("use_spot") is True, \
+            f"Expected resources.use_spot: true, got: {resources.get('use_spot')}"
+E       AssertionError: Expected resources.use_spot: true, got: None
+E       assert None is True
+E        +  where None = <built-in method get of dict object at 0x7fcf71056a40>('use_spot')
+E        +    where <built-in method get of dict object at 0x7fcf71056a40> = {'any_of': [{'accelerators': 'A100:4', 'cloud': 'aws', 'region': 'us-east-1', 'use_spot': True}, {'accelerators': 'A100:4', 'cloud': 'gcp', 'region': 'us-central1', 'use_spot': True}]}.get
+
+/tests/test_final_state.py:52: AssertionError
+_______________________________ test_autostop_30 _______________________________
+
+    def test_autostop_30():
+        data = _load_yaml()
+        resources = data.get("resources", {})
+>       assert resources.get("autostop") == 30, \
+            f"Expected resources.autostop: 30, got: {resources.get('autostop')}"
+E       AssertionError: Expected resources.autostop: 30, got: None
+E       assert None == 30
+E        +  where None = <built-in method get of dict object at 0x7fcf7104db40>('autostop')
+E        +    where <built-in method get of dict object at 0x7fcf7104db40> = {'any_of': [{'accelerators': 'A100:4', 'cloud': 'aws', 'region': 'us-east-1', 'use_spot': True}, {'accelerators': 'A100:4', 'cloud': 'gcp', 'region': 'us-central1', 'use_spot': True}]}.get
+
+/tests/test_final_state.py:71: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_accelerators_a100_4 - AssertionE...
+FAILED ../../tests/test_final_state.py::test_use_spot_true - AssertionError: ...
+FAILED ../../tests/test_final_state.py::test_autostop_30 - AssertionError: Ex...
+========================= 3 failed, 8 passed in 0.37s ==========================

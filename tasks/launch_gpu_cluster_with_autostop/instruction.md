@@ -1,0 +1,15 @@
+You are working in a SkyPilot environment. Your goal is to write a valid SkyPilot task YAML file at `/home/user/train_job.yaml` that defines a GPU training job with the following requirements:
+
+1. The job should request exactly **1 A100 GPU**.
+2. The job must use **spot instances** to save cost.
+3. The job must have an **autostop policy of 10 minutes** idle time (so the cluster shuts down automatically after being idle for 10 minutes).
+4. The job must be configured to run on **either AWS (us-east-1) or GCP (us-central1)** using SkyPilot's multi-cloud fallback mechanism.
+5. The `setup` section should install PyTorch: `pip install torch`.
+6. The `run` section should execute: `python -c "import torch; print(torch.cuda.is_available())"`.
+
+Do NOT run `sky launch` — write the YAML file only. SkyPilot will be validated by inspecting the YAML structure.
+
+Constraints:
+- Save the file to exactly `/home/user/train_job.yaml`.
+- Use correct SkyPilot YAML schema field names.
+- The file must be parseable as valid YAML.

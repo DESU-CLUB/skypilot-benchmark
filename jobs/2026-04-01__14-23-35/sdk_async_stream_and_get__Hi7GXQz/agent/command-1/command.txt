@@ -1,0 +1,22 @@
+pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --stream-json /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in a SkyPilot environment. Write a Python script at `/home/user/launch_job.py` that uses the SkyPilot **Python SDK** to programmatically launch a cloud job.
+
+The script must follow SkyPilot's **asynchronous SDK pattern** (introduced in v0.8.1), where API calls return request IDs that you must resolve with `sky.stream_and_get()`.
+
+Requirements:
+1. Import the `sky` module.
+2. Define a `sky.Resources` object that requests **2 CPUs** (no GPU needed).
+3. Define a `sky.Task` with:
+   - A `setup` command that runs `echo 'setup done'`.
+   - A `run` command that runs `echo 'hello from sky'`.
+4. Attach the resources to the task using `.set_resources()`.
+5. Call `sky.launch()` with `cluster_name='eval-cluster'` and capture the returned **request_id**.
+6. Call `sky.stream_and_get(request_id)` to wait for the launch to complete and capture `(job_id, handle)`.
+7. Print the job ID to stdout in this exact format: `JOB_ID: <job_id>`
+
+Constraints:
+- Save the script to exactly `/home/user/launch_job.py`.
+- The script must be syntactically valid Python.
+- Do NOT use the old synchronous pattern (i.e., do not assume `sky.launch()` returns a result directly).
+
+EOF
