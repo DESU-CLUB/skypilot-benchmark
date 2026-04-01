@@ -1,1266 +1,971 @@
 {
-  "document_analytics_pipeline": {
-    "instruction": "# Distributed Document Processing and Analytics Pipeline on Modal\n\nYou are a platform engineer building a distributed document processing and analytics pipeline on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/pipeline.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"document-analytics-pipeline\"` with the following capabilities:\n\n### Scheduled Ingestion (Cron)\nThe pipeline must run on an **hourly cron schedule**. Each run processes a corpus of synthetic text documents.\n\n### Parallel Processing (Map/Starmap)\nProcess documents in parallel using Modal's `map` or `starmap`. For each document, perform NLP-style text analysis using **only Python's standard library**:\n- `word_count` — total number of words in the document\n- `sentence_count` — total number of sentences\n- `keywords` — extracted keywords (e.g., most frequent words)\n- `char_count` — total number of characters\n\n### Pipeline Authentication (Modal Secret)\nUse a **Modal Secret named `pipeline-credentials`** with key `PIPELINE_API_KEY=super-secret-pipeline-key` to validate the pipeline API key before processing.\n\n### Results Storage (Modal Dict)\nUse a **Modal Dict named `doc-analytics-output`** (with `create_if_missing=True`) to store all results. The Dict must contain:\n\n**Per-document entries** (at least 10 documents): Each document should be stored as a separate key (e.g., `doc_0`, `doc_1`, ..., `doc_9`) with a JSON value containing:\n- `word_count` — integer word count\n- `sentence_count` — integer sentence count\n- `keywords` — list of extracted keywords\n- `char_count` — integer character count\n\n**Summary entry**: A key named `summary` containing a JSON object with:\n- `total_documents` — the total number of documents processed\n- `total_words` — the sum of all word counts across documents\n- `avg_words_per_doc` — average words per document\n- `timestamp` — an ISO timestamp of when the pipeline ran\n\nThe Dict must contain at least **11 entries total** (10 documents + 1 summary).\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that runs the full pipeline — processing at least 10 synthetic documents and storing results in the Dict.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/pipeline.py\n```\n\nAfter deployment, trigger a manual run to populate the output Dict:\n\n```\nmodal run /home/user/modal_project/pipeline.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+  "launch_gpu_cluster_with_autostop": {
+    "instruction": "You are working in a SkyPilot environment. Your goal is to write a valid SkyPilot task YAML file at `/home/user/train_job.yaml` that defines a GPU training job with the following requirements:\n\n1. The job should request exactly **1 A100 GPU**.\n2. The job must use **spot instances** to save cost.\n3. The job must have an **autostop policy of 10 minutes** idle time (so the cluster shuts down automatically after being idle for 10 minutes).\n4. The job must be configured to run on **either AWS (us-east-1) or GCP (us-central1)** using SkyPilot's multi-cloud fallback mechanism.\n5. The `setup` section should install PyTorch: `pip install torch`.\n6. The `run` section should execute: `python -c \"import torch; print(torch.cuda.is_available())\"`.\n\nDo NOT run `sky launch` — write the YAML file only. SkyPilot will be validated by inspecting the YAML structure.\n\nConstraints:\n- Save the file to exactly `/home/user/train_job.yaml`.\n- Use correct SkyPilot YAML schema field names.\n- The file must be parseable as valid YAML.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "document_analytics_pipeline__aKZJE6h",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "launch_gpu_cluster_with_autostop__qfnoGBx",
         "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 239.165,
+        "latency_sec": 64.666,
         "latency_breakdown": {
-          "env_setup": 12.06,
-          "agent_setup": 68.459,
-          "agent_exec": 120.006,
-          "verifier": 24.284
+          "env_setup": 1.93,
+          "agent_setup": 20.11,
+          "agent_exec": 33.988,
+          "verifier": 6.818
         },
         "tokens": {
           "input": 0,
-          "output": 21800,
+          "output": 13791,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "document_analytics_pipeline__x9EoVH6",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "launch_gpu_cluster_with_autostop__gZhjCpz",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 215.896,
+        "latency_sec": 189.947,
         "latency_breakdown": {
-          "env_setup": 2.035,
-          "agent_setup": 20.737,
-          "agent_exec": 158.701,
-          "verifier": 23.952
+          "env_setup": 2.376,
+          "agent_setup": 20.037,
+          "agent_exec": 158.621,
+          "verifier": 6.901
         },
         "tokens": {
           "input": 0,
-          "output": 16691,
+          "output": 37985,
           "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "document_analytics_pipeline__wp4zPw5",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 248.189,
-        "latency_breakdown": {
-          "env_setup": 5.337,
-          "agent_setup": 136.576,
-          "agent_exec": 72.68,
-          "verifier": 23.112
         },
-        "tokens": {
-          "input": 0,
-          "output": 19517,
-          "cache": 0
-        }
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "document_analytics_pipeline__mDghYBC",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 386.009,
-        "latency_breakdown": {
-          "env_setup": 1.764,
-          "agent_setup": 21.843,
-          "agent_exec": 327.541,
-          "verifier": 24.442
-        },
-        "tokens": {
-          "input": 0,
-          "output": 29924,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "document_analytics_pipeline__C5qyyQH",
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "launch_gpu_cluster_with_autostop__rPd78mK",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 176.02,
+        "latency_sec": 59.191,
         "latency_breakdown": {
-          "env_setup": 4.083,
-          "agent_setup": 66.836,
-          "agent_exec": 79.127,
-          "verifier": 15.419
+          "env_setup": 2.078,
+          "agent_setup": 20.317,
+          "agent_exec": 28.184,
+          "verifier": 6.903
         },
         "tokens": {
           "input": 0,
-          "output": 16081,
+          "output": 11706,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "launch_gpu_cluster_with_autostop__VtdHyvN",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 72.444,
+        "latency_breakdown": {
+          "env_setup": 1.736,
+          "agent_setup": 20.998,
+          "agent_exec": 40.635,
+          "verifier": 7.385
+        },
+        "tokens": {
+          "input": 0,
+          "output": 15541,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "modal_event_pipeline": {
-    "instruction": "# Event-Driven Processing Pipeline on Modal\n\nYou are a platform engineer building an internal event-driven data processing pipeline on Modal for your organization's tooling infrastructure. The entire system must be implemented in a single file: `/home/user/event_pipeline/app.py`.\n\n## System Requirements\n\nBuild a Modal App named `event-driven-pipeline` that operates as an end-to-end event buffering and processing system with the following capabilities:\n\n### Event Queue (Modal Queue)\nUse a **Modal Queue named `pipeline-events`** to buffer incoming data submissions between the web API layer and the backend worker. The queue should be referenced with `create_if_missing=True` so it is automatically provisioned when the app deploys.\n\n### Web API (FastAPI)\nExpose a web API using Modal's FastAPI integration (`@modal.fastapi_app()`) that provides at minimum:\n- A **submission endpoint** (POST) that accepts a JSON body containing a `data` field, enqueues the submission into the pipeline queue, records the event in the shared pipeline registry, and returns a confirmation response.\n- A **status endpoint** (GET) that reads the current pipeline state from the registry dict and returns it as JSON.\n\n### Pipeline Registry (Modal Dict)\nUse a **Modal Dict named `pipeline-registry`** (with `create_if_missing=True`) to maintain shared pipeline state. The registry must track at minimum:\n- A `total_submitted` counter that is incremented on each submission via the POST endpoint\n- A `total_processed` counter that reflects how many items have been successfully processed\n\n### Worker Function (Fault-Tolerant)\nImplement a worker function with **`retries=2`** that processes individual data items. For each item, compute a deterministic hash or checksum of the data string (e.g., using `hashlib`) and write the result to a **Modal Volume named `pipeline-artifacts`** (with `create_if_missing=True`) as a text file. The volume must be mounted inside the worker function.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that allows the pipeline to be exercised without the web API — it should enqueue 3 data items, invoke the worker to process them, and update the `total_processed` counter in the registry to `3`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/event_pipeline/app.py\n```\n\nAfter deployment, trigger a manual run to populate the Volume and Dict:\n\n```\nmodal run /home/user/event_pipeline/app.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+  "private_repo_dependency_setup": {
+    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML at `/home/user/private_train.yaml` that runs a training job requiring a **private GitHub repository** as a dependency.\n\nThe job requirements:\n\n1. **Job name**: `private-train`\n2. **Compute**: 2 CPUs (no GPU needed).\n3. **Secret handling**: The job uses a GitHub personal access token stored in an environment variable called `GIT_TOKEN`. The YAML should declare this environment variable with an empty default (it will be supplied at `sky launch` time with `--env GIT_TOKEN=<token>`).\n4. **Setup**: The setup script must:\n   - Clone the private repository at `github.com/myorg/private-training-lib` using the `GIT_TOKEN` for authentication (via HTTPS with OAuth2 token pattern).\n   - Install the cloned repository as a Python package (editable install using `pip install -e .`).\n5. **Run**: Execute `python train.py`.\n\nSave the configuration to `/home/user/private_train.yaml`. The file must be valid YAML.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_event_pipeline__SWEDVcm",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 354.399,
-        "latency_breakdown": {
-          "env_setup": 12.075,
-          "agent_setup": 91.368,
-          "agent_exec": 216.035,
-          "verifier": 24.385
-        },
-        "tokens": {
-          "input": 0,
-          "output": 27540,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_event_pipeline__7oZARyg",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 239.817,
-        "latency_breakdown": {
-          "env_setup": 1.836,
-          "agent_setup": 20.701,
-          "agent_exec": 179.184,
-          "verifier": 27.353
-        },
-        "tokens": {
-          "input": 0,
-          "output": 21183,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_event_pipeline__XQgLctq",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 230.064,
-        "latency_breakdown": {
-          "env_setup": 5.147,
-          "agent_setup": 125.457,
-          "agent_exec": 62.64,
-          "verifier": 26.347
-        },
-        "tokens": {
-          "input": 0,
-          "output": 18609,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_event_pipeline__H5u8BUo",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "private_repo_dependency_setup__EaQW7Wm",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 329.649,
+        "latency_sec": 65.417,
         "latency_breakdown": {
-          "env_setup": 1.941,
-          "agent_setup": 23.088,
-          "agent_exec": 253.727,
-          "verifier": 40.429
+          "env_setup": 2.31,
+          "agent_setup": 24.088,
+          "agent_exec": 27.425,
+          "verifier": 9.082
         },
         "tokens": {
           "input": 0,
-          "output": 24676,
+          "output": 13278,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_event_pipeline__Twwzpoi",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "private_repo_dependency_setup__wnQHfax",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 66.207,
+        "latency_breakdown": {
+          "env_setup": 2.311,
+          "agent_setup": 25.458,
+          "agent_exec": 25.505,
+          "verifier": 10.466
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11324,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "private_repo_dependency_setup__sU7SBYX",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": false,
-        "reward": 0,
+        "passed": true,
+        "reward": 1,
         "error": false,
-        "latency_sec": 308.751,
+        "latency_sec": 51.506,
         "latency_breakdown": {
-          "env_setup": 4.077,
-          "agent_setup": 64.729,
-          "agent_exec": 210.052,
-          "verifier": 19.47
+          "env_setup": 2.155,
+          "agent_setup": 23.265,
+          "agent_exec": 15.881,
+          "verifier": 8.043
         },
         "tokens": {
           "input": 0,
-          "output": 22966,
+          "output": 10982,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "private_repo_dependency_setup__fNJJsSE",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 61.412,
+        "latency_breakdown": {
+          "env_setup": 2.223,
+          "agent_setup": 22.94,
+          "agent_exec": 26.064,
+          "verifier": 8.043
+        },
+        "tokens": {
+          "input": 0,
+          "output": 14371,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "ml_serving_pipeline_checkpoint": {
-    "instruction": "Build a stateful ML model serving system in `/home/user/modal_project/app.py` that uses a Modal Class with an `@enter` lifecycle method to train and checkpoint a scikit-learn model to a Modal Volume, exposes an API-key-authenticated FastAPI web endpoint for predictions, and records request statistics in a Modal Dict named `ml-serving-pipeline-output`. Set `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with `modal deploy /home/user/modal_project/app.py`, then invoke the endpoint at least once with a valid request so the Dict is populated.\n",
+  "configure_sky_resources_yaml": {
+    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML file at `/home/user/finetune_job.yaml` that configures a large-scale fine-tuning job.\n\nThe job has these requirements:\n\n1. **Job name**: `llama-finetune`\n2. **Compute**: 4 A100 GPUs on a single node, using spot instances to reduce cost.\n3. **Multi-cloud fallback**: The job should be able to run on AWS (us-east-1) OR GCP (us-central1), whichever is available first.\n4. **Auto-shutdown**: The cluster must automatically stop after being idle for **30 minutes**.\n5. **Environment variable**: Set `MODEL_NAME` to `meta-llama/Llama-3-8B`.\n6. **Working directory**: Set the working directory to `.` (current directory).\n7. **Setup**: Install dependencies from `requirements.txt` using pip.\n8. **Run**: Execute `python finetune.py --model $MODEL_NAME --epochs 3`.\n\nSave the completed configuration to `/home/user/finetune_job.yaml`. The file must be valid YAML that SkyPilot can parse.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "ml_serving_pipeline_checkpoint__GdEyiFL",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 367.615,
-        "latency_breakdown": {
-          "env_setup": 11.974,
-          "agent_setup": 89.481,
-          "agent_exec": 231.862,
-          "verifier": 23.875
-        },
-        "tokens": {
-          "input": 0,
-          "output": 31736,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "ml_serving_pipeline_checkpoint__fUqtw9B",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 514.94,
-        "latency_breakdown": {
-          "env_setup": 1.585,
-          "agent_setup": 28.524,
-          "agent_exec": 451.668,
-          "verifier": 22.385
-        },
-        "tokens": {
-          "input": 0,
-          "output": 30560,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "ml_serving_pipeline_checkpoint__XmCUZKe",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 355.469,
-        "latency_breakdown": {
-          "env_setup": 5.267,
-          "agent_setup": 130.05,
-          "agent_exec": 180.981,
-          "verifier": 28.676
-        },
-        "tokens": {
-          "input": 0,
-          "output": 25606,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "ml_serving_pipeline_checkpoint__5HC4Wzg",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "configure_sky_resources_yaml__awcufoM",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
-        "passed": true,
-        "reward": 1,
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 507.827,
+        "latency_sec": 71.481,
         "latency_breakdown": {
-          "env_setup": 1.937,
-          "agent_setup": 21.345,
-          "agent_exec": 449.318,
-          "verifier": 24.768
+          "env_setup": 1.931,
+          "agent_setup": 24.603,
+          "agent_exec": 35.183,
+          "verifier": 8.218
         },
         "tokens": {
           "input": 0,
-          "output": 38990,
+          "output": 13905,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "ml_serving_pipeline_checkpoint__6tZxBpU",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "configure_sky_resources_yaml__JaSUmAQ",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 84.675,
+        "latency_breakdown": {
+          "env_setup": 2.033,
+          "agent_setup": 21.348,
+          "agent_exec": 51.623,
+          "verifier": 8.008
+        },
+        "tokens": {
+          "input": 0,
+          "output": 12551,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "configure_sky_resources_yaml__9VzNgXX",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": true,
-        "reward": 1,
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 373.977,
+        "latency_sec": 48.611,
         "latency_breakdown": {
-          "env_setup": 3.994,
-          "agent_setup": 53.101,
-          "agent_exec": 286.106,
-          "verifier": 20.324
+          "env_setup": 1.735,
+          "agent_setup": 20.569,
+          "agent_exec": 16.875,
+          "verifier": 7.713
         },
         "tokens": {
           "input": 0,
-          "output": 34531,
+          "output": 11068,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "configure_sky_resources_yaml__2yh958K",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 81.359,
+        "latency_breakdown": {
+          "env_setup": 1.92,
+          "agent_setup": 21.924,
+          "agent_exec": 47.531,
+          "verifier": 8.354
+        },
+        "tokens": {
+          "input": 0,
+          "output": 29821,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "modal_gpu_batch_inference": {
-    "instruction": "",
+  "file_mount_s3_cached": {
+    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML at `/home/user/inference_job.yaml` that runs a batch inference job with **high-performance access to cloud storage**.\n\nJob requirements:\n\n1. **Job name**: `batch-inference`\n2. **Compute**: 4 A100 GPUs on spot instances.\n3. **Dataset mount**: Mount the S3 bucket `s3://ml-datasets/imagenet` at `/data` using the **MOUNT_CACHED** mode for high-performance local caching during inference.\n4. **Checkpoint mount**: Mount the S3 bucket `s3://ml-checkpoints/resnet50` at `/checkpoint` using **COPY** mode (download once at job start).\n5. **Setup**: Install `torch`, `torchvision`, and `boto3` via pip.\n6. **Run**: Execute `python infer.py --data /data --checkpoint /checkpoint/model.pth --output /tmp/results.json`.\n\nSave the configuration to `/home/user/inference_job.yaml`. The file must be valid YAML.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_gpu_batch_inference__4VPcfz8",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 273.048,
-        "latency_breakdown": {
-          "env_setup": 12.376,
-          "agent_setup": 74.572,
-          "agent_exec": 146.01,
-          "verifier": 29.406
-        },
-        "tokens": {
-          "input": 0,
-          "output": 19633,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_gpu_batch_inference__zczbhum",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 475.556,
-        "latency_breakdown": {
-          "env_setup": 6.964,
-          "agent_setup": 49.35,
-          "agent_exec": 383.61,
-          "verifier": 24.934
-        },
-        "tokens": {
-          "input": 0,
-          "output": 22354,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_gpu_batch_inference__UZsZavG",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 207.128,
-        "latency_breakdown": {
-          "env_setup": 7.784,
-          "agent_setup": 132.251,
-          "agent_exec": 43.903,
-          "verifier": 12.256
-        },
-        "tokens": {
-          "input": 0,
-          "output": 16229,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_gpu_batch_inference__KMDbqCK",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "file_mount_s3_cached__YLWBAg8",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 192.127,
+        "latency_sec": 77.872,
         "latency_breakdown": {
-          "env_setup": 8.31,
-          "agent_setup": 54.492,
-          "agent_exec": 111.231,
-          "verifier": 7.277
+          "env_setup": 1.928,
+          "agent_setup": 24.176,
+          "agent_exec": 34.273,
+          "verifier": 15.494
         },
         "tokens": {
           "input": 0,
-          "output": 16660,
+          "output": 13800,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_gpu_batch_inference__2LkXtUg",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "file_mount_s3_cached__og3T4uQ",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 81.41,
+        "latency_breakdown": {
+          "env_setup": 2.655,
+          "agent_setup": 24.775,
+          "agent_exec": 42.629,
+          "verifier": 8.828
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11913,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "file_mount_s3_cached__6j6J59s",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": false,
-        "reward": 0,
+        "passed": true,
+        "reward": 1,
         "error": false,
-        "latency_sec": 125.58,
+        "latency_sec": 50.477,
         "latency_breakdown": {
-          "env_setup": 5.934,
-          "agent_setup": 65.623,
-          "agent_exec": 35.064,
-          "verifier": 7.151
+          "env_setup": 2.097,
+          "agent_setup": 23.868,
+          "agent_exec": 14.688,
+          "verifier": 8.091
         },
         "tokens": {
           "input": 0,
-          "output": 12932,
+          "output": 11025,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "file_mount_s3_cached__VGy4jQL",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 61.682,
+        "latency_breakdown": {
+          "env_setup": 1.917,
+          "agent_setup": 21.867,
+          "agent_exec": 28.466,
+          "verifier": 7.259
+        },
+        "tokens": {
+          "input": 0,
+          "output": 14446,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "hyperparameter_sweep_orchestrator": {
-    "instruction": "# Hyperparameter Sweep Orchestration System on Modal\n\nYou are an ML engineer building a hyperparameter sweep orchestration system on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/sweep.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"hyperparameter-sweep\"` that orchestrates parallel hyperparameter experiments with the following capabilities:\n\n### Sweep Runner (Modal Class with Lifecycle Methods)\nDefine a Modal Class with lifecycle methods that runs parallel experiments. The class should:\n- Sweep combinations of **learning rate** and **batch size** using numpy (at least 3 values for each, producing >= 9 total combinations)\n- Use `.starmap()` to run experiments in parallel\n- Track the best configuration (highest accuracy or lowest loss) across all runs\n\n### Results Storage (Modal Volume)\nUse a **Modal Volume named `hp-sweep-experiments`** (with `create_if_missing=True`) to persist each experiment's results as a JSON file. Each file should contain the hyperparameters used and the resulting metric.\n\n### Best Configuration Tracking (Modal Dict)\nUse a **Modal Dict named `hp-sweep-results`** (with `create_if_missing=True`) to track:\n- `best_config` — a JSON object containing the best hyperparameter configuration found (must include `learning_rate` or `lr` and `batch_size` or `bs` fields)\n- `experiment_count` — an integer representing the total number of experiments run (must be >= 9)\n\n### Web Endpoint (FastAPI)\nExpose the best result through a **FastAPI web endpoint** that returns the best configuration as JSON.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that triggers the full sweep, populates the Volume with experiment results, and updates the Dict with `best_config` and `experiment_count`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/sweep.py\n```\n\nAfter deployment, trigger a manual run to populate the Volume and Dict:\n\n```\nmodal run /home/user/modal_project/sweep.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+  "managed_job_spot_failover": {
+    "instruction": "You are working in a SkyPilot environment. Your goal is to configure a **managed job** that is resilient to spot instance preemptions and specific runtime errors.\n\nCreate two files:\n\n**1. SkyPilot managed job YAML at `/home/user/managed_train.yaml`:**\n\nThe job must be configured as follows:\n- Job name: `resilient-train`\n- Compute: 1 A100 GPU on spot instances.\n- Multi-cloud fallback across **three clouds**: AWS (us-east-1), GCP (us-central1), and Azure (eastus).\n- **Job recovery strategy**: Use the `FAILOVER` strategy. The job should retry automatically when preempted.\n- **Error handling**: The job should retry up to **3 times** when it exits with a non-preemption error. Additionally, it should specifically retry on exit codes **33** (NCCL timeout) and **1** (general error).\n- Setup: Install PyTorch.\n- Run: Execute `python train.py`.\n\n**2. Submission script at `/home/user/submit_job.sh`:**\n- Launch the managed job using the `sky jobs launch` command with the YAML file.\n- Use the job name `resilient-train` (pass it explicitly to override any YAML name).\n- Run non-interactively (no confirmation prompts).\n- After launching, check the job queue with `sky jobs queue` and write the output to `/home/user/job_status.log`.\n\nBoth files must exist at the exact paths specified.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "hyperparameter_sweep_orchestrato__aRkDLcG",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 295.668,
-        "latency_breakdown": {
-          "env_setup": 11.913,
-          "agent_setup": 81.912,
-          "agent_exec": 140.45,
-          "verifier": 50.91
-        },
-        "tokens": {
-          "input": 0,
-          "output": 23784,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "hyperparameter_sweep_orchestrato__Ujk6yo7",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 304.232,
-        "latency_breakdown": {
-          "env_setup": 1.794,
-          "agent_setup": 21.535,
-          "agent_exec": 241.858,
-          "verifier": 28.539
-        },
-        "tokens": {
-          "input": 0,
-          "output": 23340,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "hyperparameter_sweep_orchestrato__hsauvxh",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 282.084,
-        "latency_breakdown": {
-          "env_setup": 5.129,
-          "agent_setup": 131.213,
-          "agent_exec": 107.73,
-          "verifier": 27.545
-        },
-        "tokens": {
-          "input": 0,
-          "output": 24707,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "hyperparameter_sweep_orchestrato__G2AmiSj",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "managed_job_spot_failover__XTfDpiK",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
-        "passed": true,
-        "reward": 1,
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 285.744,
+        "latency_sec": 86.703,
         "latency_breakdown": {
-          "env_setup": 2.076,
-          "agent_setup": 21.449,
-          "agent_exec": 190.344,
-          "verifier": 61.382
+          "env_setup": 2.13,
+          "agent_setup": 25.332,
+          "agent_exec": 48.504,
+          "verifier": 8.907
         },
         "tokens": {
           "input": 0,
-          "output": 21341,
+          "output": 14661,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "hyperparameter_sweep_orchestrato__sHAriYV",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "managed_job_spot_failover__ndZx3tC",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 88.106,
+        "latency_breakdown": {
+          "env_setup": 2.47,
+          "agent_setup": 22.645,
+          "agent_exec": 52.824,
+          "verifier": 8.099
+        },
+        "tokens": {
+          "input": 0,
+          "output": 30056,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "managed_job_spot_failover__9EvzPWr",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": true,
-        "reward": 1,
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 160.449,
+        "latency_sec": 68.033,
         "latency_breakdown": {
-          "env_setup": 4.154,
-          "agent_setup": 52.93,
-          "agent_exec": 66.057,
-          "verifier": 26.616
+          "env_setup": 1.972,
+          "agent_setup": 22.902,
+          "agent_exec": 33.641,
+          "verifier": 7.807
         },
         "tokens": {
           "input": 0,
-          "output": 16591,
+          "output": 12272,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "managed_job_spot_failover__P2ceUvX",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 106.793,
+        "latency_breakdown": {
+          "env_setup": 2.071,
+          "agent_setup": 23.116,
+          "agent_exec": 71.125,
+          "verifier": 8.725
+        },
+        "tokens": {
+          "input": 0,
+          "output": 17681,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "modal_hp_sweep_checkpoint": {
-    "instruction": "Build a distributed hyperparameter sweep system in `/home/user/hp_sweep/app.py` that uses `modal.App(\"hp-sweep-checkpoint\")` to parallelize evaluation of learning-rate and batch-size combinations via `.map()` or `.starmap()`, checkpoints all results to a Modal Volume named `\"hp-sweep-results\"`, tracks the best configuration and score in a Modal Dict named `\"hp-sweep-state\"`, and schedules the sweep to run periodically using a cron or period schedule. Set `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with `modal deploy /home/user/hp_sweep/app.py`.\n",
+  "sdk_async_stream_and_get": {
+    "instruction": "You are working in a SkyPilot environment. Write a Python script at `/home/user/launch_job.py` that uses the SkyPilot **Python SDK** to programmatically launch a cloud job.\n\nThe script must follow SkyPilot's **asynchronous SDK pattern** (introduced in v0.8.1), where API calls return request IDs that you must resolve with `sky.stream_and_get()`.\n\nRequirements:\n1. Import the `sky` module.\n2. Define a `sky.Resources` object that requests **2 CPUs** (no GPU needed).\n3. Define a `sky.Task` with:\n   - A `setup` command that runs `echo 'setup done'`.\n   - A `run` command that runs `echo 'hello from sky'`.\n4. Attach the resources to the task using `.set_resources()`.\n5. Call `sky.launch()` with `cluster_name='eval-cluster'` and capture the returned **request_id**.\n6. Call `sky.stream_and_get(request_id)` to wait for the launch to complete and capture `(job_id, handle)`.\n7. Print the job ID to stdout in this exact format: `JOB_ID: <job_id>`\n\nConstraints:\n- Save the script to exactly `/home/user/launch_job.py`.\n- The script must be syntactically valid Python.\n- Do NOT use the old synchronous pattern (i.e., do not assume `sky.launch()` returns a result directly).\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_hp_sweep_checkpoint__y3H74ma",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "sdk_async_stream_and_get__Hi7GXQz",
         "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 277.142,
+        "latency_sec": 62.146,
         "latency_breakdown": {
-          "env_setup": 11.932,
-          "agent_setup": 90.584,
-          "agent_exec": 135.701,
-          "verifier": 28.362
+          "env_setup": 1.751,
+          "agent_setup": 21.498,
+          "agent_exec": 30.252,
+          "verifier": 7.013
         },
         "tokens": {
           "input": 0,
-          "output": 22929,
+          "output": 13615,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_hp_sweep_checkpoint__Z7z8PiH",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "sdk_async_stream_and_get__ayiHjXc",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 378.265,
+        "latency_sec": 65.687,
         "latency_breakdown": {
-          "env_setup": 5.965,
-          "agent_setup": 49.814,
-          "agent_exec": 288.942,
-          "verifier": 23.11
+          "env_setup": 2.371,
+          "agent_setup": 22.593,
+          "agent_exec": 30.619,
+          "verifier": 7.755
         },
         "tokens": {
           "input": 0,
-          "output": 16836,
+          "output": 11458,
           "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_hp_sweep_checkpoint__wpmBe9g",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 237.129,
-        "latency_breakdown": {
-          "env_setup": 5.199,
-          "agent_setup": 123.964,
-          "agent_exec": 73.221,
-          "verifier": 24.193
         },
-        "tokens": {
-          "input": 0,
-          "output": 18998,
-          "cache": 0
-        }
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_hp_sweep_checkpoint__bf72JTe",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 659.468,
-        "latency_breakdown": {
-          "env_setup": 6.508,
-          "agent_setup": 47.455,
-          "agent_exec": 587.616,
-          "verifier": 7.373
-        },
-        "tokens": {
-          "input": 0,
-          "output": 64913,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_hp_sweep_checkpoint__gKNaRyT",
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "sdk_async_stream_and_get__ez23Wiz",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 170.796,
+        "latency_sec": 48.088,
         "latency_breakdown": {
-          "env_setup": 4.166,
-          "agent_setup": 63.928,
-          "agent_exec": 61.392,
-          "verifier": 30.588
+          "env_setup": 1.737,
+          "agent_setup": 22.413,
+          "agent_exec": 16.08,
+          "verifier": 6.254
         },
         "tokens": {
           "input": 0,
-          "output": 16396,
+          "output": 11081,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "sdk_async_stream_and_get__phaEPub",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 61.69,
+        "latency_breakdown": {
+          "env_setup": 2.053,
+          "agent_setup": 22.07,
+          "agent_exec": 28.934,
+          "verifier": 6.821
+        },
+        "tokens": {
+          "input": 0,
+          "output": 14888,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "rate_limited_api_gateway": {
-    "instruction": "# Stateful Distributed Rate-Limited API Gateway on Modal\n\nYou are a platform engineer building a stateful, distributed rate-limited API gateway on Modal. The entire system must be implemented in a single file: `/home/user/modal_project/gateway.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"rate-limited-gateway\"` with the following capabilities:\n\n### Gateway Class (Modal Class with Lifecycle Methods)\nDefine a Modal Class with lifecycle methods that implements the rate-limiting logic. The class should:\n- Enforce per-client rate limits based on configuration from the secret\n- Track request statistics in the shared Dict\n- Return HTTP 429 when a client exceeds its rate limit\n\n### Configuration (Modal Secret)\nUse a **Modal Secret named `gateway-config`** containing:\n- `RATE_LIMIT_PER_MINUTE` — the maximum number of requests allowed per client per minute\n- `GATEWAY_API_KEY` — an API key for authenticating requests\n\n### Distributed State (Modal Dict)\nUse a **Modal Dict named `gateway-stats`** (with `create_if_missing=True`) to track distributed gateway statistics. The Dict must contain these keys:\n- `total_requests` — an integer count of all requests received (must be >= 1 after a run)\n- `rate_limited_count` — an integer count of requests that were rate-limited (HTTP 429)\n- `active_clients` — an integer count of unique clients that have made requests (must be >= 1 after a run)\n\n### Custom Image\nUse a custom Modal Image with `httpx` and `pydantic` installed.\n\n### Web Endpoint (FastAPI)\nExpose a **FastAPI web endpoint** that enforces per-client rate limits and returns HTTP 429 when exceeded.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that sends simulated requests to the gateway to populate the `gateway-stats` Dict with `total_requests`, `rate_limited_count`, and `active_clients`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/gateway.py\n```\n\nAfter deployment, trigger a manual run to populate the Dict:\n\n```\nmodal run /home/user/modal_project/gateway.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+  "stop_and_terminate_clusters": {
+    "instruction": "You are working in a SkyPilot environment. Your goal is to write a Bash cleanup script at `/home/user/cleanup.sh` that safely stops and then permanently terminates all SkyPilot clusters.\n\nThe script must:\n1. First **stop** all clusters (gracefully halts them while preserving cloud resources like disks).\n2. Then **terminate** (permanently delete) all clusters without requiring interactive confirmation.\n3. Be executable (chmod +x).\n\nThe script will be run as: `bash /home/user/cleanup.sh`\n\nConstraints:\n- Use the `sky` CLI — do not use cloud-provider CLIs directly (no `aws`, `gcloud`, etc.).\n- The commands must work non-interactively (no prompts).\n- Save the script to exactly `/home/user/cleanup.sh`.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "rate_limited_api_gateway__VhwqMMP",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "stop_and_terminate_clusters__c4ohT4F",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 59.595,
+        "latency_breakdown": {
+          "env_setup": 1.579,
+          "agent_setup": 18.076,
+          "agent_exec": 32.601,
+          "verifier": 5.735
+        },
+        "tokens": {
+          "input": 0,
+          "output": 13586,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "stop_and_terminate_clusters__TpG66M5",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 58.736,
+        "latency_breakdown": {
+          "env_setup": 2.882,
+          "agent_setup": 18.656,
+          "agent_exec": 29.579,
+          "verifier": 5.939
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11228,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "stop_and_terminate_clusters__HYF6AZd",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 51.93,
+        "latency_breakdown": {
+          "env_setup": 1.421,
+          "agent_setup": 17.397,
+          "agent_exec": 25.812,
+          "verifier": 5.954
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11349,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "stop_and_terminate_clusters__hSo3RoM",
         "agent": "pochi",
         "model": "anthropic/claude-4-6-sonnet",
         "provider": "anthropic",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 418.759,
+        "latency_sec": 52.242,
         "latency_breakdown": {
-          "env_setup": 11.911,
-          "agent_setup": 69.404,
-          "agent_exec": 306.424,
-          "verifier": 20.577
+          "env_setup": 1.626,
+          "agent_setup": 18.524,
+          "agent_exec": 24.943,
+          "verifier": 5.655
         },
         "tokens": {
           "input": 0,
-          "output": 37573,
+          "output": 14453,
           "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "rate_limited_api_gateway__eYYFyGa",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 396.195,
-        "latency_breakdown": {
-          "env_setup": 2.063,
-          "agent_setup": 23.434,
-          "agent_exec": 344.516,
-          "verifier": 15.567
         },
-        "tokens": {
-          "input": 0,
-          "output": 22555,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "rate_limited_api_gateway__EospxLM",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 306.347,
-        "latency_breakdown": {
-          "env_setup": 5.105,
-          "agent_setup": 135.387,
-          "agent_exec": 149.229,
-          "verifier": 6.119
-        },
-        "tokens": {
-          "input": 0,
-          "output": 22668,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "rate_limited_api_gateway__65na9w3",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 636.638,
-        "latency_breakdown": {
-          "env_setup": 1.667,
-          "agent_setup": 20.338,
-          "agent_exec": 587.505,
-          "verifier": 16.585
-        },
-        "tokens": {
-          "input": 0,
-          "output": 28681,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "rate_limited_api_gateway__jE3AW2A",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 182.614,
-        "latency_breakdown": {
-          "env_setup": 4.179,
-          "agent_setup": 65.902,
-          "agent_exec": 93.276,
-          "verifier": 8.716
-        },
-        "tokens": {
-          "input": 0,
-          "output": 17957,
-          "cache": 0
-        }
+        "browser_verification_cases": []
       }
     ]
   },
-  "modal_doc_ocr_pipeline": {
-    "instruction": "Build a document OCR processing pipeline in `/home/user/doc_pipeline/app.py` that processes a batch of text documents in parallel on Modal, simulates OCR by extracting word count and character statistics from each document's text content, persists results as JSON files in a Modal Volume named `ocr-output-volume`, validates a processing configuration from a Modal Secret named `ocr-api-config` (which must contain `PROCESSING_MODE=batch`), and tracks job state — including a `total_processed` count — in a Modal Dict named `ocr-job-tracker`.\n\nYour implementation must combine the following four Modal capabilities:\n\n1. **Modal Class with lifecycle hook** — Define a class that initializes its processing context at container startup (before handling any documents), and exposes a method for processing individual documents. The class must have access to the volume and the secret.\n\n2. **Modal Volume** (`ocr-output-volume`) — Persist each document's OCR result (word count, character count, document ID) as a JSON file inside the volume. Create the volume with `create_if_missing=True`.\n\n3. **Modal Secret** (`ocr-api-config`) — Create this secret before deploying with `PROCESSING_MODE=batch`. The processing method must read and validate `PROCESSING_MODE` from the environment; if it is missing or not equal to `batch`, raise an error.\n\n4. **Modal Dict** (`ocr-job-tracker`) — Track processing state across the batch. At minimum, store a `total_processed` key containing the integer count of documents processed (must be >= 3). Create the dict with `create_if_missing=True`.\n\nThe `local_entrypoint` must drive the full pipeline: define at least 3 sample text documents as strings in your code, fan them out for parallel processing using `.map()` or `.starmap()`, write results to the volume, and update the dict with the total count.\n\nThe Modal App must be named `doc-ocr-pipeline`.\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy using:\n```\nmodal deploy /home/user/doc_pipeline/app.py\n```\n\nAfter deploying, trigger the pipeline with:\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal run /home/user/doc_pipeline/app.py\n```\n",
+  "ray_cluster_port_conflict": {
+    "instruction": "You are working in a SkyPilot environment. SkyPilot uses Ray internally on **port 6380** for its own cluster management. If your job starts a Ray cluster using the default port or tries to connect with `ray.init(address='auto')`, it will accidentally connect to SkyPilot's internal Ray instead of your own cluster, causing unpredictable behavior.\n\nYour task is to write two files that correctly set up a distributed Ray training job:\n\n**1. SkyPilot task YAML at `/home/user/distributed_job.yaml`:**\n- Job name: `ray-distributed-train`\n- Compute: 2 nodes, each with 4 CPUs (no GPU needed).\n- The `run` section must start Ray on the **head node** (node rank 0) using port **6379** (not 6380).\n- On worker nodes (rank != 0), join the Ray cluster using the head node IP and port 6379.\n- Use `$SKYPILOT_NODE_RANK` and `$SKYPILOT_NODE_IPS` environment variables to distinguish head from worker.\n- After starting Ray, execute `python /home/user/train.py`.\n\n**2. Python training script at `/home/user/train.py`:**\n- Connect to the Ray cluster using `ray.init()` with address pointing to `127.0.0.1:6379`.\n- Define and run a simple Ray remote function that returns the string `'ray task complete'`.\n- Print the result to stdout.\n\nBoth files must be created at the exact paths specified.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_doc_ocr_pipeline__RNdaia7",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 345.827,
-        "latency_breakdown": {
-          "env_setup": 12.023,
-          "agent_setup": 65.855,
-          "agent_exec": 227.382,
-          "verifier": 30.066
-        },
-        "tokens": {
-          "input": 0,
-          "output": 29050,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_doc_ocr_pipeline__WU5Ci9Q",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 200.728,
-        "latency_breakdown": {
-          "env_setup": 2.013,
-          "agent_setup": 22.237,
-          "agent_exec": 140.012,
-          "verifier": 26.058
-        },
-        "tokens": {
-          "input": 0,
-          "output": 19542,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_doc_ocr_pipeline__jzgHdoe",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 259.943,
-        "latency_breakdown": {
-          "env_setup": 5.183,
-          "agent_setup": 137.107,
-          "agent_exec": 82.855,
-          "verifier": 24.293
-        },
-        "tokens": {
-          "input": 0,
-          "output": 21506,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_doc_ocr_pipeline__cfbhtsv",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "ray_cluster_port_conflict__RR7ztvB",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 316.982,
+        "latency_sec": 62.047,
         "latency_breakdown": {
-          "env_setup": 1.96,
-          "agent_setup": 22.022,
-          "agent_exec": 245.283,
-          "verifier": 37.266
+          "env_setup": 1.927,
+          "agent_setup": 18.019,
+          "agent_exec": 33.505,
+          "verifier": 7.124
         },
         "tokens": {
           "input": 0,
-          "output": 31494,
+          "output": 13935,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_doc_ocr_pipeline__Bt2LBvz",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "ray_cluster_port_conflict__qnxYCpr",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 62.228,
+        "latency_breakdown": {
+          "env_setup": 1.94,
+          "agent_setup": 19.272,
+          "agent_exec": 32.292,
+          "verifier": 6.906
+        },
+        "tokens": {
+          "input": 0,
+          "output": 12005,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "ray_cluster_port_conflict__PMsd3ZM",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": true,
-        "reward": 1,
+        "passed": false,
+        "reward": 0,
         "error": false,
-        "latency_sec": 186.38,
+        "latency_sec": 59.444,
         "latency_breakdown": {
-          "env_setup": 4.249,
-          "agent_setup": 56.29,
-          "agent_exec": 90.296,
-          "verifier": 25.047
+          "env_setup": 1.526,
+          "agent_setup": 19.824,
+          "agent_exec": 29.363,
+          "verifier": 6.809
         },
         "tokens": {
           "input": 0,
-          "output": 18470,
+          "output": 11970,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "ray_cluster_port_conflict__5sTzWSB",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 75.642,
+        "latency_breakdown": {
+          "env_setup": 2.143,
+          "agent_setup": 21.012,
+          "agent_exec": 43.523,
+          "verifier": 7.157
+        },
+        "tokens": {
+          "input": 0,
+          "output": 29817,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "etl_pipeline_orchestrator": {
-    "instruction": "# Fault-Tolerant ETL Pipeline on Modal\n\nYou are a platform engineer tasked with building a production-grade, fault-tolerant ETL pipeline using Modal's serverless infrastructure. The entire system must be implemented in a single file: `/home/user/modal_project/etl.py`.\n\n## System Requirements\n\nBuild a Modal App named `etl-pipeline` that operates as an end-to-end data pipeline with the following capabilities:\n\n### Data Ingestion (Scheduled)\nThe pipeline must automatically ingest synthetic data on a **5-minute schedule** using `modal.Period(minutes=5)`. The ingestion component generates batches of raw records (each with a category drawn from a small fixed set, a numeric value, and a timestamp), persists them as JSON files on a **Modal NetworkFileSystem (NFS)** named `etl-nfs`, and immediately kicks off data processing for the new batch. Each ingestion run must produce a distinct file using the naming convention `raw_<timestamp>.json`. Use `create_if_missing=True` when referencing the NFS.\n\n### Data Processing (Fault-Tolerant)\nA separate processing function reads a raw data file from the NFS, aggregates the records by category (computing statistics such as count and sum per category), and writes the aggregated output back to the NFS using the naming convention `processed_<timestamp>.json`. This function must be configured with **`retries=3` and `timeout=120`** to handle transient failures gracefully.\n\n### Live Status Endpoint (FastAPI)\nExpose a **GET `/status`** web endpoint using FastAPI that reads the most recently written processed results from the NFS and returns the pipeline statistics as JSON. If no processed data is available, the endpoint should return a JSON response clearly indicating the pipeline has not run yet. This endpoint must have access to the NFS.\n\n### Pipeline Metadata (Modal Dict)\nAll pipeline run metadata must be persisted in a **Modal Dict named `etl-pipeline-metadata`** (use `create_if_missing=True`). The dict must track at minimum these exact keys:\n- `run_count` — an integer counter that increments each ingestion cycle (must be >= 1 after a manual run)\n- `last_run_timestamp` — the timestamp of the most recent successful run\n- `error_count` — an integer counter for processing failures\n\n### Manual Trigger\nImplement a `@app.local_entrypoint()` that allows the pipeline to be triggered manually — running the full ingest-and-process cycle — so the system can be tested without waiting for the cron schedule to fire.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nmodal deploy /home/user/modal_project/etl.py\n```\n\nAfter deployment, trigger a manual run to populate the NFS and Dict:\n\n```\nmodal run /home/user/modal_project/etl.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
+  "skyserve_vllm_autoscaling": {
+    "instruction": "You are working in a SkyPilot environment. Your goal is to configure and prepare a **vLLM model serving deployment** using SkyPilot's SkyServe feature with autoscaling.\n\nCreate three files:\n\n**1. SkyServe YAML at `/home/user/vllm_serve.yaml`:**\n\nThis YAML must configure a production-grade LLM serving deployment:\n- Service name: `vllm-llama`\n- **Readiness probe**: Check the `/v1/models` HTTP endpoint to determine when a replica is ready to serve traffic. Set an initial delay of **30 seconds**.\n- **Autoscaling policy**:\n  - Minimum replicas: **1** (always keep one warm).\n  - Maximum replicas: **5** (scale out under load).\n  - Target QPS per replica: **10** (scale out when each replica exceeds 10 requests/second).\n  - Upscale delay: **60 seconds**.\n  - Downscale delay: **300 seconds** (5 minutes) to avoid flapping.\n- **Compute**: Each replica gets 1 A100 GPU on AWS, using **on-demand** instances (not spot — serving requires stability).\n- **Environment**: Set `MODEL_NAME` to `meta-llama/Meta-Llama-3-8B-Instruct`.\n- **Setup**: Install `vllm` via pip.\n- **Run**: Start the vLLM OpenAI-compatible server on port **8080**, binding to `0.0.0.0`, using the `$MODEL_NAME` environment variable.\n\n**2. Deployment script at `/home/user/deploy.sh`:**\n- Use `sky serve up` to deploy the service from `vllm_serve.yaml`.\n- Explicitly name the service `vllm-llama`.\n- Run non-interactively.\n- After deploying, check the service status with `sky serve status vllm-llama` and save the output to `/home/user/serve_status.log`.\n\n**3. Service config JSON at `/home/user/serve_config.json`:**\n- Write a JSON file documenting the deployment parameters:\n  - `\"service_name\"`: `\"vllm-llama\"`\n  - `\"model\"`: `\"meta-llama/Meta-Llama-3-8B-Instruct\"`\n  - `\"min_replicas\"`: `1`\n  - `\"max_replicas\"`: `5`\n  - `\"port\"`: `8080`\n\nAll three files must exist at the exact paths specified.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "etl_pipeline_orchestrator__UJBdjVR",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 261.856,
-        "latency_breakdown": {
-          "env_setup": 11.999,
-          "agent_setup": 85.821,
-          "agent_exec": 124.892,
-          "verifier": 28.528
-        },
-        "tokens": {
-          "input": 0,
-          "output": 22832,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "etl_pipeline_orchestrator__vtTQyvZ",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 361.915,
-        "latency_breakdown": {
-          "env_setup": 1.817,
-          "agent_setup": 23.287,
-          "agent_exec": 301.226,
-          "verifier": 25.141
-        },
-        "tokens": {
-          "input": 0,
-          "output": 20660,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "etl_pipeline_orchestrator__JPXecYA",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 289.708,
-        "latency_breakdown": {
-          "env_setup": 5.249,
-          "agent_setup": 128.654,
-          "agent_exec": 132.456,
-          "verifier": 12.901
-        },
-        "tokens": {
-          "input": 0,
-          "output": 21240,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "etl_pipeline_orchestrator__dh8xFHg",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "skyserve_vllm_autoscaling__RTDN7ey",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 262.555,
+        "latency_sec": 73.226,
         "latency_breakdown": {
-          "env_setup": 2.228,
-          "agent_setup": 22.132,
-          "agent_exec": 221.386,
-          "verifier": 6.281
+          "env_setup": 1.922,
+          "agent_setup": 18.868,
+          "agent_exec": 43.895,
+          "verifier": 7.079
         },
         "tokens": {
           "input": 0,
-          "output": 20291,
+          "output": 14993,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "etl_pipeline_orchestrator__M9djMv6",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "skyserve_vllm_autoscaling__UHjCWbs",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 73.635,
+        "latency_breakdown": {
+          "env_setup": 2.075,
+          "agent_setup": 20.167,
+          "agent_exec": 42.555,
+          "verifier": 7.247
+        },
+        "tokens": {
+          "input": 0,
+          "output": 12129,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "skyserve_vllm_autoscaling__SqBRAxL",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 172.375,
+        "latency_sec": 61.096,
         "latency_breakdown": {
-          "env_setup": 3.946,
-          "agent_setup": 69.282,
-          "agent_exec": 67.25,
-          "verifier": 21.286
+          "env_setup": 1.418,
+          "agent_setup": 19.761,
+          "agent_exec": 31.623,
+          "verifier": 6.563
         },
         "tokens": {
           "input": 0,
-          "output": 16687,
+          "output": 12491,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "skyserve_vllm_autoscaling__pnP75Yp",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 75.639,
+        "latency_breakdown": {
+          "env_setup": 1.788,
+          "agent_setup": 19.748,
+          "agent_exec": 45.148,
+          "verifier": 7.135
+        },
+        "tokens": {
+          "input": 0,
+          "output": 30722,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   },
-  "modal_gpu_embedding_service": {
-    "instruction": "# GPU-Accelerated Text Embedding Service\n\nYou are an ML engineer tasked with deploying a production-grade **GPU-accelerated text embedding service** on Modal. The system must process text inputs and return dense vector embeddings suitable for downstream tasks such as semantic search, clustering, or retrieval-augmented generation.\n\n## Project Location\n\nA starter file exists at `/home/user/embedding_service/app.py` with a basic Modal App stub. All your implementation must go in this single file.\n\n## System Requirements\n\nYour service must integrate four Modal capabilities:\n\n1. **Modal Volume** — Create a Modal Volume (using `create_if_missing=True`) to cache the downloaded model weights on first use. The volume should be mounted into the serving class so that repeated cold starts avoid redundant model downloads from the internet.\n\n2. **Modal Class with GPU and warm pool** — Define a Modal class using `@app.cls()` that:\n   - Runs on a GPU (e.g., `gpu=\"T4\"` or `gpu=\"any\"`) with `min_containers=1` to keep a warm instance\n   - Uses a custom image that installs the `sentence-transformers` library (and its dependencies)\n   - Mounts the Volume for model caching\n   - Has a `@modal.enter()` lifecycle method that loads the `all-MiniLM-L6-v2` sentence-transformers model from the cached volume path on startup\n\n3. **FastAPI web endpoint** — Expose the embedding generation as a web endpoint (using `@modal.asgi_app()` or `@modal.fastapi_app()`) that:\n   - Accepts POST requests with a JSON body containing a `text` field (a string or list of strings)\n   - Returns a JSON response with an `embeddings` field (list of float vectors) and a `model` field with the model name\n   - Is accessible over HTTPS without authentication\n\n4. **Modal Dict for request tracking** — Use a Modal Dict named `\"embedding-service-stats\"` (with `create_if_missing=True`) to track:\n   - The total number of requests processed\n   - The total number of tokens processed across all requests\n   Update these counters on every successful embedding request.\n\n## App Name\n\nThe Modal App must be named `\"gpu-embedding-service\"`.\n\n## Deployment\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` and deploy with:\n```\nmodal deploy /home/user/embedding_service/app.py\n```\n\nAfter deploying, send at least one POST request to the embedding endpoint with some sample text so that the `\"embedding-service-stats\"` Modal Dict is populated with request and token counts. The endpoint URL is printed by `modal deploy`.\n",
+  "file_mount_collision_fix": {
+    "instruction": "You are debugging a SkyPilot task configuration. A colleague's job YAML is failing with a **\"directory not empty\"** error during the setup phase. The broken YAML is at `/home/user/broken_job.yaml`.\n\nThe issue is a **file mount collision**: SkyPilot processes `file_mounts` **before** running the `setup` script. When `setup` tries to `git clone` into a path that already has mounted files, the clone fails.\n\nYour task:\n1. Inspect `/home/user/broken_job.yaml` to understand the collision.\n2. Create a fixed version at `/home/user/fixed_job.yaml` that resolves the collision while preserving the original intent:\n   - The S3 config files from `s3://ml-configs/job-config` must still be available to the job.\n   - The repository `github.com/myorg/training-code` must still be cloned and installed.\n   - The run command must still execute `python /home/user/training-code/train.py`.\n3. Write a one-line explanation of the root cause to `/home/user/fix_explanation.txt`.\n\nThe fixed YAML must be valid and avoid the collision.\n",
     "trials": [
       {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_gpu_embedding_service__pYsczmU",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 511.716,
-        "latency_breakdown": {
-          "env_setup": 12.127,
-          "agent_setup": 88.325,
-          "agent_exec": 338.109,
-          "verifier": 62.618
-        },
-        "tokens": {
-          "input": 0,
-          "output": 38565,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_gpu_embedding_service__2JTKCjo",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": true,
-        "latency_sec": 683.98,
-        "latency_breakdown": {
-          "env_setup": 6.049,
-          "agent_setup": 32.362,
-          "agent_exec": 600.007,
-          "verifier": 34.778
-        },
-        "tokens": {
-          "input": 0,
-          "output": 0,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_gpu_embedding_service__kzD6hwB",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 666.682,
-        "latency_breakdown": {
-          "env_setup": 5.207,
-          "agent_setup": 134.824,
-          "agent_exec": 499.441,
-          "verifier": 16.72
-        },
-        "tokens": {
-          "input": 0,
-          "output": 60213,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_gpu_embedding_service__HHe4CV4",
+        "job_name": "2026-04-01__14-23-35",
+        "trial_name": "file_mount_collision_fix__DVpAm58",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 700.124,
+        "latency_sec": 81.313,
         "latency_breakdown": {
-          "env_setup": 6.496,
-          "agent_setup": 50.23,
-          "agent_exec": 589.469,
-          "verifier": 43.408
+          "env_setup": 1.747,
+          "agent_setup": 21.364,
+          "agent_exec": 49.942,
+          "verifier": 6.546
         },
         "tokens": {
           "input": 0,
-          "output": 39493,
+          "output": 14284,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_gpu_embedding_service__Xxc7RAE",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 132.031,
-        "latency_breakdown": {
-          "env_setup": 3.944,
-          "agent_setup": 45.234,
-          "agent_exec": 63.819,
-          "verifier": 8.155
-        },
-        "tokens": {
-          "input": 0,
-          "output": 17325,
-          "cache": 0
-        }
-      }
-    ]
-  },
-  "modal_nfs_etl_pipeline": {
-    "instruction": "# Serverless ETL Pipeline with Network File System on Modal\n\nYou are a platform engineer building a serverless ETL pipeline on Modal that uses a Network File System as a shared staging area. The entire system must be implemented in a single file: `/home/user/etl_pipeline/app.py`.\n\n## System Requirements\n\nBuild a Modal App named `\"nfs-etl-pipeline\"` with the following capabilities:\n\n### ETL Processor (Modal Class with Lifecycle Hooks)\nDefine a stateful `ETLProcessor` class with lifecycle hooks that handles the extract-transform-load workflow.\n\n### Shared Staging Area (Modal NFS)\nUse a **Modal NetworkFileSystem named `etl-shared-fs`** (with `create_if_missing=True`) as the shared staging area for data between pipeline stages.\n\n### Database Credentials (Modal Secret)\nUse a **Modal Secret named `etl-db-config`** containing database credentials. The secret will be created with keys `DB_HOST` and `DB_PORT`. Your code should reference these keys from the secret (do NOT require any additional keys like `DB_USER` or `DB_PASSWORD` — only `DB_HOST` and `DB_PORT` are provided).\n\n### Pipeline State Tracking (Modal Dict)\nUse a **Modal Dict named `etl-pipeline-state`** (with `create_if_missing=True`) to track pipeline run status across batches. The Dict must contain:\n- `last_run_status` — a string that includes `\"success\"` when the pipeline completes successfully\n- `batches_processed` — the number of data batches processed (must be `2` after a full run)\n\n### Cron-Scheduled Trigger\nInclude a cron-scheduled function that triggers the pipeline on a regular interval.\n\n### Manual Trigger (Local Entrypoint)\nImplement a `@app.local_entrypoint()` that processes **two data batches** and records the outcome in the shared Dict, setting `last_run_status` to include `\"success\"` and `batches_processed` to `2`.\n\n## Deployment Instructions\n\nSet `MODAL_ENVIRONMENT=modal-vsdatagen` in your shell before running any Modal commands:\n\n```\nexport MODAL_ENVIRONMENT=modal-vsdatagen\n```\n\nDeploy the app:\n\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal deploy /home/user/etl_pipeline/app.py\n```\n\nAfter deployment, trigger a manual run to populate the NFS and Dict:\n\n```\nMODAL_ENVIRONMENT=modal-vsdatagen modal run /home/user/etl_pipeline/app.py\n```\n\n**Do NOT use the `-e` CLI flag.** Always set `MODAL_ENVIRONMENT` as an environment variable instead.\n",
-    "trials": [
-      {
-        "job_name": "2026-03-27__01-42-55",
-        "trial_name": "modal_nfs_etl_pipeline__ZLSVZ9k",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 274.843,
-        "latency_breakdown": {
-          "env_setup": 12.055,
-          "agent_setup": 79.389,
-          "agent_exec": 139.381,
-          "verifier": 33.531
-        },
-        "tokens": {
-          "input": 0,
-          "output": 23289,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-26__23-35-42",
-        "trial_name": "modal_nfs_etl_pipeline__L8GXHDY",
+        "job_name": "2026-04-01__14-25-18",
+        "trial_name": "file_mount_collision_fix__3X7S7Uj",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 337.953,
+        "latency_sec": 118.729,
         "latency_breakdown": {
-          "env_setup": 6.048,
-          "agent_setup": 45.623,
-          "agent_exec": 242.591,
-          "verifier": 33.23
+          "env_setup": 2.075,
+          "agent_setup": 21.298,
+          "agent_exec": 86.246,
+          "verifier": 6.821
         },
         "tokens": {
           "input": 0,
-          "output": 18566,
+          "output": 13018,
           "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-28__10-52-06",
-        "trial_name": "modal_nfs_etl_pipeline__u9SNgv2",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex-with-skills",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 200.311,
-        "latency_breakdown": {
-          "env_setup": 5.336,
-          "agent_setup": 134.095,
-          "agent_exec": 40.668,
-          "verifier": 8.258
         },
-        "tokens": {
-          "input": 0,
-          "output": 18528,
-          "cache": 0
-        }
+        "browser_verification_cases": []
       },
       {
-        "job_name": "2026-03-26__23-59-57",
-        "trial_name": "modal_nfs_etl_pipeline__oRySWpf",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 411.298,
-        "latency_breakdown": {
-          "env_setup": 6.484,
-          "agent_setup": 53.716,
-          "agent_exec": 301.208,
-          "verifier": 39.459
-        },
-        "tokens": {
-          "input": 0,
-          "output": 29263,
-          "cache": 0
-        }
-      },
-      {
-        "job_name": "2026-03-27__12-34-21",
-        "trial_name": "modal_nfs_etl_pipeline__pyrfTzw",
+        "job_name": "2026-04-01__14-38-37",
+        "trial_name": "file_mount_collision_fix__vs4Es8Y",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 131.938,
+        "latency_sec": 51.227,
         "latency_breakdown": {
-          "env_setup": 4.242,
-          "agent_setup": 68.048,
-          "agent_exec": 41.215,
-          "verifier": 7.454
+          "env_setup": 1.614,
+          "agent_setup": 19.729,
+          "agent_exec": 21.708,
+          "verifier": 6.712
         },
         "tokens": {
           "input": 0,
-          "output": 16067,
+          "output": 11250,
           "cache": 0
-        }
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-01__14-21-04",
+        "trial_name": "file_mount_collision_fix__rf8J78V",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 104.257,
+        "latency_breakdown": {
+          "env_setup": 2.08,
+          "agent_setup": 20.966,
+          "agent_exec": 71.669,
+          "verifier": 7.263
+        },
+        "tokens": {
+          "input": 0,
+          "output": 16735,
+          "cache": 0
+        },
+        "browser_verification_cases": []
       }
     ]
   }
