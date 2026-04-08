@@ -1,0 +1,89 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 5,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689145.0502512,
+            "stop": 1775689149.8714347
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_task_yaml_exists",
+                "status": "passed",
+                "duration": 0.00046530300096492283,
+                "start": 1775689145.0557837,
+                "stop": 1775689145.0565686,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_correct_name",
+                "status": "passed",
+                "duration": 0.0017743270000210032,
+                "start": 1775689145.0566492,
+                "stop": 1775689145.0591154,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_gcp",
+                "status": "passed",
+                "duration": 0.0020522759987215977,
+                "start": 1775689145.0591962,
+                "stop": 1775689145.0614047,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_n1_standard_1",
+                "status": "passed",
+                "duration": 0.0003101600013906136,
+                "start": 1775689145.0614698,
+                "stop": 1775689145.0618994,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_autostop",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00044967799840378575,
+                "start": 1775689145.0619552,
+                "stop": 1775689145.0685294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_task_yaml_has_autostop():\n        with open(TASK_YAML) as f:\n            content = f.read()\n        assert \"autostop\" in content or \"idle_minutes\" in content, \\\n            \"Expected autostop configuration in task.yaml\"\n>       assert \"5\" in content, \"Expected autostop value of 5 minutes in task.yaml\"\nE       AssertionError: Expected autostop value of 5 minutes in task.yaml\nE       assert '5' in 'name: bench-autostop-job\\nresources:\\n  cloud: gcp\\n  instance_type: n1-standard-1\\n  region: us-central1\\n\\nsetup: |\\n  pip install numpy\\n\\nrun: |\\n  python3 -c \"import numpy; print(\\'Autostop benchmark complete\\')\"\\n'\n\n/tests/test_final_state.py:46: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_launched_on_gcp",
+                "status": "passed",
+                "duration": 2.8765630010020686,
+                "start": 1775689145.0686216,
+                "stop": 1775689147.9454632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_status_is_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.923668005001673,
+                "start": 1775689147.9455762,
+                "stop": 1775689149.8712497,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cluster_status_is_active():\n        \"\"\"PRIMARY: Verify cluster is in an active state (UP or INIT) on GCP.\"\"\"\n        result = subprocess.run(\n            [\"sky\", \"status\", CLUSTER_NAME],\n            capture_output=True, text=True\n        )\n        assert result.returncode == 0, f\"sky status failed: {result.stderr}\"\n        output = result.stdout\n        is_active = any(state in output for state in [\"UP\", \"INIT\", \"LAUNCHING\", \"PROVISIONING\"])\n>       assert is_active, \\\n            f\"Expected cluster '{CLUSTER_NAME}' to be UP/INIT/LAUNCHING on GCP, got output:\\n{output}\"\nE       AssertionError: Expected cluster 'sky-bench-autostop' to be UP/INIT/LAUNCHING on GCP, got output:\nE         Cluster(s) not found: \u001b[1msky-bench-autostop\u001b[0m.\nE         Enabled Infra: gcp\nE         \nE         Clusters\nE         Cluster 'sky-bench-autostop' not found.\nE         \nE       assert False\n\n/tests/test_final_state.py:70: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689969.43434,
+            "stop": 1775689974.2419536
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_task_yaml_exists",
+                "status": "passed",
+                "duration": 0.00028778599880752154,
+                "start": 1775689969.4392226,
+                "stop": 1775689969.4396684,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_correct_name",
+                "status": "passed",
+                "duration": 0.0002085370033455547,
+                "start": 1775689969.4397383,
+                "stop": 1775689969.4400432,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_gcp",
+                "status": "passed",
+                "duration": 0.00022316099784802645,
+                "start": 1775689969.440099,
+                "stop": 1775689969.4404345,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_n1_standard_1",
+                "status": "passed",
+                "duration": 0.0002040370018221438,
+                "start": 1775689969.4404957,
+                "stop": 1775689969.4407854,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_has_autostop",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002736179994826671,
+                "start": 1775689969.4408395,
+                "stop": 1775689969.4459398,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_task_yaml_has_autostop():\n        with open(TASK_YAML) as f:\n            content = f.read()\n        assert \"autostop\" in content or \"idle_minutes\" in content, \\\n            \"Expected autostop configuration in task.yaml\"\n>       assert \"5\" in content, \"Expected autostop value of 5 minutes in task.yaml\"\nE       AssertionError: Expected autostop value of 5 minutes in task.yaml\nE       assert '5' in 'name: bench-autostop-job\\nresources:\\n  cloud: gcp\\n  instance_type: n1-standard-1\\n  region: us-central1\\nsetup: |\\n  pip install numpy\\nrun: |\\n  python3 -c \"import numpy; print(\\'Autostop benchmark complete\\')\"'\n\n/tests/test_final_state.py:46: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_launched_on_gcp",
+                "status": "passed",
+                "duration": 2.803348498997366,
+                "start": 1775689969.44602,
+                "stop": 1775689972.2496378,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_status_is_active",
+                "status": "passed",
+                "duration": 1.991737288000877,
+                "start": 1775689972.2497513,
+                "stop": 1775689974.241764,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

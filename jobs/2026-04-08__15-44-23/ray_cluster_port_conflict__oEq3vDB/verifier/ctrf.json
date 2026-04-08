@@ -1,0 +1,104 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775688620.8720617,
+            "stop": 1775688633.7259896
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fixed_yaml_exists",
+                "status": "passed",
+                "duration": 0.00028586299958988093,
+                "start": 1775688620.8773484,
+                "stop": 1775688620.877767,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_parseable_by_skypilot",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.744487444000697,
+                "start": 1775688620.8778431,
+                "stop": 1775688621.6273236,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_fixed_yaml_parseable_by_skypilot():\n        result = subprocess.run(\n            [\"/opt/venv/bin/python3\", \"-c\", f\"import sky; t = sky.Task.from_yaml('{FIXED_YAML}'); print('Fixed:', t.name)\"],\n            capture_output=True, text=True, cwd=\"/home/user\"\n        )\n>       assert result.returncode == 0, \\\n            f\"SkyPilot failed to parse fixed_ray_task.yaml: {result.stderr}\"\nE       AssertionError: SkyPilot failed to parse fixed_ray_task.yaml: Traceback (most recent call last):\nE           File \"<string>\", line 1, in <module>\nE           File \"/opt/venv/lib/python3.12/site-packages/sky/task.py\", line 811, in from_yaml\nE             return Task.from_yaml_str(user_specified_yaml)\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/opt/venv/lib/python3.12/site-packages/sky/task.py\", line 822, in from_yaml_str\nE             config = yaml_utils.safe_load(yaml_str)\nE                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/opt/venv/lib/python3.12/site-packages/sky/utils/yaml_utils.py\", line 21, in safe_load\nE             return yaml.load(stream, Loader=yaml.CSafeLoader)\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/opt/venv/lib/python3.12/site-packages/yaml/__init__.py\", line 81, in load\nE             return loader.get_single_data()\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/opt/venv/lib/python3.12/site-packages/yaml/constructor.py\", line 49, in get_single_data\nE             node = self.get_single_node()\nE                    ^^^^^^^^^^^^^^^^^^^^^^\nE           File \"yaml/_yaml.pyx\", line 674, in yaml._yaml.CParser.get_single_node\nE           File \"yaml/_yaml.pyx\", line 688, in yaml._yaml.CParser._compose_document\nE           File \"yaml/_yaml.pyx\", line 732, in yaml._yaml.CParser._compose_node\nE           File \"yaml/_yaml.pyx\", line 848, in yaml._yaml.CParser._compose_mapping_node\nE           File \"yaml/_yaml.pyx\", line 861, in yaml._yaml.CParser._parse_next_event\nE         yaml.scanner.ScannerError: while scanning a simple key\nE           in \"<unicode string>\", line 21, column 1\nE         could not find expected ':'\nE           in \"<unicode string>\", line 22, column 1\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/opt/venv/bin/python3', '-c', \"import sky; t = sky.Task.from_yaml('/home/user/fixed_ray_task.y...in \"<unicode string>\", line 21, column 1\\ncould not find expected \\':\\'\\n  in \"<unicode string>\", line 22, column 1\\n').returncode\n\n/tests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_uses_port_6379",
+                "status": "passed",
+                "duration": 0.0012943179972353391,
+                "start": 1775688621.6274102,
+                "stop": 1775688621.6288314,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_does_not_use_conflicting_port",
+                "status": "passed",
+                "duration": 0.0002787369994621258,
+                "start": 1775688621.6289022,
+                "stop": 1775688621.6292942,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_has_task_name",
+                "status": "passed",
+                "duration": 0.00025694699797895737,
+                "start": 1775688621.6293514,
+                "stop": 1775688621.6297112,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_exists",
+                "status": "passed",
+                "duration": 0.000248488002398517,
+                "start": 1775688621.629764,
+                "stop": 1775688621.6301148,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_valid",
+                "status": "passed",
+                "duration": 0.00032323500272468664,
+                "start": 1775688621.6301656,
+                "stop": 1775688621.6306136,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_fields",
+                "status": "passed",
+                "duration": 0.0002710290027607698,
+                "start": 1775688621.630671,
+                "stop": 1775688621.6310403,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 12.094384452000668,
+                "start": 1775688621.631092,
+                "stop": 1775688633.7257624,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

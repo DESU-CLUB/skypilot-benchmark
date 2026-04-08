@@ -1,0 +1,146 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.
+downloading uv 0.9.7 aarch64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 9ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 8 items
+
+../../tests/test_final_state.py FFFFFFFF                                 [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_script_exists ______________________________
+
+    def test_script_exists():
+>       assert os.path.isfile(SCRIPT_PATH), f"launch_task.py not found at {SCRIPT_PATH}"
+E       AssertionError: launch_task.py not found at /home/user/launch_task.py
+E       assert False
+E        +  where False = <function isfile at 0xe59def380220>('/home/user/launch_task.py')
+E        +    where <function isfile at 0xe59def380220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:20: AssertionError
+_______________________ test_script_uses_stream_and_get ________________________
+
+    def test_script_uses_stream_and_get():
+>       with open(SCRIPT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_task.py'
+
+/tests/test_final_state.py:24: FileNotFoundError
+_________________________ test_script_uses_sky_launch __________________________
+
+    def test_script_uses_sky_launch():
+>       with open(SCRIPT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_task.py'
+
+/tests/test_final_state.py:31: FileNotFoundError
+___________________________ test_result_json_exists ____________________________
+
+    def test_result_json_exists():
+>       assert os.path.isfile(RESULT_PATH), \
+            f"launch_result.json not found at {RESULT_PATH} — script may not have been run"
+E       AssertionError: launch_result.json not found at /home/user/launch_result.json — script may not have been run
+E       assert False
+E        +  where False = <function isfile at 0xe59def380220>('/home/user/launch_result.json')
+E        +    where <function isfile at 0xe59def380220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:37: AssertionError
+____________________________ test_result_json_valid ____________________________
+
+    def test_result_json_valid():
+>       with open(RESULT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_result.json'
+
+/tests/test_final_state.py:42: FileNotFoundError
+___________________________ test_result_json_fields ____________________________
+
+    def test_result_json_fields():
+>       with open(RESULT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_result.json'
+
+/tests/test_final_state.py:48: FileNotFoundError
+_________________________ test_cluster_launched_on_gcp _________________________
+
+    def test_cluster_launched_on_gcp():
+        """PRIMARY: Verify cluster actually exists on GCP via sky status."""
+        result = subprocess.run(
+            ["sky", "status", CLUSTER_NAME],
+            capture_output=True, text=True
+        )
+>       assert result.returncode == 0, \
+            f"sky status {CLUSTER_NAME} failed — cluster not found on GCP: {result.stderr}\n{result.stdout}"
+E       AssertionError: sky status sky-bench-sdk failed — cluster not found on GCP: ConnectionRefusedError: [Errno 111] Connection refused
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused
+E         
+E         The above exception was the direct cause of the following exception:
+E         
+E         urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused"))
+E         
+E         During handling of the above exception, another exception occurred:
+E         
+E         requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused"))
+E         
+E         [2mFailed to connect to SkyPilot API server at http://127.0.0.1:46580. Starting a local server.[0m
+E         [33mYour SkyPilot API server machine only has 2.0GB memory available. At least 2GB is recommended to support higher load with better performance.[0m
+E         [0m[32m✓ SkyPilot API server started. [0m[0m
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['sky', 'status', 'sky-bench-sdk'], returncode=1, stdout='\x1b[2mFailed to connect to SkyPilot A...Connection(host=\'127.0.0.1\', port=46580): Failed to establish a new connection: [Errno 111] Connection refused"))\n').returncode
+
+/tests/test_final_state.py:64: AssertionError
+________________________ test_cluster_status_is_active _________________________
+
+    def test_cluster_status_is_active():
+        """PRIMARY: Verify cluster is active on GCP."""
+        result = subprocess.run(["sky", "status", CLUSTER_NAME], capture_output=True, text=True)
+        assert result.returncode == 0, f"sky status failed: {result.stderr}"
+        is_active = any(s in result.stdout for s in ["UP", "INIT", "LAUNCHING", "PROVISIONING"])
+>       assert is_active, \
+            f"Expected cluster '{CLUSTER_NAME}' to be UP/INIT on GCP, got:\n{result.stdout}"
+E       AssertionError: Expected cluster 'sky-bench-sdk' to be UP/INIT on GCP, got:
+E         Cluster(s) not found: [1msky-bench-sdk[0m.
+E         Enabled Infra: 
+E         
+E         Clusters
+E         Cluster 'sky-bench-sdk' not found.
+E         
+E       assert False
+
+/tests/test_final_state.py:75: AssertionError
+=========================== short test summary info ============================
+FAILED ../../tests/test_final_state.py::test_script_exists - AssertionError: ...
+FAILED ../../tests/test_final_state.py::test_script_uses_stream_and_get - Fil...
+FAILED ../../tests/test_final_state.py::test_script_uses_sky_launch - FileNot...
+FAILED ../../tests/test_final_state.py::test_result_json_exists - AssertionEr...
+FAILED ../../tests/test_final_state.py::test_result_json_valid - FileNotFound...
+FAILED ../../tests/test_final_state.py::test_result_json_fields - FileNotFoun...
+FAILED ../../tests/test_final_state.py::test_cluster_launched_on_gcp - Assert...
+FAILED ../../tests/test_final_state.py::test_cluster_status_is_active - Asser...
+============================== 8 failed in 18.94s ==============================
+Cluster(s) not found: [1msky-bench-sdk[0m.
+Cluster(s) not found (tip: see `sky status`).

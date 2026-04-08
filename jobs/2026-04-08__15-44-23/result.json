@@ -1,0 +1,40 @@
+{
+    "id": "ab54a71c-215f-4d98-8916-d3300daee911",
+    "started_at": "2026-04-08T15:44:29.390716",
+    "finished_at": "2026-04-08T15:55:23.729265",
+    "n_total_trials": 10,
+    "stats": {
+        "n_trials": 10,
+        "n_errors": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__skypilot-tasks": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.7
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "managed_job_spot_failover__CHrq2eY",
+                            "sdk_async_stream_and_get__CecBrbC",
+                            "private_repo_dependency_setup__jhMQKwN",
+                            "file_mount_s3_cached__zrsdUVC",
+                            "file_mount_collision_fix__JjRcics",
+                            "stop_and_terminate_clusters__4hmmzRf",
+                            "skyserve_vllm_autoscaling__ms9zaiu"
+                        ],
+                        "0.0": [
+                            "configure_sky_resources_yaml__qRP7Jpp",
+                            "launch_gpu_cluster_with_autostop__Y8vC8Pd",
+                            "ray_cluster_port_conflict__oEq3vDB"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

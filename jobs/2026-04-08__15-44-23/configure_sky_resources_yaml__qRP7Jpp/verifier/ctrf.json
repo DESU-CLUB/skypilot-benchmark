@@ -1,0 +1,112 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775688348.979907,
+            "stop": 1775688372.9948306
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.00023607999901287258,
+                "start": 1775688348.985451,
+                "stop": 1775688348.9858088,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tasks_directory_exists",
+                "status": "passed",
+                "duration": 0.00018316299974685535,
+                "start": 1775688348.9858775,
+                "stop": 1775688348.9861405,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_exists",
+                "status": "passed",
+                "duration": 0.00020487000074354,
+                "start": 1775688348.9862065,
+                "stop": 1775688348.9865134,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::job_name::['data-prep-job', 'training-job', 'eval-job']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_parseable",
+                "status": "passed",
+                "duration": 0.7287328410020564,
+                "start": 1775688348.9871993,
+                "stop": 1775688349.7161741,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::job_name::['data-prep-job', 'training-job', 'eval-job']"
+                ]
+            },
+            {
+                "name": "test_final_state.py::test_cluster_launched_on_gcp",
+                "status": "failed",
+                "duration": 4.033704679000948,
+                "start": 1775688351.2045825,
+                "stop": 1775688355.2763925,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::cluster_name::['sky-bench-data-prep', 'sky-bench-training', 'sky-bench-eval']"
+                ],
+                "trace": "cluster_name = 'sky-bench-data-prep'\n\n    @pytest.mark.parametrize(\"cluster_name\", CLUSTER_NAMES)\n    def test_cluster_launched_on_gcp(cluster_name):\n        \"\"\"PRIMARY: Verify cluster was actually launched on GCP.\"\"\"\n        result = subprocess.run(\n            [\"sky\", \"status\", cluster_name],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"sky status {cluster_name} failed \u2014 not found on GCP: {result.stderr}\\n{result.stdout}\"\nE       AssertionError: sky status sky-bench-data-prep failed \u2014 not found on GCP: ConnectionRefusedError: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         During handling of the above exception, another exception occurred:\nE         \nE         requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         \u001b[2mFailed to connect to SkyPilot API server at http://127.0.0.1:46580. Starting a local server.\u001b[0m\nE         \u001b[33mYour SkyPilot API server machine only has 2.0GB memory available. At least 2GB is recommended to support higher load with better performance.\u001b[0m\nE         \u001b[0m\u001b[32m\u2713 SkyPilot API server started. \u001b[0m\u001b[0m\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['sky', 'status', 'sky-bench-data-prep'], returncode=1, stdout='\\x1b[2mFailed to connect to SkyP...Connection(host=\\'127.0.0.1\\', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\\n').returncode\n\n/tests/test_final_state.py:53: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_exists",
+                "status": "passed",
+                "duration": 0.0004014910009573214,
+                "start": 1775688366.9068608,
+                "stop": 1775688366.9074833,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_total_jobs",
+                "status": "passed",
+                "duration": 0.00037090800105943345,
+                "start": 1775688366.9075825,
+                "stop": 1775688366.908106,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_all_successful",
+                "status": "passed",
+                "duration": 0.00034344999585300684,
+                "start": 1775688366.9081829,
+                "stop": 1775688366.9086893,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 6.085657350999099,
+                "start": 1775688366.9087574,
+                "stop": 1775688372.9946558,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

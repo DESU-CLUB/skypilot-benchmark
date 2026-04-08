@@ -1,0 +1,81 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed and GCP credentials configured for project `skypilot-benchmark-492600`.
+
+Create a SkyPilot task YAML at `/home/user/task.yaml` that defines a lightweight compute job on GCP, then launch it as a cluster named `sky-bench-autostop`.
+
+The task YAML must:
+- Be named `bench-autostop-job`
+- Target GCP with instance type `n1-standard-1` in region `us-central1`
+- Set autostop to stop the cluster after **5 minutes** of idleness
+- Include a setup step that installs numpy
+- Include a run step that prints: `python3 -c "import numpy; print('Autostop benchmark complete')"`
+
+After writing the YAML, write a Python script at `/home/user/launch.py` that uses the SkyPilot Python SDK to launch the cluster:
+
+Since SkyPilot v0.8.1, the Python SDK is **asynchronous**: `sky.launch()` returns a `request_id` string rather than blocking. To wait for completion, you must call `sky.stream_and_get(request_id)`.
+
+1. Load the task from YAML: `sky.Task.from_yaml('/home/user/task.yaml')`
+2. Call `sky.launch(task, cluster_name='sky-bench-autostop', idle_minutes_to_autostop=5, detach_run=True)` to get a `request_id`
+3. Pass `request_id` to `sky.stream_and_get(request_id)` to wait for completion
+
+Run the script: `python3 /home/user/launch.py`
+
+The cluster `sky-bench-autostop` must appear in `sky status` after the script exits.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

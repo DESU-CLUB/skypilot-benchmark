@@ -1,0 +1,119 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689191.9615057,
+            "stop": 1775689205.0773368
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 12.271716059000028,
+                "start": 1775689191.96818,
+                "stop": 1775689204.2417796,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_exists",
+                "status": "passed",
+                "duration": 0.0003994919934484642,
+                "start": 1775689204.2419436,
+                "stop": 1775689204.2425354,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.8303820270011784,
+                "start": 1775689204.2426267,
+                "stop": 1775689205.0732522,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_task_name",
+                "status": "passed",
+                "duration": 0.0003984079994552303,
+                "start": 1775689205.0733697,
+                "stop": 1775689205.0739124,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_git_token_env",
+                "status": "passed",
+                "duration": 0.00035957199725089595,
+                "start": 1775689205.0739973,
+                "stop": 1775689205.0745084,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_git_clone_with_token",
+                "status": "passed",
+                "duration": 0.000296651000098791,
+                "start": 1775689205.0745692,
+                "stop": 1775689205.0749874,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_pip_install",
+                "status": "passed",
+                "duration": 0.00027918900377699174,
+                "start": 1775689205.0750656,
+                "stop": 1775689205.0754676,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcp_n1",
+                "status": "passed",
+                "duration": 0.00029039999935775995,
+                "start": 1775689205.0755198,
+                "stop": 1775689205.0759275,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_exists",
+                "status": "passed",
+                "duration": 0.000269772997853579,
+                "start": 1775689205.0759974,
+                "stop": 1775689205.0763686,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_valid",
+                "status": "passed",
+                "duration": 0.0002638550031406339,
+                "start": 1775689205.0764213,
+                "stop": 1775689205.07678,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_fields",
+                "status": "passed",
+                "duration": 0.00024935499823186547,
+                "start": 1775689205.0768301,
+                "stop": 1775689205.0771728,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

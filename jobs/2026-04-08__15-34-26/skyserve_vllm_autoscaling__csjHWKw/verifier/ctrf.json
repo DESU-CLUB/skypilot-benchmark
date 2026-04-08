@@ -1,0 +1,137 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775688162.5197833,
+            "stop": 1775688174.6898227
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_vllm_serve_yaml_exists",
+                "status": "passed",
+                "duration": 0.00024267100161523558,
+                "start": 1775688162.5264812,
+                "stop": 1775688162.5268524,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.7736217590027081,
+                "start": 1775688162.526923,
+                "stop": 1775688163.3007972,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_service_name",
+                "status": "passed",
+                "duration": 0.000301338001008844,
+                "start": 1775688163.3009334,
+                "stop": 1775688163.301364,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_readiness_probe",
+                "status": "passed",
+                "duration": 0.00018821200137608685,
+                "start": 1775688163.3014262,
+                "stop": 1775688163.3016977,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_autoscaling",
+                "status": "passed",
+                "duration": 0.00017421099983039312,
+                "start": 1775688163.3017495,
+                "stop": 1775688163.3020005,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcp",
+                "status": "passed",
+                "duration": 0.00016575200424995273,
+                "start": 1775688163.30205,
+                "stop": 1775688163.3022995,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_t4_gpu",
+                "status": "passed",
+                "duration": 0.00017933699928107671,
+                "start": 1775688163.3023462,
+                "stop": 1775688163.3025987,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_port_8080",
+                "status": "passed",
+                "duration": 0.00015954399714246392,
+                "start": 1775688163.3026447,
+                "stop": 1775688163.302874,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_vllm",
+                "status": "passed",
+                "duration": 0.0002010449970839545,
+                "start": 1775688163.3029203,
+                "stop": 1775688163.3032064,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_exists",
+                "status": "passed",
+                "duration": 0.00033979900035774335,
+                "start": 1775688163.3032534,
+                "stop": 1775688163.303744,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_valid",
+                "status": "passed",
+                "duration": 0.00024121199749060906,
+                "start": 1775688163.3038282,
+                "stop": 1775688163.30417,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_fields",
+                "status": "passed",
+                "duration": 0.0002820879999489989,
+                "start": 1775688163.304232,
+                "stop": 1775688163.3046052,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 11.38473186900228,
+                "start": 1775688163.3046572,
+                "stop": 1775688174.6896389,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

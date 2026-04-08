@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689338.2545104,
+            "stop": 1775689343.9608068
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 5.696801595000579,
+                "start": 1775689338.2600322,
+                "stop": 1775689343.9571352,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.00025588500648154877,
+                "start": 1775689343.957263,
+                "stop": 1775689343.9576404,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_is_executable",
+                "status": "passed",
+                "duration": 0.00019542300287866965,
+                "start": 1775689343.9577084,
+                "stop": 1775689343.9579968,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_valid_bash_syntax",
+                "status": "passed",
+                "duration": 0.0008906559996830765,
+                "start": 1775689343.9580505,
+                "stop": 1775689343.9590366,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_contains_sky_status",
+                "status": "passed",
+                "duration": 0.0002202159994340036,
+                "start": 1775689343.9590964,
+                "stop": 1775689343.9594238,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_contains_sky_stop_all",
+                "status": "passed",
+                "duration": 0.0001692970035946928,
+                "start": 1775689343.959482,
+                "stop": 1775689343.9597285,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_contains_sky_down_all",
+                "status": "passed",
+                "duration": 0.00017833899619290605,
+                "start": 1775689343.9597774,
+                "stop": 1775689343.9600434,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_logs_output",
+                "status": "passed",
+                "duration": 0.00019796600099653006,
+                "start": 1775689343.9600909,
+                "stop": 1775689343.9603708,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.00018383900169283152,
+                "start": 1775689343.9604208,
+                "stop": 1775689343.9606884,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

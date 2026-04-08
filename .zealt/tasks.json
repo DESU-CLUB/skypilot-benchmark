@@ -1,95 +1,192 @@
 {
-  "launch_gpu_cluster_with_autostop": {
-    "instruction": "You are working in a SkyPilot environment. Your goal is to write a valid SkyPilot task YAML file at `/home/user/train_job.yaml` that defines a GPU training job with the following requirements:\n\n1. The job should request exactly **1 A100 GPU**.\n2. The job must use **spot instances** to save cost.\n3. The job must have an **autostop policy of 10 minutes** idle time (so the cluster shuts down automatically after being idle for 10 minutes).\n4. The job must be configured to run on **either AWS (us-east-1) or GCP (us-central1)** using SkyPilot's multi-cloud fallback mechanism.\n5. The `setup` section should install PyTorch: `pip install torch`.\n6. The `run` section should execute: `python -c \"import torch; print(torch.cuda.is_available())\"`.\n\nDo NOT run `sky launch` — write the YAML file only. SkyPilot will be validated by inspecting the YAML structure.\n\nConstraints:\n- Save the file to exactly `/home/user/train_job.yaml`.\n- Use correct SkyPilot YAML schema field names.\n- The file must be parseable as valid YAML.\n",
+  "sdk_async_stream_and_get": {
+    "instruction": "",
     "trials": [
       {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "launch_gpu_cluster_with_autostop__qfnoGBx",
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "sdk_async_stream_and_get__RkE3HPb",
         "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": false,
-        "reward": 0,
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
         "error": false,
-        "latency_sec": 64.666,
+        "latency_sec": 255.412,
         "latency_breakdown": {
-          "env_setup": 1.93,
-          "agent_setup": 20.11,
-          "agent_exec": 33.988,
-          "verifier": 6.818
+          "env_setup": 2.703,
+          "agent_setup": 24.073,
+          "agent_exec": 178.717,
+          "verifier": 39.551
         },
         "tokens": {
           "input": 0,
-          "output": 13791,
+          "output": 17561,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "launch_gpu_cluster_with_autostop__gZhjCpz",
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "sdk_async_stream_and_get__CouinzA",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 284.604,
+        "latency_breakdown": {
+          "env_setup": 2.488,
+          "agent_setup": 22.087,
+          "agent_exec": 206.207,
+          "verifier": 43.422
+        },
+        "tokens": {
+          "input": 0,
+          "output": 29344,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "sdk_async_stream_and_get__nxqGCAo",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": false,
+        "reward": 0,
+        "error": true,
+        "latency_sec": 250.583,
+        "latency_breakdown": {
+          "env_setup": 2.193,
+          "agent_setup": 23.21,
+          "agent_exec": 184.576,
+          "verifier": 30.149
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "sdk_async_stream_and_get__CecBrbC",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 189.947,
+        "latency_sec": 289.993,
         "latency_breakdown": {
-          "env_setup": 2.376,
-          "agent_setup": 20.037,
-          "agent_exec": 158.621,
-          "verifier": 6.901
+          "env_setup": 2.578,
+          "agent_setup": 19.444,
+          "agent_exec": 215.215,
+          "verifier": 42.374
         },
         "tokens": {
           "input": 0,
-          "output": 37985,
+          "output": 14533,
           "cache": 0
         },
         "browser_verification_cases": []
-      },
+      }
+    ]
+  },
+  "stop_and_terminate_clusters": {
+    "instruction": "",
+    "trials": [
       {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "launch_gpu_cluster_with_autostop__rPd78mK",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 59.191,
-        "latency_breakdown": {
-          "env_setup": 2.078,
-          "agent_setup": 20.317,
-          "agent_exec": 28.184,
-          "verifier": 6.903
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11706,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "launch_gpu_cluster_with_autostop__VtdHyvN",
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "stop_and_terminate_clusters__L777y3K",
         "agent": "pochi",
         "model": "anthropic/claude-4-6-sonnet",
         "provider": "anthropic",
-        "passed": false,
-        "reward": 0,
+        "passed": true,
+        "reward": 1,
         "error": false,
-        "latency_sec": 72.444,
+        "latency_sec": 93.12,
         "latency_breakdown": {
-          "env_setup": 1.736,
-          "agent_setup": 20.998,
-          "agent_exec": 40.635,
-          "verifier": 7.385
+          "env_setup": 1.701,
+          "agent_setup": 12.663,
+          "agent_exec": 57.401,
+          "verifier": 10.995
         },
         "tokens": {
           "input": 0,
-          "output": 15541,
+          "output": 29796,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "stop_and_terminate_clusters__GDZjKXJ",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 93.461,
+        "latency_breakdown": {
+          "env_setup": 1.675,
+          "agent_setup": 17.424,
+          "agent_exec": 50.274,
+          "verifier": 13.731
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11626,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "stop_and_terminate_clusters__S8qrYt6",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": true,
+        "reward": 1,
+        "error": true,
+        "latency_sec": 84.011,
+        "latency_breakdown": {
+          "env_setup": 1.955,
+          "agent_setup": 15.449,
+          "agent_exec": 42.223,
+          "verifier": 13.933
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "stop_and_terminate_clusters__4hmmzRf",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 87.467,
+        "latency_breakdown": {
+          "env_setup": 1.663,
+          "agent_setup": 13.567,
+          "agent_exec": 50.68,
+          "verifier": 11.234
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11835,
           "cache": 0
         },
         "browser_verification_cases": []
@@ -97,96 +194,581 @@
     ]
   },
   "private_repo_dependency_setup": {
-    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML at `/home/user/private_train.yaml` that runs a training job requiring a **private GitHub repository** as a dependency.\n\nThe job requirements:\n\n1. **Job name**: `private-train`\n2. **Compute**: 2 CPUs (no GPU needed).\n3. **Secret handling**: The job uses a GitHub personal access token stored in an environment variable called `GIT_TOKEN`. The YAML should declare this environment variable with an empty default (it will be supplied at `sky launch` time with `--env GIT_TOKEN=<token>`).\n4. **Setup**: The setup script must:\n   - Clone the private repository at `github.com/myorg/private-training-lib` using the `GIT_TOKEN` for authentication (via HTTPS with OAuth2 token pattern).\n   - Install the cloned repository as a Python package (editable install using `pip install -e .`).\n5. **Run**: Execute `python train.py`.\n\nSave the configuration to `/home/user/private_train.yaml`. The file must be valid YAML.\n",
+    "instruction": "",
     "trials": [
       {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "private_repo_dependency_setup__EaQW7Wm",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 65.417,
-        "latency_breakdown": {
-          "env_setup": 2.31,
-          "agent_setup": 24.088,
-          "agent_exec": 27.425,
-          "verifier": 9.082
-        },
-        "tokens": {
-          "input": 0,
-          "output": 13278,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "private_repo_dependency_setup__wnQHfax",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 66.207,
-        "latency_breakdown": {
-          "env_setup": 2.311,
-          "agent_setup": 25.458,
-          "agent_exec": 25.505,
-          "verifier": 10.466
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11324,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "private_repo_dependency_setup__sU7SBYX",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 51.506,
-        "latency_breakdown": {
-          "env_setup": 2.155,
-          "agent_setup": 23.265,
-          "agent_exec": 15.881,
-          "verifier": 8.043
-        },
-        "tokens": {
-          "input": 0,
-          "output": 10982,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "private_repo_dependency_setup__fNJJsSE",
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "private_repo_dependency_setup__pWarKZG",
         "agent": "pochi",
         "model": "anthropic/claude-4-6-sonnet",
         "provider": "anthropic",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 61.412,
+        "latency_sec": 96.26,
         "latency_breakdown": {
-          "env_setup": 2.223,
-          "agent_setup": 22.94,
-          "agent_exec": 26.064,
-          "verifier": 8.043
+          "env_setup": 1.608,
+          "agent_setup": 13.932,
+          "agent_exec": 48.424,
+          "verifier": 21.925
         },
         "tokens": {
           "input": 0,
-          "output": 14371,
+          "output": 15996,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "private_repo_dependency_setup__QQDZfFB",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 90.999,
+        "latency_breakdown": {
+          "env_setup": 1.916,
+          "agent_setup": 12.817,
+          "agent_exec": 45.548,
+          "verifier": 20.336
+        },
+        "tokens": {
+          "input": 0,
+          "output": 12128,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "private_repo_dependency_setup__NNY5jA4",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 68.654,
+        "latency_breakdown": {
+          "env_setup": 1.744,
+          "agent_setup": 13.154,
+          "agent_exec": 19.861,
+          "verifier": 23.478
+        },
+        "tokens": {
+          "input": 0,
+          "output": 13422,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "private_repo_dependency_setup__jhMQKwN",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 94.955,
+        "latency_breakdown": {
+          "env_setup": 1.951,
+          "agent_setup": 16.486,
+          "agent_exec": 45.814,
+          "verifier": 20.376
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11772,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      }
+    ]
+  },
+  "skyserve_vllm_autoscaling": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "skyserve_vllm_autoscaling__csjHWKw",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": true,
+        "latency_sec": 134.141,
+        "latency_breakdown": {
+          "env_setup": 1.848,
+          "agent_setup": 17.751,
+          "agent_exec": 83.922,
+          "verifier": 20.207
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "skyserve_vllm_autoscaling__2RKegwj",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": false,
+        "reward": null,
+        "error": true,
+        "latency_sec": 18.983,
+        "latency_breakdown": {
+          "env_setup": 2.127,
+          "agent_setup": 6.464,
+          "agent_exec": null,
+          "verifier": null
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "skyserve_vllm_autoscaling__pahsQgn",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 78.551,
+        "latency_breakdown": {
+          "env_setup": 1.768,
+          "agent_setup": 16.659,
+          "agent_exec": 29.711,
+          "verifier": 20.066
+        },
+        "tokens": {
+          "input": 0,
+          "output": 14337,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "skyserve_vllm_autoscaling__ms9zaiu",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 131.364,
+        "latency_breakdown": {
+          "env_setup": 2.096,
+          "agent_setup": 11.257,
+          "agent_exec": 88.792,
+          "verifier": 18.845
+        },
+        "tokens": {
+          "input": 0,
+          "output": 13270,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      }
+    ]
+  },
+  "managed_job_spot_failover": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "managed_job_spot_failover__iTMUc64",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": true,
+        "latency_sec": 120.64,
+        "latency_breakdown": {
+          "env_setup": 2.697,
+          "agent_setup": 23.817,
+          "agent_exec": 61.542,
+          "verifier": 22.229
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "managed_job_spot_failover__NYuwrJn",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 153.006,
+        "latency_breakdown": {
+          "env_setup": 2.477,
+          "agent_setup": 21.947,
+          "agent_exec": 96.555,
+          "verifier": 21.656
+        },
+        "tokens": {
+          "input": 0,
+          "output": 81920,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "managed_job_spot_failover__ZteZC5x",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": false,
+        "reward": 0,
+        "error": true,
+        "latency_sec": 247.574,
+        "latency_breakdown": {
+          "env_setup": 2.169,
+          "agent_setup": 17.377,
+          "agent_exec": 184.702,
+          "verifier": 32.826
+        },
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "managed_job_spot_failover__CHrq2eY",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 201.639,
+        "latency_breakdown": {
+          "env_setup": 2.602,
+          "agent_setup": 19.131,
+          "agent_exec": 147.377,
+          "verifier": 22.189
+        },
+        "tokens": {
+          "input": 0,
+          "output": 18617,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      }
+    ]
+  },
+  "launch_gpu_cluster_with_autostop": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "launch_gpu_cluster_with_autostop__hxw8Cgs",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 262.46,
+        "latency_breakdown": {
+          "env_setup": 1.894,
+          "agent_setup": 15.686,
+          "agent_exec": 180.71,
+          "verifier": 53.698
+        },
+        "tokens": {
+          "input": 0,
+          "output": 19555,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "launch_gpu_cluster_with_autostop__rZotRrs",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 82.023,
+        "latency_breakdown": {
+          "env_setup": 1.948,
+          "agent_setup": 13.108,
+          "agent_exec": 45.317,
+          "verifier": 11.296
+        },
+        "tokens": {
+          "input": 0,
+          "output": 12403,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "launch_gpu_cluster_with_autostop__jvcZJUU",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 287.341,
+        "latency_breakdown": {
+          "env_setup": 2.356,
+          "agent_setup": 20.976,
+          "agent_exec": 217.905,
+          "verifier": 35.741
+        },
+        "tokens": {
+          "input": 0,
+          "output": 28441,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "launch_gpu_cluster_with_autostop__Y8vC8Pd",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": false,
+        "reward": 0,
+        "error": false,
+        "latency_sec": 539.281,
+        "latency_breakdown": {
+          "env_setup": 2.141,
+          "agent_setup": 16.007,
+          "agent_exec": 448.688,
+          "verifier": 62.071
+        },
+        "tokens": {
+          "input": 0,
+          "output": 20336,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      }
+    ]
+  },
+  "file_mount_collision_fix": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "file_mount_collision_fix__9ezZSvp",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 99.751,
+        "latency_breakdown": {
+          "env_setup": 2.35,
+          "agent_setup": 15.515,
+          "agent_exec": 52.706,
+          "verifier": 18.766
+        },
+        "tokens": {
+          "input": 0,
+          "output": 16780,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "file_mount_collision_fix__AkFTxcc",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 94.79,
+        "latency_breakdown": {
+          "env_setup": 2.285,
+          "agent_setup": 15.88,
+          "agent_exec": 45.82,
+          "verifier": 20.448
+        },
+        "tokens": {
+          "input": 0,
+          "output": 25095,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "file_mount_collision_fix__pWUbEzs",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 71.605,
+        "latency_breakdown": {
+          "env_setup": 1.703,
+          "agent_setup": 15.223,
+          "agent_exec": 22.615,
+          "verifier": 21.706
+        },
+        "tokens": {
+          "input": 0,
+          "output": 14084,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "file_mount_collision_fix__JjRcics",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 153.115,
+        "latency_breakdown": {
+          "env_setup": 2.119,
+          "agent_setup": 18.246,
+          "agent_exec": 104.368,
+          "verifier": 17.97
+        },
+        "tokens": {
+          "input": 0,
+          "output": 13715,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      }
+    ]
+  },
+  "file_mount_s3_cached": {
+    "instruction": "",
+    "trials": [
+      {
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "file_mount_s3_cached__yoipVtv",
+        "agent": "pochi",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 88.051,
+        "latency_breakdown": {
+          "env_setup": 1.931,
+          "agent_setup": 12.755,
+          "agent_exec": 41.22,
+          "verifier": 21.773
+        },
+        "tokens": {
+          "input": 0,
+          "output": 15644,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "file_mount_s3_cached__zB9W63q",
+        "agent": "pochi",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 78.457,
+        "latency_breakdown": {
+          "env_setup": 1.867,
+          "agent_setup": 10.875,
+          "agent_exec": 31.973,
+          "verifier": 23.368
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11840,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "file_mount_s3_cached__kdYtHzR",
+        "agent": "pochi",
+        "model": "zai/glm-4.7",
+        "provider": "zai",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 61.118,
+        "latency_breakdown": {
+          "env_setup": 1.994,
+          "agent_setup": 10.879,
+          "agent_exec": 20.443,
+          "verifier": 17.437
+        },
+        "tokens": {
+          "input": 0,
+          "output": 13409,
+          "cache": 0
+        },
+        "browser_verification_cases": []
+      },
+      {
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "file_mount_s3_cached__zrsdUVC",
+        "agent": "pochi",
+        "model": "google/gemini-3.1-pro",
+        "provider": "google",
+        "passed": true,
+        "reward": 1,
+        "error": false,
+        "latency_sec": 85.83,
+        "latency_breakdown": {
+          "env_setup": 1.683,
+          "agent_setup": 14.081,
+          "agent_exec": 39.252,
+          "verifier": 20.449
+        },
+        "tokens": {
+          "input": 0,
+          "output": 11689,
           "cache": 0
         },
         "browser_verification_cases": []
@@ -194,46 +776,46 @@
     ]
   },
   "configure_sky_resources_yaml": {
-    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML file at `/home/user/finetune_job.yaml` that configures a large-scale fine-tuning job.\n\nThe job has these requirements:\n\n1. **Job name**: `llama-finetune`\n2. **Compute**: 4 A100 GPUs on a single node, using spot instances to reduce cost.\n3. **Multi-cloud fallback**: The job should be able to run on AWS (us-east-1) OR GCP (us-central1), whichever is available first.\n4. **Auto-shutdown**: The cluster must automatically stop after being idle for **30 minutes**.\n5. **Environment variable**: Set `MODEL_NAME` to `meta-llama/Llama-3-8B`.\n6. **Working directory**: Set the working directory to `.` (current directory).\n7. **Setup**: Install dependencies from `requirements.txt` using pip.\n8. **Run**: Execute `python finetune.py --model $MODEL_NAME --epochs 3`.\n\nSave the completed configuration to `/home/user/finetune_job.yaml`. The file must be valid YAML that SkyPilot can parse.\n",
+    "instruction": "",
     "trials": [
       {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "configure_sky_resources_yaml__awcufoM",
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "configure_sky_resources_yaml__gphZKCn",
         "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
+        "model": "anthropic/claude-4-6-sonnet",
+        "provider": "anthropic",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 71.481,
+        "latency_sec": 118.606,
         "latency_breakdown": {
-          "env_setup": 1.931,
-          "agent_setup": 24.603,
-          "agent_exec": 35.183,
-          "verifier": 8.218
+          "env_setup": 2.691,
+          "agent_setup": 24.444,
+          "agent_exec": 49.623,
+          "verifier": 31.499
         },
         "tokens": {
           "input": 0,
-          "output": 13905,
+          "output": 17005,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "configure_sky_resources_yaml__JaSUmAQ",
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "configure_sky_resources_yaml__3HAXfLF",
         "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
+        "model": "openai/gpt-5.2-codex",
+        "provider": "openai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 84.675,
+        "latency_sec": 107.779,
         "latency_breakdown": {
-          "env_setup": 2.033,
-          "agent_setup": 21.348,
-          "agent_exec": 51.623,
-          "verifier": 8.008
+          "env_setup": 2.476,
+          "agent_setup": 21.866,
+          "agent_exec": 38.806,
+          "verifier": 34.279
         },
         "tokens": {
           "input": 0,
@@ -243,435 +825,47 @@
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "configure_sky_resources_yaml__9VzNgXX",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 48.611,
-        "latency_breakdown": {
-          "env_setup": 1.735,
-          "agent_setup": 20.569,
-          "agent_exec": 16.875,
-          "verifier": 7.713
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11068,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "configure_sky_resources_yaml__2yh958K",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 81.359,
-        "latency_breakdown": {
-          "env_setup": 1.92,
-          "agent_setup": 21.924,
-          "agent_exec": 47.531,
-          "verifier": 8.354
-        },
-        "tokens": {
-          "input": 0,
-          "output": 29821,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "file_mount_s3_cached": {
-    "instruction": "You are working in a SkyPilot environment. Write a SkyPilot task YAML at `/home/user/inference_job.yaml` that runs a batch inference job with **high-performance access to cloud storage**.\n\nJob requirements:\n\n1. **Job name**: `batch-inference`\n2. **Compute**: 4 A100 GPUs on spot instances.\n3. **Dataset mount**: Mount the S3 bucket `s3://ml-datasets/imagenet` at `/data` using the **MOUNT_CACHED** mode for high-performance local caching during inference.\n4. **Checkpoint mount**: Mount the S3 bucket `s3://ml-checkpoints/resnet50` at `/checkpoint` using **COPY** mode (download once at job start).\n5. **Setup**: Install `torch`, `torchvision`, and `boto3` via pip.\n6. **Run**: Execute `python infer.py --data /data --checkpoint /checkpoint/model.pth --output /tmp/results.json`.\n\nSave the configuration to `/home/user/inference_job.yaml`. The file must be valid YAML.\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "file_mount_s3_cached__YLWBAg8",
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "configure_sky_resources_yaml__f6H6WjY",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": false,
         "reward": 0,
-        "error": false,
-        "latency_sec": 77.872,
+        "error": true,
+        "latency_sec": 261.737,
         "latency_breakdown": {
-          "env_setup": 1.928,
-          "agent_setup": 24.176,
-          "agent_exec": 34.273,
-          "verifier": 15.494
+          "env_setup": 2.181,
+          "agent_setup": 17.706,
+          "agent_exec": 184.388,
+          "verifier": 47.007
         },
         "tokens": {
           "input": 0,
-          "output": 13800,
+          "output": 0,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "file_mount_s3_cached__og3T4uQ",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 81.41,
-        "latency_breakdown": {
-          "env_setup": 2.655,
-          "agent_setup": 24.775,
-          "agent_exec": 42.629,
-          "verifier": 8.828
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11913,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "file_mount_s3_cached__6j6J59s",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 50.477,
-        "latency_breakdown": {
-          "env_setup": 2.097,
-          "agent_setup": 23.868,
-          "agent_exec": 14.688,
-          "verifier": 8.091
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11025,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "file_mount_s3_cached__VGy4jQL",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 61.682,
-        "latency_breakdown": {
-          "env_setup": 1.917,
-          "agent_setup": 21.867,
-          "agent_exec": 28.466,
-          "verifier": 7.259
-        },
-        "tokens": {
-          "input": 0,
-          "output": 14446,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "managed_job_spot_failover": {
-    "instruction": "You are working in a SkyPilot environment. Your goal is to configure a **managed job** that is resilient to spot instance preemptions and specific runtime errors.\n\nCreate two files:\n\n**1. SkyPilot managed job YAML at `/home/user/managed_train.yaml`:**\n\nThe job must be configured as follows:\n- Job name: `resilient-train`\n- Compute: 1 A100 GPU on spot instances.\n- Multi-cloud fallback across **three clouds**: AWS (us-east-1), GCP (us-central1), and Azure (eastus).\n- **Job recovery strategy**: Use the `FAILOVER` strategy. The job should retry automatically when preempted.\n- **Error handling**: The job should retry up to **3 times** when it exits with a non-preemption error. Additionally, it should specifically retry on exit codes **33** (NCCL timeout) and **1** (general error).\n- Setup: Install PyTorch.\n- Run: Execute `python train.py`.\n\n**2. Submission script at `/home/user/submit_job.sh`:**\n- Launch the managed job using the `sky jobs launch` command with the YAML file.\n- Use the job name `resilient-train` (pass it explicitly to override any YAML name).\n- Run non-interactively (no confirmation prompts).\n- After launching, check the job queue with `sky jobs queue` and write the output to `/home/user/job_status.log`.\n\nBoth files must exist at the exact paths specified.\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "managed_job_spot_failover__XTfDpiK",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 86.703,
-        "latency_breakdown": {
-          "env_setup": 2.13,
-          "agent_setup": 25.332,
-          "agent_exec": 48.504,
-          "verifier": 8.907
-        },
-        "tokens": {
-          "input": 0,
-          "output": 14661,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "managed_job_spot_failover__ndZx3tC",
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "configure_sky_resources_yaml__qRP7Jpp",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 88.106,
+        "latency_sec": 114.222,
         "latency_breakdown": {
-          "env_setup": 2.47,
-          "agent_setup": 22.645,
-          "agent_exec": 52.824,
-          "verifier": 8.099
+          "env_setup": 2.581,
+          "agent_setup": 26.27,
+          "agent_exec": 43.21,
+          "verifier": 31.835
         },
         "tokens": {
           "input": 0,
-          "output": 30056,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "managed_job_spot_failover__9EvzPWr",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 68.033,
-        "latency_breakdown": {
-          "env_setup": 1.972,
-          "agent_setup": 22.902,
-          "agent_exec": 33.641,
-          "verifier": 7.807
-        },
-        "tokens": {
-          "input": 0,
-          "output": 12272,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "managed_job_spot_failover__P2ceUvX",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 106.793,
-        "latency_breakdown": {
-          "env_setup": 2.071,
-          "agent_setup": 23.116,
-          "agent_exec": 71.125,
-          "verifier": 8.725
-        },
-        "tokens": {
-          "input": 0,
-          "output": 17681,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "sdk_async_stream_and_get": {
-    "instruction": "You are working in a SkyPilot environment. Write a Python script at `/home/user/launch_job.py` that uses the SkyPilot **Python SDK** to programmatically launch a cloud job.\n\nThe script must follow SkyPilot's **asynchronous SDK pattern** (introduced in v0.8.1), where API calls return request IDs that you must resolve with `sky.stream_and_get()`.\n\nRequirements:\n1. Import the `sky` module.\n2. Define a `sky.Resources` object that requests **2 CPUs** (no GPU needed).\n3. Define a `sky.Task` with:\n   - A `setup` command that runs `echo 'setup done'`.\n   - A `run` command that runs `echo 'hello from sky'`.\n4. Attach the resources to the task using `.set_resources()`.\n5. Call `sky.launch()` with `cluster_name='eval-cluster'` and capture the returned **request_id**.\n6. Call `sky.stream_and_get(request_id)` to wait for the launch to complete and capture `(job_id, handle)`.\n7. Print the job ID to stdout in this exact format: `JOB_ID: <job_id>`\n\nConstraints:\n- Save the script to exactly `/home/user/launch_job.py`.\n- The script must be syntactically valid Python.\n- Do NOT use the old synchronous pattern (i.e., do not assume `sky.launch()` returns a result directly).\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "sdk_async_stream_and_get__Hi7GXQz",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 62.146,
-        "latency_breakdown": {
-          "env_setup": 1.751,
-          "agent_setup": 21.498,
-          "agent_exec": 30.252,
-          "verifier": 7.013
-        },
-        "tokens": {
-          "input": 0,
-          "output": 13615,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "sdk_async_stream_and_get__ayiHjXc",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 65.687,
-        "latency_breakdown": {
-          "env_setup": 2.371,
-          "agent_setup": 22.593,
-          "agent_exec": 30.619,
-          "verifier": 7.755
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11458,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "sdk_async_stream_and_get__ez23Wiz",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 48.088,
-        "latency_breakdown": {
-          "env_setup": 1.737,
-          "agent_setup": 22.413,
-          "agent_exec": 16.08,
-          "verifier": 6.254
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11081,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "sdk_async_stream_and_get__phaEPub",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 61.69,
-        "latency_breakdown": {
-          "env_setup": 2.053,
-          "agent_setup": 22.07,
-          "agent_exec": 28.934,
-          "verifier": 6.821
-        },
-        "tokens": {
-          "input": 0,
-          "output": 14888,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "stop_and_terminate_clusters": {
-    "instruction": "You are working in a SkyPilot environment. Your goal is to write a Bash cleanup script at `/home/user/cleanup.sh` that safely stops and then permanently terminates all SkyPilot clusters.\n\nThe script must:\n1. First **stop** all clusters (gracefully halts them while preserving cloud resources like disks).\n2. Then **terminate** (permanently delete) all clusters without requiring interactive confirmation.\n3. Be executable (chmod +x).\n\nThe script will be run as: `bash /home/user/cleanup.sh`\n\nConstraints:\n- Use the `sky` CLI — do not use cloud-provider CLIs directly (no `aws`, `gcloud`, etc.).\n- The commands must work non-interactively (no prompts).\n- Save the script to exactly `/home/user/cleanup.sh`.\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "stop_and_terminate_clusters__c4ohT4F",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 59.595,
-        "latency_breakdown": {
-          "env_setup": 1.579,
-          "agent_setup": 18.076,
-          "agent_exec": 32.601,
-          "verifier": 5.735
-        },
-        "tokens": {
-          "input": 0,
-          "output": 13586,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "stop_and_terminate_clusters__TpG66M5",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 58.736,
-        "latency_breakdown": {
-          "env_setup": 2.882,
-          "agent_setup": 18.656,
-          "agent_exec": 29.579,
-          "verifier": 5.939
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11228,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "stop_and_terminate_clusters__HYF6AZd",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 51.93,
-        "latency_breakdown": {
-          "env_setup": 1.421,
-          "agent_setup": 17.397,
-          "agent_exec": 25.812,
-          "verifier": 5.954
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11349,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "stop_and_terminate_clusters__hSo3RoM",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 52.242,
-        "latency_breakdown": {
-          "env_setup": 1.626,
-          "agent_setup": 18.524,
-          "agent_exec": 24.943,
-          "verifier": 5.655
-        },
-        "tokens": {
-          "input": 0,
-          "output": 14453,
+          "output": 12728,
           "cache": 0
         },
         "browser_verification_cases": []
@@ -679,290 +873,96 @@
     ]
   },
   "ray_cluster_port_conflict": {
-    "instruction": "You are working in a SkyPilot environment. SkyPilot uses Ray internally on **port 6380** for its own cluster management. If your job starts a Ray cluster using the default port or tries to connect with `ray.init(address='auto')`, it will accidentally connect to SkyPilot's internal Ray instead of your own cluster, causing unpredictable behavior.\n\nYour task is to write two files that correctly set up a distributed Ray training job:\n\n**1. SkyPilot task YAML at `/home/user/distributed_job.yaml`:**\n- Job name: `ray-distributed-train`\n- Compute: 2 nodes, each with 4 CPUs (no GPU needed).\n- The `run` section must start Ray on the **head node** (node rank 0) using port **6379** (not 6380).\n- On worker nodes (rank != 0), join the Ray cluster using the head node IP and port 6379.\n- Use `$SKYPILOT_NODE_RANK` and `$SKYPILOT_NODE_IPS` environment variables to distinguish head from worker.\n- After starting Ray, execute `python /home/user/train.py`.\n\n**2. Python training script at `/home/user/train.py`:**\n- Connect to the Ray cluster using `ray.init()` with address pointing to `127.0.0.1:6379`.\n- Define and run a simple Ray remote function that returns the string `'ray task complete'`.\n- Print the result to stdout.\n\nBoth files must be created at the exact paths specified.\n",
+    "instruction": "",
     "trials": [
       {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "ray_cluster_port_conflict__RR7ztvB",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 62.047,
-        "latency_breakdown": {
-          "env_setup": 1.927,
-          "agent_setup": 18.019,
-          "agent_exec": 33.505,
-          "verifier": 7.124
-        },
-        "tokens": {
-          "input": 0,
-          "output": 13935,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "ray_cluster_port_conflict__qnxYCpr",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 62.228,
-        "latency_breakdown": {
-          "env_setup": 1.94,
-          "agent_setup": 19.272,
-          "agent_exec": 32.292,
-          "verifier": 6.906
-        },
-        "tokens": {
-          "input": 0,
-          "output": 12005,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "ray_cluster_port_conflict__PMsd3ZM",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 59.444,
-        "latency_breakdown": {
-          "env_setup": 1.526,
-          "agent_setup": 19.824,
-          "agent_exec": 29.363,
-          "verifier": 6.809
-        },
-        "tokens": {
-          "input": 0,
-          "output": 11970,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "ray_cluster_port_conflict__5sTzWSB",
+        "job_name": "2026-04-08__15-34-26",
+        "trial_name": "ray_cluster_port_conflict__ZApHtFk",
         "agent": "pochi",
         "model": "anthropic/claude-4-6-sonnet",
         "provider": "anthropic",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 75.642,
+        "latency_sec": 106.312,
         "latency_breakdown": {
-          "env_setup": 2.143,
-          "agent_setup": 21.012,
-          "agent_exec": 43.523,
-          "verifier": 7.157
+          "env_setup": 1.928,
+          "agent_setup": 15.526,
+          "agent_exec": 59.431,
+          "verifier": 19.027
         },
         "tokens": {
           "input": 0,
-          "output": 29817,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "skyserve_vllm_autoscaling": {
-    "instruction": "You are working in a SkyPilot environment. Your goal is to configure and prepare a **vLLM model serving deployment** using SkyPilot's SkyServe feature with autoscaling.\n\nCreate three files:\n\n**1. SkyServe YAML at `/home/user/vllm_serve.yaml`:**\n\nThis YAML must configure a production-grade LLM serving deployment:\n- Service name: `vllm-llama`\n- **Readiness probe**: Check the `/v1/models` HTTP endpoint to determine when a replica is ready to serve traffic. Set an initial delay of **30 seconds**.\n- **Autoscaling policy**:\n  - Minimum replicas: **1** (always keep one warm).\n  - Maximum replicas: **5** (scale out under load).\n  - Target QPS per replica: **10** (scale out when each replica exceeds 10 requests/second).\n  - Upscale delay: **60 seconds**.\n  - Downscale delay: **300 seconds** (5 minutes) to avoid flapping.\n- **Compute**: Each replica gets 1 A100 GPU on AWS, using **on-demand** instances (not spot — serving requires stability).\n- **Environment**: Set `MODEL_NAME` to `meta-llama/Meta-Llama-3-8B-Instruct`.\n- **Setup**: Install `vllm` via pip.\n- **Run**: Start the vLLM OpenAI-compatible server on port **8080**, binding to `0.0.0.0`, using the `$MODEL_NAME` environment variable.\n\n**2. Deployment script at `/home/user/deploy.sh`:**\n- Use `sky serve up` to deploy the service from `vllm_serve.yaml`.\n- Explicitly name the service `vllm-llama`.\n- Run non-interactively.\n- After deploying, check the service status with `sky serve status vllm-llama` and save the output to `/home/user/serve_status.log`.\n\n**3. Service config JSON at `/home/user/serve_config.json`:**\n- Write a JSON file documenting the deployment parameters:\n  - `\"service_name\"`: `\"vllm-llama\"`\n  - `\"model\"`: `\"meta-llama/Meta-Llama-3-8B-Instruct\"`\n  - `\"min_replicas\"`: `1`\n  - `\"max_replicas\"`: `5`\n  - `\"port\"`: `8080`\n\nAll three files must exist at the exact paths specified.\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "skyserve_vllm_autoscaling__RTDN7ey",
-        "agent": "pochi",
-        "model": "zai/glm-4.7",
-        "provider": "zai",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 73.226,
-        "latency_breakdown": {
-          "env_setup": 1.922,
-          "agent_setup": 18.868,
-          "agent_exec": 43.895,
-          "verifier": 7.079
-        },
-        "tokens": {
-          "input": 0,
-          "output": 14993,
+          "output": 17777,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "skyserve_vllm_autoscaling__UHjCWbs",
-        "agent": "pochi",
-        "model": "google/gemini-3.1-pro",
-        "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 73.635,
-        "latency_breakdown": {
-          "env_setup": 2.075,
-          "agent_setup": 20.167,
-          "agent_exec": 42.555,
-          "verifier": 7.247
-        },
-        "tokens": {
-          "input": 0,
-          "output": 12129,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "skyserve_vllm_autoscaling__SqBRAxL",
+        "job_name": "2026-04-08__15-56-07",
+        "trial_name": "ray_cluster_port_conflict__PDsgM36",
         "agent": "pochi",
         "model": "openai/gpt-5.2-codex",
         "provider": "openai",
-        "passed": false,
-        "reward": 0,
+        "passed": true,
+        "reward": 1,
         "error": false,
-        "latency_sec": 61.096,
+        "latency_sec": 99.57,
         "latency_breakdown": {
-          "env_setup": 1.418,
-          "agent_setup": 19.761,
-          "agent_exec": 31.623,
-          "verifier": 6.563
+          "env_setup": 2.078,
+          "agent_setup": 15.872,
+          "agent_exec": 52.434,
+          "verifier": 18.846
         },
         "tokens": {
           "input": 0,
-          "output": 12491,
+          "output": 13637,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "skyserve_vllm_autoscaling__pnP75Yp",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": false,
-        "reward": 0,
-        "error": false,
-        "latency_sec": 75.639,
-        "latency_breakdown": {
-          "env_setup": 1.788,
-          "agent_setup": 19.748,
-          "agent_exec": 45.148,
-          "verifier": 7.135
-        },
-        "tokens": {
-          "input": 0,
-          "output": 30722,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      }
-    ]
-  },
-  "file_mount_collision_fix": {
-    "instruction": "You are debugging a SkyPilot task configuration. A colleague's job YAML is failing with a **\"directory not empty\"** error during the setup phase. The broken YAML is at `/home/user/broken_job.yaml`.\n\nThe issue is a **file mount collision**: SkyPilot processes `file_mounts` **before** running the `setup` script. When `setup` tries to `git clone` into a path that already has mounted files, the clone fails.\n\nYour task:\n1. Inspect `/home/user/broken_job.yaml` to understand the collision.\n2. Create a fixed version at `/home/user/fixed_job.yaml` that resolves the collision while preserving the original intent:\n   - The S3 config files from `s3://ml-configs/job-config` must still be available to the job.\n   - The repository `github.com/myorg/training-code` must still be cloned and installed.\n   - The run command must still execute `python /home/user/training-code/train.py`.\n3. Write a one-line explanation of the root cause to `/home/user/fix_explanation.txt`.\n\nThe fixed YAML must be valid and avoid the collision.\n",
-    "trials": [
-      {
-        "job_name": "2026-04-01__14-23-35",
-        "trial_name": "file_mount_collision_fix__DVpAm58",
+        "job_name": "2026-04-08__16-04-30",
+        "trial_name": "ray_cluster_port_conflict__K62JJ2d",
         "agent": "pochi",
         "model": "zai/glm-4.7",
         "provider": "zai",
         "passed": true,
         "reward": 1,
         "error": false,
-        "latency_sec": 81.313,
+        "latency_sec": 75.816,
         "latency_breakdown": {
-          "env_setup": 1.747,
-          "agent_setup": 21.364,
-          "agent_exec": 49.942,
-          "verifier": 6.546
+          "env_setup": 1.86,
+          "agent_setup": 13.808,
+          "agent_exec": 28.397,
+          "verifier": 21.394
         },
         "tokens": {
           "input": 0,
-          "output": 14284,
+          "output": 15233,
           "cache": 0
         },
         "browser_verification_cases": []
       },
       {
-        "job_name": "2026-04-01__14-25-18",
-        "trial_name": "file_mount_collision_fix__3X7S7Uj",
+        "job_name": "2026-04-08__15-44-23",
+        "trial_name": "ray_cluster_port_conflict__oEq3vDB",
         "agent": "pochi",
         "model": "google/gemini-3.1-pro",
         "provider": "google",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 118.729,
-        "latency_breakdown": {
-          "env_setup": 2.075,
-          "agent_setup": 21.298,
-          "agent_exec": 86.246,
-          "verifier": 6.821
-        },
-        "tokens": {
-          "input": 0,
-          "output": 13018,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-38-37",
-        "trial_name": "file_mount_collision_fix__vs4Es8Y",
-        "agent": "pochi",
-        "model": "openai/gpt-5.2-codex",
-        "provider": "openai",
         "passed": false,
         "reward": 0,
         "error": false,
-        "latency_sec": 51.227,
+        "latency_sec": 83.965,
         "latency_breakdown": {
-          "env_setup": 1.614,
-          "agent_setup": 19.729,
-          "agent_exec": 21.708,
-          "verifier": 6.712
+          "env_setup": 2.312,
+          "agent_setup": 14.256,
+          "agent_exec": 37.952,
+          "verifier": 19.072
         },
         "tokens": {
           "input": 0,
-          "output": 11250,
-          "cache": 0
-        },
-        "browser_verification_cases": []
-      },
-      {
-        "job_name": "2026-04-01__14-21-04",
-        "trial_name": "file_mount_collision_fix__rf8J78V",
-        "agent": "pochi",
-        "model": "anthropic/claude-4-6-sonnet",
-        "provider": "anthropic",
-        "passed": true,
-        "reward": 1,
-        "error": false,
-        "latency_sec": 104.257,
-        "latency_breakdown": {
-          "env_setup": 2.08,
-          "agent_setup": 20.966,
-          "agent_exec": 71.669,
-          "verifier": 7.263
-        },
-        "tokens": {
-          "input": 0,
-          "output": 16735,
+          "output": 12513,
           "cache": 0
         },
         "browser_verification_cases": []

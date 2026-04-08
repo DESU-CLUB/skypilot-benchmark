@@ -1,0 +1,133 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 1,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689690.2246373,
+            "stop": 1775689725.0311732
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005569099994318094,
+                "start": 1775689690.2311018,
+                "stop": 1775689690.2367778,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_exists():\n>       assert os.path.isfile(SCRIPT_PATH), f\"orchestrate.py not found at {SCRIPT_PATH}\"\nE       AssertionError: orchestrate.py not found at /home/user/orchestrate.py\nE       assert False\nE        +  where False = <function isfile at 0xfe5c35ed0220>('/home/user/orchestrate.py')\nE        +    where <function isfile at 0xfe5c35ed0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_tasks_directory_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00027841300106956623,
+                "start": 1775689690.236864,
+                "stop": 1775689690.2380674,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_tasks_directory_exists():\n>       assert os.path.isdir(TASKS_DIR), f\"tasks/ directory not found at {TASKS_DIR}\"\nE       AssertionError: tasks/ directory not found at /home/user/tasks\nE       assert False\nE        +  where False = <function isdir at 0xfe5c35ed02c0>('/home/user/tasks')\nE        +    where <function isdir at 0xfe5c35ed02c0> = <module 'posixpath' (frozen)>.isdir\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:26: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002663710001797881,
+                "start": 1775689690.238139,
+                "stop": 1775689690.2393312,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::job_name::['data-prep-job', 'training-job', 'eval-job']"
+                ],
+                "trace": "job_name = 'eval-job'\n\n    @pytest.mark.parametrize(\"job_name\", JOB_NAMES)\n    def test_task_yaml_exists(job_name):\n        yaml_path = os.path.join(TASKS_DIR, f\"{job_name}.yaml\")\n>       assert os.path.isfile(yaml_path), f\"Expected task YAML at {yaml_path}\"\nE       AssertionError: Expected task YAML at /home/user/tasks/eval-job.yaml\nE       assert False\nE        +  where False = <function isfile at 0xfe5c35ed0220>('/home/user/tasks/eval-job.yaml')\nE        +    where <function isfile at 0xfe5c35ed0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:32: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_task_yaml_parseable",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.8543673989988747,
+                "start": 1775689690.242007,
+                "stop": 1775689691.0992424,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::job_name::['data-prep-job', 'training-job', 'eval-job']"
+                ],
+                "trace": "job_name = 'eval-job'\n\n    @pytest.mark.parametrize(\"job_name\", JOB_NAMES)\n    def test_task_yaml_parseable(job_name):\n        yaml_path = os.path.join(TASKS_DIR, f\"{job_name}.yaml\")\n        result = subprocess.run(\n            [\"/opt/venv/bin/python3\", \"-c\", f\"import sky; t = sky.Task.from_yaml('{yaml_path}'); print('ok:', t.name)\"],\n            capture_output=True, text=True, cwd=\"/home/user\"\n        )\n>       assert result.returncode == 0, f\"SkyPilot failed to parse {job_name}.yaml: {result.stderr}\"\nE       AssertionError: SkyPilot failed to parse eval-job.yaml: Traceback (most recent call last):\nE           File \"<string>\", line 1, in <module>\nE           File \"/opt/venv/lib/python3.12/site-packages/sky/task.py\", line 806, in from_yaml\nE             with open(os.path.expanduser(yaml_path), 'r', encoding='utf-8') as f:\nE                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         FileNotFoundError: [Errno 2] No such file or directory: '/home/user/tasks/eval-job.yaml'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/opt/venv/bin/python3', '-c', \"import sky; t = sky.Task.from_yaml('/home/user/tasks/eval-job.y...^^^^^^^^^^^^^^^^^^^^^^^\\nFileNotFoundError: [Errno 2] No such file or directory: \\'/home/user/tasks/eval-job.yaml\\'\\n').returncode\n\n/tests/test_final_state.py:42: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_launched_on_gcp",
+                "status": "failed",
+                "duration": 5.626945541000168,
+                "start": 1775689692.9238174,
+                "stop": 1775689698.5697448,
+                "retries": 2,
+                "file_path": "test_final_state.py",
+                "tags": [
+                    "parametrize::cluster_name::['sky-bench-data-prep', 'sky-bench-training', 'sky-bench-eval']"
+                ],
+                "trace": "cluster_name = 'sky-bench-data-prep'\n\n    @pytest.mark.parametrize(\"cluster_name\", CLUSTER_NAMES)\n    def test_cluster_launched_on_gcp(cluster_name):\n        \"\"\"PRIMARY: Verify cluster was actually launched on GCP.\"\"\"\n        result = subprocess.run(\n            [\"sky\", \"status\", cluster_name],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"sky status {cluster_name} failed \u2014 not found on GCP: {result.stderr}\\n{result.stdout}\"\nE       AssertionError: sky status sky-bench-data-prep failed \u2014 not found on GCP: ConnectionRefusedError: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         During handling of the above exception, another exception occurred:\nE         \nE         requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         \u001b[2mFailed to connect to SkyPilot API server at http://127.0.0.1:46580. Starting a local server.\u001b[0m\nE         \u001b[33mYour SkyPilot API server machine only has 2.0GB memory available. At least 2GB is recommended to support higher load with better performance.\u001b[0m\nE         \u001b[0m\u001b[32m\u2713 SkyPilot API server started. \u001b[0m\u001b[0m\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['sky', 'status', 'sky-bench-data-prep'], returncode=1, stdout='\\x1b[2mFailed to connect to SkyP...Connection(host=\\'127.0.0.1\\', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\\n').returncode\n\n/tests/test_final_state.py:53: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00045524399320129305,
+                "start": 1775689718.2511177,
+                "stop": 1775689718.252955,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_exists():\n>       assert os.path.isfile(SUMMARY_PATH)\nE       AssertionError: assert False\nE        +  where False = <function isfile at 0xfe5c35ed0220>('/home/user/orchestration_summary.json')\nE        +    where <function isfile at 0xfe5c35ed0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:60: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_total_jobs",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00035541200122679584,
+                "start": 1775689718.253042,
+                "stop": 1775689718.2544236,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_total_jobs():\n>       with open(SUMMARY_PATH) as f:\n             ^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/orchestration_summary.json'\n\n/tests/test_final_state.py:64: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_all_successful",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00035899499562219717,
+                "start": 1775689718.2544973,
+                "stop": 1775689718.2559228,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_all_successful():\n>       with open(SUMMARY_PATH) as f:\n             ^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/orchestration_summary.json'\n\n/tests/test_final_state.py:70: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 6.774368833997869,
+                "start": 1775689718.256016,
+                "stop": 1775689725.0309455,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

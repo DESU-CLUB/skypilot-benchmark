@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689860.700863,
+            "stop": 1775689874.19948
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fixed_yaml_exists",
+                "status": "passed",
+                "duration": 0.0003521170001477003,
+                "start": 1775689860.7064805,
+                "stop": 1775689860.7069943,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.8552657479995105,
+                "start": 1775689860.7070665,
+                "stop": 1775689861.5625944,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_has_task_name",
+                "status": "passed",
+                "duration": 0.00036670000190497376,
+                "start": 1775689861.562716,
+                "stop": 1775689861.5632222,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_collision_resolved",
+                "status": "passed",
+                "duration": 0.00037532699934672564,
+                "start": 1775689861.5632966,
+                "stop": 1775689861.5638182,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_diagnosis_json_exists",
+                "status": "passed",
+                "duration": 0.00030165899443090893,
+                "start": 1775689861.5638797,
+                "stop": 1775689861.564303,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_diagnosis_json_valid",
+                "status": "passed",
+                "duration": 0.000314993998472346,
+                "start": 1775689861.5643632,
+                "stop": 1775689861.5647895,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_diagnosis_json_fields",
+                "status": "passed",
+                "duration": 0.00034757500179694034,
+                "start": 1775689861.5648422,
+                "stop": 1775689861.5653014,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 12.63361495999925,
+                "start": 1775689861.5653586,
+                "stop": 1775689874.1992495,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

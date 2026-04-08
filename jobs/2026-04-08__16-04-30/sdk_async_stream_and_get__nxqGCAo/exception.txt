@@ -1,0 +1,49 @@
+Traceback (most recent call last):
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 538, in run
+    await self._execute_agent()
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 285, in _execute_agent
+    await asyncio.wait_for(
+  File "/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 41, in wrapper
+    return await fn(self, instruction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/agents/pochi.py", line 218, in run
+    await self.exec_as_agent(
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 358, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 321, in _exec
+    raise NonZeroAgentExitCodeError(
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed and GCP credentials configured for project `skypilot-benchmark-492600`.
+
+Since SkyPilot v0.8.1, the Python SDK is **asynchronous**: `sky.launch()` returns a `request_id` string rather than blocking. To wait for completion, you must call `sky.stream_and_get(request_id)`.
+
+Write a Python script at `/home/user/launch_task.py` that:
+1. Creates a `sky.Task` named `sdk-echo-task` with:
+   - A `run` command: `echo 'hello from skypilot sdk'`
+   - Resources: GCP `n1-standard-1` instance in `us-central1`
+2. Calls `sky.launch(task, cluster_name='sky-bench-sdk')` to get a `request_id` — do NOT block directly
+3. Passes `request_id` to `sky.stream_and_get(request_id)` to retrieve `(job_id, handle)`
+4. Writes a JSON file to `/home/user/launch_result.json` with:
+   - `task_name`: `"sdk-echo-task"`
+   - `cluster_name`: `"sky-bench-sdk"`
+   - `status`: `"launched"` if successful, or `"error"` if an exception occurred
+   - `error`: the error message (only if exception)
+
+The script must handle exceptions gracefully — still write the JSON file even on failure.
+
+Run the script: `python3 /home/user/launch_task.py`
+
+The cluster `sky-bench-sdk` must appear in `sky status` after the script exits.
+
+EOF
+stdout: [37m2026-04-08 23:05:03.199[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.6
+[37m2026-04-08 23:05:03.360[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503168[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 5 custom agents (5 valid, 0 invalid)
+[37m2026-04-08 23:05:03.361[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503169[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-04-08 23:05:03.386[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:439412[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-04-08 23:05:04.599[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:415701[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-04-08 23:05:04.599[39m[0m[0m	[32m[1mDEBUG ... [truncated]
+stderr: None

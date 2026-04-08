@@ -1,0 +1,16 @@
+- Initializing MCP connections...
+You
+You are working in an environment with SkyPilot installed. Write a bash script at `/home/user/cleanup_clusters.sh` that performs a two-phase cluster cleanup using the SkyPilot CLI: 1. First, stop all running clusters (graceful shutdown that preserves disk state) 2. Then, terminate all clusters (permanent deletion including storage) The script must: - Run `sky status` and capture its output to `/home/user/cleanup.log` before making any changes - Use `sky stop --all` to stop all clusters, appending output to `/home/user/cleanup.log` - Use `sky down --all -y` to terminate all clusters, appending output to `/home/user/cleanup.log` - Be executable (chmod +x) After writing the script, make it executable and run it. The script should exit with code 0 even if there are no clusters to clean up. The log file `/home/user/cleanup.log` must exist after the script runs.   
+
+Pochi
+💭 Thinking for 304 characters   
+📋 Updating todo list (3 items) ✔ 
+📂 Listing files in /home ✔ 
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/cleanup_clusters.sh ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing chmod +x "/home/user/cleanup_clusters.sh" && "/home/user/cleanup_clusters.sh" ✔ 
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+Created /home/user/cleanup_clusters.sh, made it executable, and ran it. The script logs sky status/stop/down output to /home/user/cleanup.log and exits 0 even when no clusters exist.   
+  

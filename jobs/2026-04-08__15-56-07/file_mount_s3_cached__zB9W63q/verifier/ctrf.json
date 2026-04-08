@@ -1,0 +1,128 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689270.892329,
+            "stop": 1775689283.5471163
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 11.715740013998584,
+                "start": 1775689270.8993025,
+                "stop": 1775689282.6160746,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_exists",
+                "status": "passed",
+                "duration": 0.00028280599872232415,
+                "start": 1775689282.6162307,
+                "stop": 1775689282.6166468,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.9267496430002211,
+                "start": 1775689282.616721,
+                "stop": 1775689283.543726,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_task_name",
+                "status": "passed",
+                "duration": 0.000312810003379127,
+                "start": 1775689283.543841,
+                "stop": 1775689283.5442762,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_file_mounts",
+                "status": "passed",
+                "duration": 0.00020951099941157736,
+                "start": 1775689283.5443614,
+                "stop": 1775689283.5446568,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_mount_cached_mode",
+                "status": "passed",
+                "duration": 0.00017867599672172219,
+                "start": 1775689283.5447128,
+                "stop": 1775689283.5449677,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcs_source",
+                "status": "passed",
+                "duration": 0.00019080200218013488,
+                "start": 1775689283.545017,
+                "stop": 1775689283.545296,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_mounts_at_data_path",
+                "status": "passed",
+                "duration": 0.00019251100093242712,
+                "start": 1775689283.545358,
+                "stop": 1775689283.5456364,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcp_n1_standard_8",
+                "status": "passed",
+                "duration": 0.0001923019990499597,
+                "start": 1775689283.5456915,
+                "stop": 1775689283.5459707,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mount_config_json_exists",
+                "status": "passed",
+                "duration": 0.00019788600548054092,
+                "start": 1775689283.5460207,
+                "stop": 1775689283.5463207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mount_config_json_valid",
+                "status": "passed",
+                "duration": 0.00023067800429998897,
+                "start": 1775689283.546374,
+                "stop": 1775689283.5466878,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mount_config_json_fields",
+                "status": "passed",
+                "duration": 0.00018380100300419144,
+                "start": 1775689283.5467443,
+                "stop": 1775689283.5470014,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

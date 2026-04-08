@@ -1,0 +1,149 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.8).
+0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.
+downloading uv 0.9.7 aarch64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 6 packages in 5ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 12 items
+
+../../tests/test_final_state.py FFFFFFFFFFF.                             [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_managed_job_yaml_exists _________________________
+
+    def test_managed_job_yaml_exists():
+>       assert os.path.isfile(YAML_PATH), f"managed_job.yaml not found at {YAML_PATH}"
+E       AssertionError: managed_job.yaml not found at /home/user/managed_job.yaml
+E       assert False
+E        +  where False = <function isfile at 0xeb5aa2340220>('/home/user/managed_job.yaml')
+E        +    where <function isfile at 0xeb5aa2340220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:20: AssertionError
+_________________ test_managed_job_yaml_parseable_by_skypilot __________________
+
+    def test_managed_job_yaml_parseable_by_skypilot():
+        result = subprocess.run(
+            ["/opt/venv/bin/python3", "-c", f"import sky; t = sky.Task.from_yaml('{YAML_PATH}'); print('Valid:', t.name)"],
+            capture_output=True, text=True, cwd="/home/user"
+        )
+>       assert result.returncode == 0, \
+            f"SkyPilot failed to parse managed_job.yaml: {result.stderr}"
+E       AssertionError: SkyPilot failed to parse managed_job.yaml: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E           File "/opt/venv/lib/python3.12/site-packages/sky/task.py", line 806, in from_yaml
+E             with open(os.path.expanduser(yaml_path), 'r', encoding='utf-8') as f:
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/opt/venv/bin/python3', '-c', "import sky; t = sky.Task.from_yaml('/home/user/managed_job.yaml...^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: \'/home/user/managed_job.yaml\'\n').returncode
+
+/tests/test_final_state.py:28: AssertionError
+________________________ test_yaml_has_correct_job_name ________________________
+
+    def test_yaml_has_correct_job_name():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:35: FileNotFoundError
+____________________________ test_yaml_has_use_spot ____________________________
+
+    def test_yaml_has_use_spot():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:42: FileNotFoundError
+___________________________ test_yaml_has_gcp_cloud ____________________________
+
+    def test_yaml_has_gcp_cloud():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:49: FileNotFoundError
+_____________________________ test_yaml_has_t4_gpu _____________________________
+
+    def test_yaml_has_t4_gpu():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:55: FileNotFoundError
+__________________________ test_yaml_has_job_recovery __________________________
+
+    def test_yaml_has_job_recovery():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:61: FileNotFoundError
+_______________________ test_yaml_has_failover_strategy ________________________
+
+    def test_yaml_has_failover_strategy():
+>       with open(YAML_PATH) as f:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'
+
+/tests/test_final_state.py:68: FileNotFoundError
+___________________________ test_summary_json_exists ___________________________
+
+    def test_summary_json_exists():
+>       assert os.path.isfile(SUMMARY_PATH), f"job_summary.json not found at {SUMMARY_PATH}"
+E       AssertionError: job_summary.json not found at /home/user/job_summary.json
+E       assert False
+E        +  where False = <function isfile at 0xeb5aa2340220>('/home/user/job_summary.json')
+E        +    where <function isfile at 0xeb5aa2340220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:75: AssertionError
+___________________________ test_summary_json_valid ____________________________
+
+    def test_summary_json_valid():
+>       with open(SUMMARY_PATH) as f:
+             ^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/job_summary.json'
+
+/tests/test_final_state.py:79: FileNotFoundError
+_____________________ test_summary_json_has_correct_fields _____________________
+
+    def test_summary_json_has_correct_fields():
+>       with open(SUMMARY_PATH) as f:
+             ^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/job_summary.json'
+
+/tests/test_final_state.py:85: FileNotFoundError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../../tests/test_final_state.py::test_sky_check_gcp_passes
+FAILED ../../tests/test_final_state.py::test_managed_job_yaml_exists - Assert...
+FAILED ../../tests/test_final_state.py::test_managed_job_yaml_parseable_by_skypilot
+FAILED ../../tests/test_final_state.py::test_yaml_has_correct_job_name - File...
+FAILED ../../tests/test_final_state.py::test_yaml_has_use_spot - FileNotFound...
+FAILED ../../tests/test_final_state.py::test_yaml_has_gcp_cloud - FileNotFoun...
+FAILED ../../tests/test_final_state.py::test_yaml_has_t4_gpu - FileNotFoundEr...
+FAILED ../../tests/test_final_state.py::test_yaml_has_job_recovery - FileNotF...
+FAILED ../../tests/test_final_state.py::test_yaml_has_failover_strategy - Fil...
+FAILED ../../tests/test_final_state.py::test_summary_json_exists - AssertionE...
+FAILED ../../tests/test_final_state.py::test_summary_json_valid - FileNotFoun...
+FAILED ../../tests/test_final_state.py::test_summary_json_has_correct_fields
+======================== 11 failed, 1 passed in 21.40s =========================

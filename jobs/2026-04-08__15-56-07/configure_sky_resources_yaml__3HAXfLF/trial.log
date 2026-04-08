@@ -1,0 +1,81 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+You have a job configuration file at `/home/user/jobs_config.json` that defines three machine learning jobs to run on GCP. The three jobs are named `data-prep-job`, `training-job`, and `eval-job`. Your task is to write a Python orchestration script that reads this config and generates SkyPilot task YAML files for each job.
+
+Write a Python script at `/home/user/orchestrate.py` that:
+1. Reads `/home/user/jobs_config.json` — **do not modify this file**, use the job names exactly as they appear in the config
+2. For each job entry in the config, creates a SkyPilot task YAML file at `/home/user/tasks/<job_name>.yaml` (e.g., `/home/user/tasks/data-prep-job.yaml`, `/home/user/tasks/training-job.yaml`, `/home/user/tasks/eval-job.yaml`) with:
+   - The job's `name` as the task name
+   - Resources targeting GCP with the job's specified `instance_type` and `accelerators` (if present)
+   - `use_spot: true` if the job's `spot` field is true
+   - The job's `setup` command
+   - The job's `run` command
+3. Validates each generated YAML by loading it with `sky.Task.from_yaml()`
+4. Writes a summary to `/home/user/orchestration_summary.json` containing:
+   - `total_jobs`: number of jobs processed
+   - `successful`: list of successfully validated task names
+   - `failed`: list of task names that failed validation
+   - `output_dir`: the absolute path to the tasks directory
+
+Run the script with `python3 /home/user/orchestrate.py`.
+
+The script must create the `/home/user/tasks/` directory if it doesn't exist, process all 3 jobs from the config, and exit with code 0.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

@@ -1,0 +1,80 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed and GCP credentials configured for project `skypilot-benchmark-492600`.
+
+Since SkyPilot v0.8.1, the Python SDK is **asynchronous**: `sky.launch()` returns a `request_id` string rather than blocking. To wait for completion, you must call `sky.stream_and_get(request_id)`.
+
+Write a Python script at `/home/user/launch_task.py` that:
+1. Creates a `sky.Task` named `sdk-echo-task` with:
+   - A `run` command: `echo 'hello from skypilot sdk'`
+   - Resources: GCP `n1-standard-1` instance in `us-central1`
+2. Calls `sky.launch(task, cluster_name='sky-bench-sdk')` to get a `request_id` — do NOT block directly
+3. Passes `request_id` to `sky.stream_and_get(request_id)` to retrieve `(job_id, handle)`
+4. Writes a JSON file to `/home/user/launch_result.json` with:
+   - `task_name`: `"sdk-echo-task"`
+   - `cluster_name`: `"sky-bench-sdk"`
+   - `status`: `"launched"` if successful, or `"error"` if an exception occurred
+   - `error`: the error message (only if exception)
+
+The script must handle exceptions gracefully — still write the JSON file even on failure.
+
+Run the script: `python3 /home/user/launch_task.py`
+
+The cluster `sky-bench-sdk` must appear in `sky status` after the script exits.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

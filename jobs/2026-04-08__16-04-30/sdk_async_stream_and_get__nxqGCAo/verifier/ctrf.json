@@ -1,0 +1,116 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 0,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689693.2383518,
+            "stop": 1775689712.16531
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004426609993970487,
+                "start": 1775689693.244672,
+                "stop": 1775689693.2508097,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_exists():\n>       assert os.path.isfile(SCRIPT_PATH), f\"launch_task.py not found at {SCRIPT_PATH}\"\nE       AssertionError: launch_task.py not found at /home/user/launch_task.py\nE       assert False\nE        +  where False = <function isfile at 0xe59def380220>('/home/user/launch_task.py')\nE        +    where <function isfile at 0xe59def380220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_stream_and_get",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003306219987280201,
+                "start": 1775689693.2509158,
+                "stop": 1775689693.2522318,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_stream_and_get():\n>       with open(SCRIPT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_task.py'\n\n/tests/test_final_state.py:24: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_sky_launch",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006340750005620066,
+                "start": 1775689693.2523139,
+                "stop": 1775689693.2543974,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_sky_launch():\n>       with open(SCRIPT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_task.py'\n\n/tests/test_final_state.py:31: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00031682899862062186,
+                "start": 1775689693.2544813,
+                "stop": 1775689693.2570062,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_json_exists():\n>       assert os.path.isfile(RESULT_PATH), \\\n            f\"launch_result.json not found at {RESULT_PATH} \u2014 script may not have been run\"\nE       AssertionError: launch_result.json not found at /home/user/launch_result.json \u2014 script may not have been run\nE       assert False\nE        +  where False = <function isfile at 0xe59def380220>('/home/user/launch_result.json')\nE        +    where <function isfile at 0xe59def380220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_valid",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007544079999206588,
+                "start": 1775689693.257084,
+                "stop": 1775689693.2604225,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_json_valid():\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_result.json'\n\n/tests/test_final_state.py:42: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_fields",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002549130003899336,
+                "start": 1775689693.2604992,
+                "stop": 1775689693.2633717,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_json_fields():\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/launch_result.json'\n\n/tests/test_final_state.py:48: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_launched_on_gcp",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5.210227267998562,
+                "start": 1775689693.263444,
+                "stop": 1775689698.4843593,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cluster_launched_on_gcp():\n        \"\"\"PRIMARY: Verify cluster actually exists on GCP via sky status.\"\"\"\n        result = subprocess.run(\n            [\"sky\", \"status\", CLUSTER_NAME],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"sky status {CLUSTER_NAME} failed \u2014 cluster not found on GCP: {result.stderr}\\n{result.stdout}\"\nE       AssertionError: sky status sky-bench-sdk failed \u2014 cluster not found on GCP: ConnectionRefusedError: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         During handling of the above exception, another exception occurred:\nE         \nE         requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=46580): Max retries exceeded with url: /workspaces (Caused by NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\nE         \nE         \u001b[2mFailed to connect to SkyPilot API server at http://127.0.0.1:46580. Starting a local server.\u001b[0m\nE         \u001b[33mYour SkyPilot API server machine only has 2.0GB memory available. At least 2GB is recommended to support higher load with better performance.\u001b[0m\nE         \u001b[0m\u001b[32m\u2713 SkyPilot API server started. \u001b[0m\u001b[0m\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['sky', 'status', 'sky-bench-sdk'], returncode=1, stdout='\\x1b[2mFailed to connect to SkyPilot A...Connection(host=\\'127.0.0.1\\', port=46580): Failed to establish a new connection: [Errno 111] Connection refused\"))\\n').returncode\n\n/tests/test_final_state.py:64: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cluster_status_is_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13.661493924999377,
+                "start": 1775689698.4844935,
+                "stop": 1775689712.1513474,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cluster_status_is_active():\n        \"\"\"PRIMARY: Verify cluster is active on GCP.\"\"\"\n        result = subprocess.run([\"sky\", \"status\", CLUSTER_NAME], capture_output=True, text=True)\n        assert result.returncode == 0, f\"sky status failed: {result.stderr}\"\n        is_active = any(s in result.stdout for s in [\"UP\", \"INIT\", \"LAUNCHING\", \"PROVISIONING\"])\n>       assert is_active, \\\n            f\"Expected cluster '{CLUSTER_NAME}' to be UP/INIT on GCP, got:\\n{result.stdout}\"\nE       AssertionError: Expected cluster 'sky-bench-sdk' to be UP/INIT on GCP, got:\nE         Cluster(s) not found: \u001b[1msky-bench-sdk\u001b[0m.\nE         Enabled Infra: \nE         \nE         Clusters\nE         Cluster 'sky-bench-sdk' not found.\nE         \nE       assert False\n\n/tests/test_final_state.py:75: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

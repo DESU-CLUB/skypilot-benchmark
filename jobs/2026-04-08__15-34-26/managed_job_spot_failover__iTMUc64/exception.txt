@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 538, in run
+    await self._execute_agent()
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 285, in _execute_agent
+    await asyncio.wait_for(
+  File "/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 41, in wrapper
+    return await fn(self, instruction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/agents/pochi.py", line 218, in run
+    await self.exec_as_agent(
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 358, in exec_as_agent
+    return await self._exec(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py", line 321, in _exec
+    raise NonZeroAgentExitCodeError(
+harbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+Create a SkyPilot managed job YAML configuration at `/home/user/managed_job.yaml` for a spot-based training job that automatically recovers from preemptions.
+
+The managed job must:
+- Be named `spot-training-job`
+- Target GCP with a T4 GPU using spot instances
+- Set up the environment by installing PyTorch (use `pip install torch --index-url https://download.pytorch.org/whl/cpu` for CPU-only to keep it lightweight)
+- Run a training script: `python3 -c "import torch; print('Training step:', torch.tensor([1.0]).item())"`
+- Configure job recovery with the `FAILOVER` strategy so SkyPilot automatically retries on spot preemption
+- Set a maximum recovery attempt limit of 5
+
+After writing the YAML, validate it can be parsed by SkyPilot using:
+```
+python3 -c "import sky; t = sky.Task.from_yaml('/home/user/managed_job.yaml'); print('Valid:', t.name)"
+```
+This must exit 0 and print `Valid: spot-training-job`.
+
+Also write a summary file at `/home/user/job_summary.json` with fields:
+- `job_name`: the managed job name
+- `cloud`: `"gcp"`
+- `use_spot`: `true`
+- `recovery_strategy`: `"FAILOVER"`
+
+EOF
+stdout: [37m2026-04-08 22:34:59.562[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.6
+[37m2026-04-08 22:34:59.808[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503168[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 5 custom agents (5 valid, 0 invalid)
+[37m2026-04-08 22:34:59.811[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503169[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-04-08 22:34:59.857[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:439412[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-04-08 22:35:01.119[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:415701[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-04-08 22:35:01.120[39m[0m[0m	[32m[1mDEBUG ... [truncated]
+stderr: None

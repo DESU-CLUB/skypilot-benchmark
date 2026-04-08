@@ -1,0 +1,140 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 12,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689938.5096767,
+            "stop": 1775689952.7652698
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_vllm_serve_yaml_exists",
+                "status": "passed",
+                "duration": 0.0003219089994672686,
+                "start": 1775689938.5173817,
+                "stop": 1775689938.5178864,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.7941492419995484,
+                "start": 1775689938.5179608,
+                "stop": 1775689939.3124273,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_service_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00041465800313744694,
+                "start": 1775689939.3125389,
+                "stop": 1775689939.3179438,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_service_name():\n        with open(YAML_PATH) as f:\n            content = f.read()\n>       assert \"vllm-service\" in content, \\\n            \"Expected service name 'vllm-service' in vllm_serve.yaml\"\nE       AssertionError: Expected service name 'vllm-service' in vllm_serve.yaml\nE       assert 'vllm-service' in 'service:\\n  readiness_probe:\\n    path: /v1/models\\n  replica_policy:\\n    min_replicas: 1\\n    max_replicas: 5\\n    ... |\\n  pip install vllm\\n\\nrun: |\\n  python -m vllm.entrypoints.openai.api_server --model facebook/opt-125m --port 8080'\n\n/tests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_readiness_probe",
+                "status": "passed",
+                "duration": 0.00030916000469005667,
+                "start": 1775689939.3180125,
+                "stop": 1775689939.3184378,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_autoscaling",
+                "status": "passed",
+                "duration": 0.0002850780001608655,
+                "start": 1775689939.318513,
+                "stop": 1775689939.3189085,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcp",
+                "status": "passed",
+                "duration": 0.000277244998869719,
+                "start": 1775689939.3189664,
+                "stop": 1775689939.3193758,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_t4_gpu",
+                "status": "passed",
+                "duration": 0.0002716609997150954,
+                "start": 1775689939.3194287,
+                "stop": 1775689939.3198075,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_port_8080",
+                "status": "passed",
+                "duration": 0.0002719530020840466,
+                "start": 1775689939.3198624,
+                "stop": 1775689939.320248,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_vllm",
+                "status": "passed",
+                "duration": 0.0002484110009390861,
+                "start": 1775689939.3202984,
+                "stop": 1775689939.3206458,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_exists",
+                "status": "passed",
+                "duration": 0.0002454530003888067,
+                "start": 1775689939.3206954,
+                "stop": 1775689939.3210409,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_valid",
+                "status": "passed",
+                "duration": 0.00025270199694205076,
+                "start": 1775689939.3210893,
+                "stop": 1775689939.321442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_deployment_info_fields",
+                "status": "passed",
+                "duration": 0.00026699200316215865,
+                "start": 1775689939.3214905,
+                "stop": 1775689939.3218594,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 13.44287627200174,
+                "start": 1775689939.321912,
+                "stop": 1775689952.7650557,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

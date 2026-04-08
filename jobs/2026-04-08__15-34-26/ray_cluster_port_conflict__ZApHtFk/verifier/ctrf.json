@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775687969.5596352,
+            "stop": 1775687982.6800613
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fixed_yaml_exists",
+                "status": "passed",
+                "duration": 0.00034693299676291645,
+                "start": 1775687969.564957,
+                "stop": 1775687969.5654676,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_parseable_by_skypilot",
+                "status": "passed",
+                "duration": 0.7565578259964241,
+                "start": 1775687969.5655394,
+                "stop": 1775687970.3223667,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_uses_port_6379",
+                "status": "passed",
+                "duration": 0.00028806399859604426,
+                "start": 1775687970.3224874,
+                "stop": 1775687970.3229063,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_does_not_use_conflicting_port",
+                "status": "passed",
+                "duration": 0.00024161000328604132,
+                "start": 1775687970.3229876,
+                "stop": 1775687970.3233736,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_fixed_yaml_has_task_name",
+                "status": "passed",
+                "duration": 0.00018919499780167826,
+                "start": 1775687970.3234563,
+                "stop": 1775687970.3237267,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_exists",
+                "status": "passed",
+                "duration": 0.00016548900021007285,
+                "start": 1775687970.3237786,
+                "stop": 1775687970.324019,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_valid",
+                "status": "passed",
+                "duration": 0.00018761200044536963,
+                "start": 1775687970.3240662,
+                "stop": 1775687970.3243265,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_fields",
+                "status": "passed",
+                "duration": 0.00021765200290246867,
+                "start": 1775687970.3243737,
+                "stop": 1775687970.324682,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 12.35496243599846,
+                "start": 1775687970.3247304,
+                "stop": 1775687982.6798992,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

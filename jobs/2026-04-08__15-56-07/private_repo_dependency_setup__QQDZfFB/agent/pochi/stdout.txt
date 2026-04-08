@@ -1,0 +1,18 @@
+- Initializing MCP connections...
+You
+You are working in an environment with SkyPilot installed. Create a SkyPilot task YAML at `/home/user/private_dep_task.yaml` that trains a model using a **private GitHub repository** as a dependency. The private repo is hosted at `github.com/my-org/private-model-lib` and requires authentication. The task must: - Be named `private-model-training` - Target GCP with instance type `n1-standard-4` (no GPU needed) - Declare an environment variable `GIT_TOKEN` in the `envs` section (with a placeholder value of `your-token-here` as default) - In the `setup` command: clone the private repo using the token (`https://${GIT_TOKEN}@github.com/my-org/private-model-lib.git`) and install it with `pip install -e ./private-model-lib` - In the `run` command: execute `python3 -c "import private_model_lib; print('Model lib loaded successfully')"` After writing the YAML, validate it can be parsed by SkyPilot: ``` python3 -c "import sky; t = sky.Task.from_yaml('/home/user/private_dep_task.yaml'); print('Task:', t.name)" ``` This must exit 0 and print `Task: private-model-training`. Also write a configuration report to `/home/user/task_report.json` with: - `task_name`: `"private-model-training"` - `cloud`: `"gcp"` - `instance_type`: `"n1-standard-4"` - `uses_private_repo`: `true` - `env_vars`: list of declared environment variable names (e.g., `["GIT_TOKEN"]`)   
+
+Pochi
+💭 Thinking for 294 characters   
+📋 Updating todo list (4 items) ✔ 
+📂 Listing files in /home ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/private_dep_task.yaml ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing python3 -c "import sky; t = sky.Task.from_yaml('/home/user/private_dep_task.yaml'); print('Task:', t.name)" ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/task_report.json ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+Created /home/user/private_dep_task.yaml and /home/user/task_report.json. Validated the YAML with SkyPilot; the command printed: Task: private-model-training.   
+  

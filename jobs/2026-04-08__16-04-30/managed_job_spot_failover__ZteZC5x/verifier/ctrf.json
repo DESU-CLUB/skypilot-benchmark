@@ -1,0 +1,161 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 1,
+            "failed": 11,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1775689691.0266478,
+            "stop": 1775689712.4240649
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_managed_job_yaml_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00038978799784672447,
+                "start": 1775689691.0335732,
+                "stop": 1775689691.0388715,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_managed_job_yaml_exists():\n>       assert os.path.isfile(YAML_PATH), f\"managed_job.yaml not found at {YAML_PATH}\"\nE       AssertionError: managed_job.yaml not found at /home/user/managed_job.yaml\nE       assert False\nE        +  where False = <function isfile at 0xeb5aa2340220>('/home/user/managed_job.yaml')\nE        +    where <function isfile at 0xeb5aa2340220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_managed_job_yaml_parseable_by_skypilot",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.8696758259975468,
+                "start": 1775689691.0389547,
+                "stop": 1775689691.9101708,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_managed_job_yaml_parseable_by_skypilot():\n        result = subprocess.run(\n            [\"/opt/venv/bin/python3\", \"-c\", f\"import sky; t = sky.Task.from_yaml('{YAML_PATH}'); print('Valid:', t.name)\"],\n            capture_output=True, text=True, cwd=\"/home/user\"\n        )\n>       assert result.returncode == 0, \\\n            f\"SkyPilot failed to parse managed_job.yaml: {result.stderr}\"\nE       AssertionError: SkyPilot failed to parse managed_job.yaml: Traceback (most recent call last):\nE           File \"<string>\", line 1, in <module>\nE           File \"/opt/venv/lib/python3.12/site-packages/sky/task.py\", line 806, in from_yaml\nE             with open(os.path.expanduser(yaml_path), 'r', encoding='utf-8') as f:\nE                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['/opt/venv/bin/python3', '-c', \"import sky; t = sky.Task.from_yaml('/home/user/managed_job.yaml...^^^^^^^^^^^^^^^^^^^^^^^^^^\\nFileNotFoundError: [Errno 2] No such file or directory: \\'/home/user/managed_job.yaml\\'\\n').returncode\n\n/tests/test_final_state.py:28: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_correct_job_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00031624499752069823,
+                "start": 1775689691.910303,
+                "stop": 1775689691.911576,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_correct_job_name():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:35: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_use_spot",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00027666300229611807,
+                "start": 1775689691.9116526,
+                "stop": 1775689691.9128606,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_use_spot():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:42: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_gcp_cloud",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002524959963920992,
+                "start": 1775689691.912927,
+                "stop": 1775689691.9140182,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_gcp_cloud():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:49: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_t4_gpu",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00024958100402727723,
+                "start": 1775689691.9140792,
+                "stop": 1775689691.915122,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_t4_gpu():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:55: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_job_recovery",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002641640021465719,
+                "start": 1775689691.9151764,
+                "stop": 1775689691.9162142,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_job_recovery():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:61: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_yaml_has_failover_strategy",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002371219998167362,
+                "start": 1775689691.916281,
+                "stop": 1775689691.9172864,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_yaml_has_failover_strategy():\n>       with open(YAML_PATH) as f:\n             ^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/managed_job.yaml'\n\n/tests/test_final_state.py:68: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00029107899899827316,
+                "start": 1775689691.9173417,
+                "stop": 1775689691.9184775,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_exists():\n>       assert os.path.isfile(SUMMARY_PATH), f\"job_summary.json not found at {SUMMARY_PATH}\"\nE       AssertionError: job_summary.json not found at /home/user/job_summary.json\nE       assert False\nE        +  where False = <function isfile at 0xeb5aa2340220>('/home/user/job_summary.json')\nE        +    where <function isfile at 0xeb5aa2340220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:75: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_valid",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002334969976800494,
+                "start": 1775689691.918535,
+                "stop": 1775689691.9195673,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_valid():\n>       with open(SUMMARY_PATH) as f:\n             ^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/job_summary.json'\n\n/tests/test_final_state.py:79: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_summary_json_has_correct_fields",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002690389992494602,
+                "start": 1775689691.9196224,
+                "stop": 1775689691.9206984,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_json_has_correct_fields():\n>       with open(SUMMARY_PATH) as f:\n             ^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/job_summary.json'\n\n/tests/test_final_state.py:85: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_sky_check_gcp_passes",
+                "status": "passed",
+                "duration": 20.502174560999265,
+                "start": 1775689691.9207554,
+                "stop": 1775689712.4238417,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

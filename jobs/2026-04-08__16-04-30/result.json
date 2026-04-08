@@ -1,0 +1,47 @@
+{
+    "id": "ff763d1b-a2be-4ac2-93db-10bef027c235",
+    "started_at": "2026-04-08T16:04:34.670074",
+    "finished_at": "2026-04-08T16:13:30.343898",
+    "n_total_trials": 10,
+    "stats": {
+        "n_trials": 10,
+        "n_errors": 4,
+        "evals": {
+            "pochi__glm-4.7__skypilot-tasks": {
+                "n_trials": 10,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "managed_job_spot_failover__ZteZC5x",
+                            "sdk_async_stream_and_get__nxqGCAo",
+                            "configure_sky_resources_yaml__f6H6WjY",
+                            "launch_gpu_cluster_with_autostop__jvcZJUU",
+                            "skyserve_vllm_autoscaling__pahsQgn"
+                        ],
+                        "1.0": [
+                            "private_repo_dependency_setup__NNY5jA4",
+                            "ray_cluster_port_conflict__K62JJ2d",
+                            "file_mount_s3_cached__kdYtHzR",
+                            "file_mount_collision_fix__pWUbEzs",
+                            "stop_and_terminate_clusters__S8qrYt6"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "managed_job_spot_failover__ZteZC5x",
+                        "sdk_async_stream_and_get__nxqGCAo",
+                        "configure_sky_resources_yaml__f6H6WjY",
+                        "stop_and_terminate_clusters__S8qrYt6"
+                    ]
+                }
+            }
+        }
+    }
+}

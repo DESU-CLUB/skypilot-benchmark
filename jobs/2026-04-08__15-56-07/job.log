@@ -1,0 +1,739 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+Create a SkyPilot managed job YAML configuration at `/home/user/managed_job.yaml` for a spot-based training job that automatically recovers from preemptions.
+
+The managed job must:
+- Be named `spot-training-job`
+- Target GCP with a T4 GPU using spot instances
+- Set up the environment by installing PyTorch (use `pip install torch --index-url https://download.pytorch.org/whl/cpu` for CPU-only to keep it lightweight)
+- Run a training script: `python3 -c "import torch; print('Training step:', torch.tensor([1.0]).item())"`
+- Configure job recovery with the `FAILOVER` strategy so SkyPilot automatically retries on spot preemption
+- Set a maximum recovery attempt limit of 5
+
+After writing the YAML, validate it can be parsed by SkyPilot using:
+```
+python3 -c "import sky; t = sky.Task.from_yaml('/home/user/managed_job.yaml'); print('Valid:', t.name)"
+```
+This must exit 0 and print `Valid: spot-training-job`.
+
+Also write a summary file at `/home/user/job_summary.json` with fields:
+- `job_name`: the managed job name
+- `cloud`: `"gcp"`
+- `use_spot`: `true`
+- `recovery_strategy`: `"FAILOVER"`
+
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+You have a job configuration file at `/home/user/jobs_config.json` that defines three machine learning jobs to run on GCP. The three jobs are named `data-prep-job`, `training-job`, and `eval-job`. Your task is to write a Python orchestration script that reads this config and generates SkyPilot task YAML files for each job.
+
+Write a Python script at `/home/user/orchestrate.py` that:
+1. Reads `/home/user/jobs_config.json` — **do not modify this file**, use the job names exactly as they appear in the config
+2. For each job entry in the config, creates a SkyPilot task YAML file at `/home/user/tasks/<job_name>.yaml` (e.g., `/home/user/tasks/data-prep-job.yaml`, `/home/user/tasks/training-job.yaml`, `/home/user/tasks/eval-job.yaml`) with:
+   - The job's `name` as the task name
+   - Resources targeting GCP with the job's specified `instance_type` and `accelerators` (if present)
+   - `use_spot: true` if the job's `spot` field is true
+   - The job's `setup` command
+   - The job's `run` command
+3. Validates each generated YAML by loading it with `sky.Task.from_yaml()`
+4. Writes a summary to `/home/user/orchestration_summary.json` containing:
+   - `total_jobs`: number of jobs processed
+   - `successful`: list of successfully validated task names
+   - `failed`: list of task names that failed validation
+   - `output_dir`: the absolute path to the tasks directory
+
+Run the script with `python3 /home/user/orchestrate.py`.
+
+The script must create the `/home/user/tasks/` directory if it doesn't exist, process all 3 jobs from the config, and exit with code 0.
+
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed and GCP credentials configured for project `skypilot-benchmark-492600`.
+
+Since SkyPilot v0.8.1, the Python SDK is **asynchronous**: `sky.launch()` returns a `request_id` string rather than blocking. To wait for completion, you must call `sky.stream_and_get(request_id)`.
+
+Write a Python script at `/home/user/launch_task.py` that:
+1. Creates a `sky.Task` named `sdk-echo-task` with:
+   - A `run` command: `echo 'hello from skypilot sdk'`
+   - Resources: GCP `n1-standard-1` instance in `us-central1`
+2. Calls `sky.launch(task, cluster_name='sky-bench-sdk')` to get a `request_id` — do NOT block directly
+3. Passes `request_id` to `sky.stream_and_get(request_id)` to retrieve `(job_id, handle)`
+4. Writes a JSON file to `/home/user/launch_result.json` with:
+   - `task_name`: `"sdk-echo-task"`
+   - `cluster_name`: `"sky-bench-sdk"`
+   - `status`: `"launched"` if successful, or `"error"` if an exception occurred
+   - `error`: the error message (only if exception)
+
+The script must handle exceptions gracefully — still write the JSON file even on failure.
+
+Run the script: `python3 /home/user/launch_task.py`
+
+The cluster `sky-bench-sdk` must appear in `sky status` after the script exits.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed and GCP credentials configured for project `skypilot-benchmark-492600`.
+
+Create a SkyPilot task YAML at `/home/user/task.yaml` that defines a lightweight compute job on GCP, then launch it as a cluster named `sky-bench-autostop`.
+
+The task YAML must:
+- Be named `bench-autostop-job`
+- Target GCP with instance type `n1-standard-1` in region `us-central1`
+- Set autostop to stop the cluster after **5 minutes** of idleness
+- Include a setup step that installs numpy
+- Include a run step that prints: `python3 -c "import numpy; print('Autostop benchmark complete')"`
+
+After writing the YAML, write a Python script at `/home/user/launch.py` that uses the SkyPilot Python SDK to launch the cluster:
+
+Since SkyPilot v0.8.1, the Python SDK is **asynchronous**: `sky.launch()` returns a `request_id` string rather than blocking. To wait for completion, you must call `sky.stream_and_get(request_id)`.
+
+1. Load the task from YAML: `sky.Task.from_yaml('/home/user/task.yaml')`
+2. Call `sky.launch(task, cluster_name='sky-bench-autostop', idle_minutes_to_autostop=5, detach_run=True)` to get a `request_id`
+3. Pass `request_id` to `sky.stream_and_get(request_id)` to wait for completion
+
+Run the script: `python3 /home/user/launch.py`
+
+The cluster `sky-bench-autostop` must appear in `sky status` after the script exits.
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+Create a SkyPilot task YAML at `/home/user/private_dep_task.yaml` that trains a model using a **private GitHub repository** as a dependency. The private repo is hosted at `github.com/my-org/private-model-lib` and requires authentication.
+
+The task must:
+- Be named `private-model-training`
+- Target GCP with instance type `n1-standard-4` (no GPU needed)
+- Declare an environment variable `GIT_TOKEN` in the `envs` section (with a placeholder value of `your-token-here` as default)
+- In the `setup` command: clone the private repo using the token (`https://${GIT_TOKEN}@github.com/my-org/private-model-lib.git`) and install it with `pip install -e ./private-model-lib`
+- In the `run` command: execute `python3 -c "import private_model_lib; print('Model lib loaded successfully')"`
+
+After writing the YAML, validate it can be parsed by SkyPilot:
+```
+python3 -c "import sky; t = sky.Task.from_yaml('/home/user/private_dep_task.yaml'); print('Task:', t.name)"
+```
+This must exit 0 and print `Task: private-model-training`.
+
+Also write a configuration report to `/home/user/task_report.json` with:
+- `task_name`: `"private-model-training"`
+- `cloud`: `"gcp"`
+- `instance_type`: `"n1-standard-4"`
+- `uses_private_repo`: `true`
+- `env_vars`: list of declared environment variable names (e.g., `["GIT_TOKEN"]`)
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+A SkyPilot task at `/home/user/broken_ray_task.yaml` fails when trying to start a Ray cluster. The error is logged in `/home/user/ray_error.log`.
+
+SkyPilot uses Ray **internally** and occupies **port 6380** on every cluster node. If your task tries to start a Ray cluster head node on port 6380 (or uses `ray.init(address='auto')` which connects to SkyPilot's internal Ray), it will conflict.
+
+Read the broken YAML and error log to understand the conflict. Then:
+1. Fix the YAML so the user's Ray cluster starts on a **non-conflicting port** (use port `6379`)
+2. Also update the run command so `ray.init()` connects to the correct port: `ray.init(address='ray://localhost:6379')`
+3. Save the fixed configuration to `/home/user/fixed_ray_task.yaml` — the task name must remain `ray-distributed-training` (keep the original name from the broken YAML)
+4. Ensure the fixed YAML is parseable:
+   ```
+   python3 -c "import sky; t = sky.Task.from_yaml('/home/user/fixed_ray_task.yaml'); print('Fixed:', t.name)"
+   ```
+   This must print `Fixed: ray-distributed-training`.
+5. Write a report to `/home/user/fix_report.json` with:
+   - `issue`: what port conflict was found
+   - `broken_port`: the conflicting port number as an integer (6380)
+   - `fixed_port`: the corrected port number as an integer (6379)
+   - `task_name`: `"ray-distributed-training"`
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+Create a SkyPilot task YAML at `/home/user/data_pipeline.yaml` that mounts a Google Cloud Storage (GCS) bucket for a high-performance data processing pipeline on GCP.
+
+The task must:
+- Be named `cached-data-pipeline`
+- Target GCP with instance type `n1-standard-8`
+- Mount the GCS bucket `gs://my-training-data/dataset-v2` at the path `/data` inside the VM using `MOUNT_CACHED` mode (which caches data locally on the VM disk for faster repeated reads)
+- In the `setup` step: install `pandas` and `pyarrow`
+- In the `run` step: execute `python3 -c "import os; files = os.listdir('/data'); print(f'Found {len(files)} files in /data')"`
+
+SkyPilot's `file_mounts` section supports Google Cloud Storage using `gs://` URIs. The `mode: MOUNT_CACHED` option downloads data to local disk for fast access.
+
+After creating the YAML, validate it:
+```
+python3 -c "import sky; t = sky.Task.from_yaml('/home/user/data_pipeline.yaml'); print('Pipeline:', t.name)"
+```
+This must exit 0 and print `Pipeline: cached-data-pipeline`.
+
+Also write a mount configuration report to `/home/user/mount_config.json` with:
+- `task_name`: `"cached-data-pipeline"`
+- `mount_path`: `"/data"`
+- `source_bucket`: `"gs://my-training-data/dataset-v2"`
+- `mount_mode`: `"MOUNT_CACHED"`
+- `cloud`: `"gcp"`
+- `instance_type`: `"n1-standard-8"`
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+A colleague has written a SkyPilot task YAML at `/home/user/broken_task.yaml` that fails to launch. When they tried to run it on GCP, the job failed during setup with an error logged to `/home/user/error.log`.
+
+Read the error log and the broken YAML to diagnose the issue. The error occurs because SkyPilot applies `file_mounts` **before** running `setup` commands — so if `setup` tries to write to a path that already has mounted files, it fails.
+
+Your tasks:
+1. Read `/home/user/error.log` and `/home/user/broken_task.yaml` to understand the collision
+2. Fix the YAML so there is no collision between `file_mounts` and the `setup` `git clone` command
+3. Write the corrected YAML to `/home/user/fixed_task.yaml` — the task name must remain `ml-training` (keep the original name from the broken YAML)
+4. Ensure the fixed YAML is valid and can be parsed by SkyPilot:
+   ```
+   python3 -c "import sky; t = sky.Task.from_yaml('/home/user/fixed_task.yaml'); print('Fixed:', t.name)"
+   ```
+   This must print `Fixed: ml-training`.
+5. Write a diagnosis report to `/home/user/diagnosis.json` with:
+   - `root_cause`: a brief string describing what caused the error
+   - `fix_applied`: a brief string describing how you resolved the collision
+   - `task_name`: `"ml-training"`
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p /tmp/gcloud && printenv GCP_SA_KEY_JSON_B64 | base64 -d > /tmp/gcloud/sa-key.json && chmod 644 /tmp/gcloud/sa-key.json && gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: gcloud auth activate-service-account --key-file=/tmp/gcloud/sa-key.json 2>/dev/null || true
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+You are working in an environment with SkyPilot installed.
+
+Write a bash script at `/home/user/cleanup_clusters.sh` that performs a two-phase cluster cleanup using the SkyPilot CLI:
+
+1. First, stop all running clusters (graceful shutdown that preserves disk state)
+2. Then, terminate all clusters (permanent deletion including storage)
+
+The script must:
+- Run `sky status` and capture its output to `/home/user/cleanup.log` before making any changes
+- Use `sky stop --all` to stop all clusters, appending output to `/home/user/cleanup.log`  
+- Use `sky down --all -y` to terminate all clusters, appending output to `/home/user/cleanup.log`
+- Be executable (chmod +x)
+
+After writing the script, make it executable and run it. The script should exit with code 0 even if there are no clusters to clean up.
+
+The log file `/home/user/cleanup.log` must exist after the script runs.
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command failed
+Trial skyserve_vllm_autoscaling__2RKegwj failed: Command failed (exit 127): set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+stdout: [1;32m  Installing[0m Pochi version https://api.github.com/repos/TabbyML/pochi/releases/304114231
+[1;32m    Checking[0m for existing Pochi installation
+[1;32m    Fetching[0m archive for Linux, version https://api.github.com/repos/TabbyML/pochi/releases/304114231
+curl: (22) The requested URL returned error: 404
+[1;31mError[0m: Could not download Pochi version 'https://api.github.com/repos/TabbyML/pochi/releases/304114231'. See https://github.com/TabbyML/pochi/releases for a list of available releases
+
+bash: line 1: /root/.pochi/bin/pochi: No such file or directory
+
+stderr: None
+Exception NonZeroAgentExitCodeError is not in include_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
